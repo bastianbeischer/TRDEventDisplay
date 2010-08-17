@@ -26,6 +26,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // create graphics view and scene
   m_view = new GraphicsView(graphicsViewFrame);
   m_scene = (Scene*)m_view->scene();
+  gridLayout_2->addWidget(m_view, 1,0,1,1);
 
   // draw color legend
   QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));

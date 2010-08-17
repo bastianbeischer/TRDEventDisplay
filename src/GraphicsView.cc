@@ -14,6 +14,8 @@ GraphicsView::GraphicsView(QWidget* parent) :
   QSizePolicy sizePol(QSizePolicy::Expanding,QSizePolicy::Expanding);
   setSizePolicy(sizePol);
 
+  changeZoomLevel(5.0);
+
   //  fitInView(m_scene->sceneRect());
   show();
 }

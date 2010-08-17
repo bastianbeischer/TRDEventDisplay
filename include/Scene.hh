@@ -48,7 +48,7 @@ private:
   QGraphicsRectItem*               m_zoomRectangle;
 
   QGraphicsRectItem*               m_boundingBox;
-  QVector<QGraphicsRectItem*>      m_signalItems;
+  QList<QGraphicsRectItem*>        m_signalItems;
 
   double                           m_width;
   double                           m_height;

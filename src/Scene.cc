@@ -68,6 +68,7 @@ void Scene::addTubesToScene()
         double tubeHeight = 1.2;
         item->setRect(-tubeWidth/2., -tubeHeight/2., tubeWidth, tubeHeight);
         item->setPos(x,y);
+        item->setPen(QColor(Qt::lightGray));
         addItem(item);
       }
     }
@@ -145,7 +146,12 @@ void Scene::processEvent(TrdRawEvent* event)
     }
 
     // apply color and add the item to the scene
-    item->setBrush(QBrush(signalColor));
+    QBrush brush(signalColor);
+    QPen pen(Qt::black);
+    //    pen.setWidth(2);
+    item->setBrush(brush);
+    item->setPen(pen);
+
     m_signalItems.push_back(item);
   }
 
@@ -156,8 +162,9 @@ void Scene::processEvent(TrdRawEvent* event)
 // remove the color from the last event again
 void Scene::removePreviousSignals()
 {
-  for (QVector<QGraphicsRectItem*>::iterator it = m_signalItems.begin(); it != m_signalItems.end(); it++) {
-    (*it)->setBrush(Qt::NoBrush);
+  foreach(QGraphicsRectItem* item, m_signalItems) {
+    item->setBrush(Qt::NoBrush);
+    item->setPen(QPen(Qt::lightGray));
   }
   m_signalItems.clear();
 }

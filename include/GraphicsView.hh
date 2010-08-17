@@ -17,17 +17,17 @@ public:
   ~GraphicsView();
   
 public slots:
-  void changeZoomLevel(double newLevel);
-  void zoomIn() {changeZoomLevel(1.2*m_zoomLevel);}
-  void zoomOut() {changeZoomLevel(m_zoomLevel/1.2);}
+  void zoomIn() {scale(m_zoomFactor, m_zoomFactor);}
+  void zoomOut() {scale(1./m_zoomFactor, 1./m_zoomFactor);}
   void fitScene() {fitInView(sceneRect());}
 
 protected:
+  void mousePressEvent(QMouseEvent* event);
   void wheelEvent(QWheelEvent* event);
-
-private:
-  double m_zoomLevel;
   
+private:
+  double m_zoomFactor;
+
 };
 
 #endif /* GraphicsView_hh */

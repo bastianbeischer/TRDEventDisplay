@@ -10,7 +10,7 @@
 // constructor
 GraphicsView::GraphicsView(QWidget* parent) :
   QGraphicsView(parent),
-  m_zoomLevel(1.0)
+  m_zoomFactor(1.2)
 {
   setDragMode(ScrollHandDrag);
   setScene(new Scene());
@@ -22,16 +22,15 @@ GraphicsView::~GraphicsView()
 {
 }
 
-//! set new zoom level
-void GraphicsView::changeZoomLevel(double newZoomLevel) 
+//! overloaded mouse press event, refit the scene on mid mouse button press
+void GraphicsView::mousePressEvent(QMouseEvent* event)
 {
-  if (newZoomLevel != m_zoomLevel) {
-    scale(newZoomLevel/m_zoomLevel, newZoomLevel/m_zoomLevel);
-    m_zoomLevel = newZoomLevel;
-  }
+  QGraphicsView::mousePressEvent(event);
+  if (event->button() == Qt::MidButton)
+    fitScene();
 }
 
-//! overloaded virtual function, telling the scene what to do with mouse wheel events
+//! overloaded virtual function, telling the view to zoom on mouse wheel events
 void GraphicsView::wheelEvent(QWheelEvent* event)
 {
   centerOn(mapToScene(event->pos()));

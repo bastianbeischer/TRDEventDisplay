@@ -2,7 +2,6 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QDebug>
 
 #include <TFile.h>
 #include <TTree.h>
@@ -26,7 +25,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // create graphics view and scene
   m_view = new GraphicsView(graphicsViewFrame);
   m_scene = (Scene*)m_view->scene();
-  gridLayout_2->addWidget(m_view, 1,0,1,1);
+  centralLayout->addWidget(m_view, 2,0,1,1);
 
   // draw color legend
   QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));
@@ -64,7 +63,12 @@ void MainWindow::openFileDialog()
 {
   // read file name from a dialog
   QString fileName = QFileDialog::getOpenFileName(this, tr("open file"),"", tr(""));  
+  openFile(fileName);
+}
 
+// open the file
+void MainWindow::openFile(QString fileName)
+{
   // if there was another file opened close it
   if (m_file) {
     m_file->Close();
@@ -80,8 +84,10 @@ void MainWindow::openFileDialog()
     if (m_currentRun) {
       eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size()-1);
       eventNumberSpinBox->setEnabled(true);
+      showEvent(0);
     }
     else {
+      QMessageBox::information(this, "Event Display Software", "Tree does not contain any runs!");
       eventNumberSpinBox->setEnabled(false);
     }
   }
@@ -95,7 +101,7 @@ void MainWindow::openFileDialog()
 void MainWindow::showEvent(int eventNumber)
 {
   if (!m_tree || !m_currentRun) {
-    QMessageBox::information(this, "Event Display Software", "Please open a file first!");
+    QMessageBox::information(this, "Event Display Software", "Please open a valid file first!");
     return;
   }
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();

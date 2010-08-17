@@ -2,7 +2,6 @@
 
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
-#include <QDebug>
 
 #include <TrdRawEvent.hh>
 #include <TrdHitRZD.hh>
@@ -25,7 +24,8 @@ Scene::Scene() :
   m_ampMin(0.),
   m_ampMax(100.),
   m_displayHitsWithNegAmp(true),
-  m_tubeWithNoHitsVisible(true)
+  m_tubeWithNoHitsVisible(true),
+  m_signalStretchFactor(2.0)
 {
   QRectF rectangle(-m_width/2., -m_height/2., m_width, m_height);
   setSceneRect(rectangle);
@@ -42,6 +42,26 @@ Scene::~Scene()
   delete m_mouseReleasedAt;
   delete m_zoomRectangle;
   clear();
+}
+
+// set up the default values for each straw tube
+void Scene::setDefaultsForTubeRect(QGraphicsRectItem* item)
+{
+  double tubeWidth = 0.5;
+  double tubeHeight = 1.2;
+  item->setRect(-tubeWidth/2., -tubeHeight/2., tubeWidth, tubeHeight);
+
+  QPen pen(Qt::lightGray);
+
+  if (m_tubeWithNoHitsVisible)
+    pen.setStyle(Qt::SolidLine);
+  else
+    pen.setStyle(Qt::NoPen);
+       
+  QBrush brush(Qt::NoBrush);
+
+  item->setPen(pen);
+  item->setBrush(brush);
 }
 
 // add the rectangular representations of the tubes to the scene
@@ -64,11 +84,8 @@ void Scene::addTubesToScene()
         double y = z_to_y(rzd.z());
         
         QGraphicsRectItem* item = new QGraphicsRectItem();
-        double tubeWidth = 0.5;
-        double tubeHeight = 1.2;
-        item->setRect(-tubeWidth/2., -tubeHeight/2., tubeWidth, tubeHeight);
+        setDefaultsForTubeRect(item);
         item->setPos(x,y);
-        item->setPen(QColor(Qt::lightGray));
         addItem(item);
       }
     }
@@ -95,10 +112,7 @@ void Scene::redraw()
         double y = z_to_y(rzd.z());
 
         QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(x,y);
-        if (m_tubeWithNoHitsVisible)
-          item->setPen(Qt::SolidLine);
-        else
-          item->setPen(Qt::NoPen);
+        setDefaultsForTubeRect(item);
       }
     }
   }
@@ -122,7 +136,10 @@ void Scene::processEvent(TrdRawEvent* event)
 
     // construct the visual representation of the hit
     TrdHitRZD rzd(&hit);
-    QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(rzd.r(), z_to_y(rzd.z()));
+    double x = rzd.r();
+    double y = z_to_y(rzd.z());
+    QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(x,y);
+
     Q_ASSERT(item);
 
     // interpolate colors between blue and green for the signals between 0 and 10 pe and between green and red for 10 to 20 pe
@@ -149,8 +166,11 @@ void Scene::processEvent(TrdRawEvent* event)
     QBrush brush(signalColor);
     QPen pen(Qt::black);
     //    pen.setWidth(2);
+    QRectF rect = item->rect();
+    rect.setHeight(m_signalStretchFactor*rect.height());
     item->setBrush(brush);
     item->setPen(pen);
+    item->setRect(rect);
 
     m_signalItems.push_back(item);
   }
@@ -162,10 +182,8 @@ void Scene::processEvent(TrdRawEvent* event)
 // remove the color from the last event again
 void Scene::removePreviousSignals()
 {
-  foreach(QGraphicsRectItem* item, m_signalItems) {
-    item->setBrush(Qt::NoBrush);
-    item->setPen(QPen(Qt::lightGray));
-  }
+  foreach(QGraphicsRectItem* item, m_signalItems)
+    setDefaultsForTubeRect(item);
   m_signalItems.clear();
 }
 

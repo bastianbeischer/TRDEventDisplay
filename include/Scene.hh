@@ -30,6 +30,7 @@ public:
 private:
   double z_to_y(double z) {return -(z - m_z_offset);}
 
+  void setDefaultsForTubeRect(QGraphicsRectItem* item);
   void addTubesToScene();
   void redraw();
   void removePreviousSignals();
@@ -58,6 +59,8 @@ private:
   double                           m_ampMax;
   bool                             m_displayHitsWithNegAmp;
   bool                             m_tubeWithNoHitsVisible;
+
+  double                           m_signalStretchFactor;
 
 };
 

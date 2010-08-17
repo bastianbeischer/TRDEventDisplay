@@ -20,6 +20,7 @@ Q_OBJECT
 public:
   MainWindow(QMainWindow* parent = 0);
   ~MainWindow();
+  void openFile(QString fileName);
   
 private slots:
   void openFileDialog();

@@ -11,7 +11,7 @@
 
 #include "GraphicsView.hh"
 
-
+// constructor
 Scene::Scene() :
   QGraphicsScene(),
   m_mousePressedAt(0),
@@ -20,6 +20,7 @@ Scene::Scene() :
   m_boundingBox(new QGraphicsRectItem),
   m_width(200),
   m_height(80),
+  m_z_offset(115.0),
   m_ampMin(0.),
   m_ampMax(100.),
   m_displayHitsWithNegAmp(true),
@@ -33,6 +34,7 @@ Scene::Scene() :
   addTubesToScene();
 }
 
+// destructor
 Scene::~Scene()
 {
   delete m_mousePressedAt;
@@ -41,6 +43,7 @@ Scene::~Scene()
   clear();
 }
 
+// add the rectangular representations of the tubes to the scene
 void Scene::addTubesToScene()
 {
   for(int lay=0;lay!=20;lay++){
@@ -57,7 +60,7 @@ void Scene::addTubesToScene()
         TrdHitRZD rzd(&hit);
         
         double x = rzd.r();
-        double y = -(rzd.z() - 115.);
+        double y = z_to_y(rzd.z());
         
         QGraphicsRectItem* item = new QGraphicsRectItem();
         double tubeWidth = 0.5;
@@ -87,7 +90,7 @@ void Scene::redraw()
         TrdHitRZD rzd(&hit);
         
         double x = rzd.r();
-        double y = -(rzd.z() - 115.);
+        double y = z_to_y(rzd.z());
 
         QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(x,y);
         if (m_tubeWithNoHitsVisible)
@@ -115,7 +118,7 @@ void Scene::processEvent(TrdRawEvent* event)
 
     // construct the visual representation of the hit
     TrdHitRZD rzd(&hit);
-    QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(rzd.r(), -(rzd.z() - 115.));
+    QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(rzd.r(), z_to_y(rzd.z()));
     Q_ASSERT(item);
 
     // interpolate colors between blue and green for the signals between 0 and 10 pe and between green and red for 10 to 20 pe
@@ -154,31 +157,6 @@ void Scene::removePreviousSignals()
     (*it)->setBrush(Qt::NoBrush);
   }
   m_signalItems.clear();
-}
-
-// minimal amplitude changed
-void Scene::minAmpChanged(int min)
-{
-  m_ampMin = min;
-}
-
-// maximum amplitude changed
-void Scene::maxAmpChanged(int max)
-{
-  m_ampMax = max;
-}
-
-// whether or not to display negative amplitudes changed
-void Scene::changeDisplayNegAmps(int value)
-{
-  m_displayHitsWithNegAmp = value;
-}
-
-void Scene::tubeWithNoHitsVisible(int value)
-{
-  m_tubeWithNoHitsVisible = value;
-
-  redraw();
 }
 
 //! overloaded virtual function, telling the scene what to do with mouse clicks
@@ -242,6 +220,8 @@ void Scene::wheelEvent(QGraphicsSceneWheelEvent* event)
 {
   GraphicsView* gView = (GraphicsView*) views().front();
   double oldZoomLevel = gView->zoomLevel();
+
+  gView->centerOn(event->scenePos());
 
   if (event->delta() > 0)
     gView->changeZoomLevel(1.2*oldZoomLevel);

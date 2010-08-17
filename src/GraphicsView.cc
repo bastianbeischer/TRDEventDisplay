@@ -9,6 +9,10 @@ GraphicsView::GraphicsView(QWidget* parent) :
 {
   setGeometry(QRect(0,0,parent->width(),parent->height()));
   setScene(m_scene);
+  
+  QSizePolicy sizePol(QSizePolicy::Expanding,QSizePolicy::Expanding);
+  setSizePolicy(sizePol);
+
   //  fitInView(m_scene->sceneRect());
   show();
 }

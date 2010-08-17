@@ -152,7 +152,7 @@ void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent)
   if (mouseEvent->button() == Qt::RightButton) {
     views().front()->fitInView(m_zoomRectangle, Qt::KeepAspectRatioByExpanding);
     if (items().contains(m_zoomRectangle)) removeItem(m_zoomRectangle);
-    if (m_mousePressedAt)  delete m_mousePressedAt;
+    if (m_mousePressedAt) delete m_mousePressedAt;
   }  
 }
 

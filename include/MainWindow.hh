@@ -25,13 +25,18 @@ public:
 public:
   QString amsRootFileDir() const {return m_amsRootFileDir;}
   void openFile(QString fileName);
+  void show();
 
-protected:
-  void resizeEvent(QResizeEvent* event);
+signals:
+  int eventNumberChanged(int newNumber);
 
 private slots:
   void openFileDialog();
   void showEvent(int eventNumber);
+  void updateScaleLabels();
+
+protected:
+  void resizeEvent(QResizeEvent* event);
 
 private:
   GraphicsView* m_view;

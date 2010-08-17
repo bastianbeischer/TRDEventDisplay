@@ -10,14 +10,13 @@ int main(int argc, char** argv)
 
   // in case of command line arguments: open the respective files
 
-  // directly...
+  // either directly...
   QStringList args = app.arguments();
   if (args.size() == 2) {
     window->openFile(args.at(1));
   }
-
-  // by XXXX YYY format from AMS_ROOTFILE_DIR directory
-  if (args.size() == 3) {
+  // or by XXXX YYY format from AMS_ROOTFILE_DIR directory
+  else if (args.size() == 3) {
     QString dir = window->amsRootFileDir();
     if (dir != "") {
       int arg1 = args.at(1).toInt();

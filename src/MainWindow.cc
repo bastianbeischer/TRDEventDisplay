@@ -31,7 +31,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // create graphics view and scene
   m_view = new GraphicsView(graphicsViewFrame);
   m_scene = (Scene*)m_view->scene();
-  centralLayout->addWidget(m_view, 2,0,1,1);
+  centralLayout->addWidget(m_view, 4,0,1,1);
 
   // draw color legend
   QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));
@@ -46,13 +46,17 @@ MainWindow::MainWindow(QMainWindow* parent) :
   colorPaletteWidget->setAutoFillBackground(true);
 
   // connect signals and slots
-  connect(action_Quit, SIGNAL(triggered()), this, SLOT(close()));  
-  connect(action_Open_File, SIGNAL(triggered()), this, SLOT(openFileDialog()));
+  connect(quitButton, SIGNAL(pressed()), this, SLOT(close()));  
+  connect(openFileButton, SIGNAL(pressed()), this, SLOT(openFileDialog()));
   connect(eventNumberSpinBox, SIGNAL(valueChanged(int)), this, SLOT(showEvent(int)));
+  connect(this, SIGNAL(eventNumberChanged(int)), eventNumberSpinBox, SLOT(setValue(int)));
   connect(minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(minAmpChanged(int)));
   connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(maxAmpChanged(int)));
+  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScaleLabels()));
+  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScaleLabels()));
   connect(negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));
   connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(tubeWithNoHitsVisible(int)));
+
 
   // setup AMS root file directory
   QStringList envVariables = QProcess::systemEnvironment();
@@ -109,6 +113,7 @@ void MainWindow::openFile(QString fileName)
       eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size()-1);
       eventNumberSpinBox->setEnabled(true);
       eventNumberSpinBox->setValue(0);
+      showEvent(0);
     }
     else {
       QMessageBox::information(this, "TRD Event Display", "Tree does not contain any runs!");
@@ -133,10 +138,47 @@ void MainWindow::showEvent(int eventNumber)
   m_view->fitScene();
 }
 
+// update labels under scale
+void MainWindow::updateScaleLabels()
+{
+  double max = maxAmpSpinBox->value();
+  double min = minAmpSpinBox->value();
+
+  double value;
+  QString text;
+
+  value = min;
+  text.sprintf("%.0f", value);
+  scaleLabelMin->setText(text);
+
+  value = min + 0.25*(max-min);
+  text.sprintf("%.0f", value);
+  scaleLabel1->setText(text);
+
+  value = min + 0.5*(max-min);
+  text.sprintf("%.0f", value);
+  scaleLabel2->setText(text);
+
+  value = min + 0.75*(max-min);
+  text.sprintf("%.0f", value);
+  scaleLabel3->setText(text);
+
+  value = max;
+  text.sprintf("%.0f", value);
+  scaleLabelMax->setText(text);
+}
+
 // resize the view when resizing the window
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
   QMainWindow::resizeEvent(event);
   m_view->fitScene();
   event->setAccepted(true);
+}
+
+// we can only fit the scene after the call to show
+void MainWindow::show()
+{
+  QMainWindow::show();
+  m_view->fitScene();
 }

@@ -13,6 +13,7 @@
 #include <QLinearGradient>
 #include <QPalette>
 
+// constructor
 MainWindow::MainWindow(QMainWindow* parent) : 
   QMainWindow(parent),
   m_file(0),
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(tubeWithNoHitsVisible(int)));
 }
 
+// destructor
 MainWindow::~MainWindow()
 {
   delete m_view;
@@ -56,6 +58,7 @@ MainWindow::~MainWindow()
   delete m_currentRun;
 }
 
+// dialog for a new file query
 void MainWindow::openFileDialog()
 {
   // read file name from a dialog
@@ -87,6 +90,7 @@ void MainWindow::openFileDialog()
   }
 }
 
+// show event
 void MainWindow::showEvent(int eventNumber)
 {
   if (!m_tree || !m_currentRun) {

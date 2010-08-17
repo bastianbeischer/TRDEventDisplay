@@ -19,9 +19,9 @@ public:
   ~Scene();
   
 public slots:
-  void minAmpChanged(int min) {m_ampMin = min;}
-  void maxAmpChanged(int max) {m_ampMax = max;}
-  void changeDisplayNegAmps(int value) {m_displayHitsWithNegAmp = value;}
+  void minAmpChanged(int min) {m_ampMin = min; processEvent(m_currentEvent);}
+  void maxAmpChanged(int max) {m_ampMax = max; processEvent(m_currentEvent);}
+  void changeDisplayNegAmps(int value) {m_displayHitsWithNegAmp = value; processEvent(m_currentEvent);}
   void tubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw();}
 
 public:
@@ -41,6 +41,8 @@ protected:
   void wheelEvent(QGraphicsSceneWheelEvent* event);
 
 private:
+  TrdRawEvent*                     m_currentEvent;
+
   QPointF*                         m_mousePressedAt;
   QPointF*                         m_mouseReleasedAt;
   QGraphicsRectItem*               m_zoomRectangle;

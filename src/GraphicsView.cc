@@ -2,6 +2,7 @@
 
 #include "Scene.hh"
 
+// constructor
 GraphicsView::GraphicsView(QWidget* parent) :
   QGraphicsView(parent),
   m_scene(new Scene()),
@@ -17,6 +18,7 @@ GraphicsView::GraphicsView(QWidget* parent) :
   show();
 }
 
+// destructor
 GraphicsView::~GraphicsView()
 {
   delete m_scene;

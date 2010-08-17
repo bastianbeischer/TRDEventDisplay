@@ -14,6 +14,7 @@
 // constructor
 Scene::Scene() :
   QGraphicsScene(),
+  m_currentEvent(0),
   m_mousePressedAt(0),
   m_mouseReleasedAt(0),
   m_zoomRectangle(0),
@@ -29,7 +30,7 @@ Scene::Scene() :
   QRectF rectangle(-m_width/2., -m_height/2., m_width, m_height);
   setSceneRect(rectangle);
   m_boundingBox->setRect(rectangle);
-  //  addItem(m_boundingBox);
+  addItem(m_boundingBox);
 
   addTubesToScene();
 }
@@ -105,6 +106,8 @@ void Scene::redraw()
 // process an event and show it in the scene
 void Scene::processEvent(TrdRawEvent* event)
 {
+  m_currentEvent = event;
+
   // remove signal items from previous events
   removePreviousSignals();
 
@@ -173,6 +176,9 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent)
 //! overloaded virtual function, telling the scene what to do with mouse click releases
 void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent) 
 {
+
+  GraphicsView* gView = (GraphicsView*) views().front();
+
   if (mouseEvent->button() == Qt::LeftButton) {
     m_mouseReleasedAt = new QPointF(mouseEvent->scenePos());
 
@@ -180,13 +186,12 @@ void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent)
     double x1 = m_mousePressedAt->x();
     double y2 = m_mouseReleasedAt->y();
     double y1 = m_mousePressedAt->y();
+
     if (sqrt( pow(x2 - x1, 2.0) + pow(y2 - y1, 2.0) ) > 5) {
 
       double scale_x = sceneRect().width() / fabs((x2-x1));
       double scale_y = sceneRect().height() / fabs((y2-y1));
       double scale_factor = scale_x > scale_y ? scale_x : scale_y;
-
-      GraphicsView* gView = (GraphicsView*) views().front();
 
       gView->centerOn((x1+x2)/2., (y1+y2)/2.);
       gView->changeZoomLevel(1.0);
@@ -199,6 +204,9 @@ void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent)
     if (m_mousePressedAt)  delete m_mousePressedAt;
     if (m_mouseReleasedAt) delete m_mouseReleasedAt;
   }  
+  else if (mouseEvent->button() == Qt::RightButton) {
+    gView->centerOn(mouseEvent->scenePos());
+  }
 }
 
 //! overloaded virtual function, telling the scene what to do with mouse movements

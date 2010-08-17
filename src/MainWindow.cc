@@ -110,9 +110,14 @@ void MainWindow::openFile(QString fileName)
       maxAmpSpinBox->setEnabled(true);
       negAmpCheckBox->setEnabled(true);
       tubesWithNoHitsCheckBox->setEnabled(true);
+
+      unsigned int nEvents = m_currentRun->GetEvents()->size();
       eventNumberSpinBox->setMinimum(1);
-      eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size());
+      eventNumberSpinBox->setMaximum(nEvents);
       eventNumberSpinBox->setEnabled(true);
+      QString text;
+      text.sprintf("/ %d", nEvents);
+      totalEventsLabel->setText(text);
       showEvent(1);
     }
     else {

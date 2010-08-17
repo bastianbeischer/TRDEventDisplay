@@ -145,13 +145,15 @@
      <widget class="QLabel" name="label_5">
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <pointsize>18</pointsize>
         <weight>75</weight>
+        <italic>false</italic>
         <bold>true</bold>
+        <underline>false</underline>
        </font>
       </property>
       <property name="text">
-       <string>AMS Event Display Software</string>
+       <string>TRD Event Display</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

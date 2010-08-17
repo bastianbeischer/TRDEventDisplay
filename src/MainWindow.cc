@@ -87,12 +87,12 @@ void MainWindow::openFile(QString fileName)
       showEvent(0);
     }
     else {
-      QMessageBox::information(this, "Event Display Software", "Tree does not contain any runs!");
+      QMessageBox::information(this, "TRD Event Display", "Tree does not contain any runs!");
       eventNumberSpinBox->setEnabled(false);
     }
   }
   else {
-    QMessageBox::information(this, "Event Display Software", "File does not contain a valid ROOT tree!");
+    QMessageBox::information(this, "TRD Event Display", "File does not contain a valid ROOT tree!");
     return;
   }
 }
@@ -101,7 +101,7 @@ void MainWindow::openFile(QString fileName)
 void MainWindow::showEvent(int eventNumber)
 {
   if (!m_tree || !m_currentRun) {
-    QMessageBox::information(this, "Event Display Software", "Please open a valid file first!");
+    QMessageBox::information(this, "TRD Event Display", "Please open a valid file first!");
     return;
   }
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();

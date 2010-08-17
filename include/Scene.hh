@@ -22,7 +22,7 @@ public slots:
   void minAmpChanged(int min) {m_ampMin = min; processEvent(m_currentEvent);}
   void maxAmpChanged(int max) {m_ampMax = max; processEvent(m_currentEvent);}
   void changeDisplayNegAmps(int value) {m_displayHitsWithNegAmp = value; processEvent(m_currentEvent);}
-  void tubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw();}
+  void tubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw(); processEvent(m_currentEvent);}
 
 public:
   void processEvent(TrdRawEvent* event);
@@ -60,7 +60,8 @@ private:
   bool                             m_displayHitsWithNegAmp;
   bool                             m_tubeWithNoHitsVisible;
 
-  double                           m_signalStretchFactor;
+  double                           m_signalStretchFactorX;
+  double                           m_signalStretchFactorY;
 
 };
 

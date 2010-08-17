@@ -2,6 +2,7 @@
 
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
 
 #include <TrdRawEvent.hh>
 #include <TrdHitRZD.hh>
@@ -25,7 +26,8 @@ Scene::Scene() :
   m_ampMax(100.),
   m_displayHitsWithNegAmp(true),
   m_tubeWithNoHitsVisible(true),
-  m_signalStretchFactor(2.0)
+  m_signalStretchFactorX(1.),
+  m_signalStretchFactorY(1.5)
 {
   QRectF rectangle(-m_width/2., -m_height/2., m_width, m_height);
   setSceneRect(rectangle);
@@ -47,18 +49,21 @@ Scene::~Scene()
 // set up the default values for each straw tube
 void Scene::setDefaultsForTubeRect(QGraphicsRectItem* item)
 {
-  double tubeWidth = 0.5;
+  double tubeWidth = 0.62;
   double tubeHeight = 1.2;
   item->setRect(-tubeWidth/2., -tubeHeight/2., tubeWidth, tubeHeight);
 
   QPen pen(Qt::lightGray);
+  QBrush brush(Qt::lightGray);
 
-  if (m_tubeWithNoHitsVisible)
+  if (m_tubeWithNoHitsVisible) {
     pen.setStyle(Qt::SolidLine);
-  else
+    brush.setStyle(Qt::SolidPattern);
+  }
+  else {
     pen.setStyle(Qt::NoPen);
-       
-  QBrush brush(Qt::NoBrush);
+    brush.setStyle(Qt::NoBrush);
+  }
 
   item->setPen(pen);
   item->setBrush(brush);
@@ -164,13 +169,17 @@ void Scene::processEvent(TrdRawEvent* event)
 
     // apply color and add the item to the scene
     QBrush brush(signalColor);
-    QPen pen(Qt::black);
-    //    pen.setWidth(2);
-    QRectF rect = item->rect();
-    rect.setHeight(m_signalStretchFactor*rect.height());
     item->setBrush(brush);
-    item->setPen(pen);
-    item->setRect(rect);
+
+    QRectF rect = item->rect();
+    double newLeft = m_signalStretchFactorX * rect.left();
+    double newWidth = qAbs(2. * newLeft);
+    double newTop = m_signalStretchFactorY * rect.top();
+    double newHeight = qAbs(2. * newTop);
+    item->setRect(QRectF(newLeft, newTop, newWidth, newHeight));
+
+    // QPen pen(Qt::black);
+    // item->setPen(pen);
 
     m_signalItems.push_back(item);
   }

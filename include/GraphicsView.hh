@@ -25,8 +25,6 @@ public slots:
   void fitScene() {fitInView(sceneRect());}
 
 private:
-  Scene* m_scene;
-
   double m_zoomLevel;
   
 };

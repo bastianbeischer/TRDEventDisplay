@@ -10,18 +10,16 @@
 // constructor
 GraphicsView::GraphicsView(QWidget* parent) :
   QGraphicsView(parent),
-  m_scene(new Scene()),
   m_zoomLevel(1.0)
 {
   setDragMode(ScrollHandDrag);
-  setScene(m_scene);
+  setScene(new Scene());
   show();
 }
 
 // destructor
 GraphicsView::~GraphicsView()
 {
-  delete m_scene;
 }
 
 

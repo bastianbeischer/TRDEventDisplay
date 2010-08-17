@@ -50,12 +50,12 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(openFileButton, SIGNAL(pressed()), this, SLOT(openFileDialog()));
   connect(eventNumberSpinBox, SIGNAL(valueChanged(int)), this, SLOT(showEvent(int)));
   connect(this, SIGNAL(eventNumberChanged(int)), eventNumberSpinBox, SLOT(setValue(int)));
-  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(minAmpChanged(int)));
-  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(maxAmpChanged(int)));
+  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
+  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
   connect(minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScaleLabels()));
   connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScaleLabels()));
   connect(negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));
-  connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(tubeWithNoHitsVisible(int)));
+  connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeTubeWithNoHitsVisible(int)));
 
 
   // setup AMS root file directory
@@ -174,7 +174,6 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 {
   QMainWindow::resizeEvent(event);
   m_view->fitScene();
-  event->setAccepted(true);
 }
 
 // we can only fit the scene after the call to show

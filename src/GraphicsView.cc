@@ -35,10 +35,7 @@ void GraphicsView::changeZoomLevel(double newZoomLevel)
 void GraphicsView::wheelEvent(QWheelEvent* event)
 {
   centerOn(mapToScene(event->pos()));
-
   if (event->delta() > 0) zoomIn();
   if (event->delta() < 0) zoomOut();
-
-  event->setAccepted(true);
 }
 

@@ -62,6 +62,9 @@
       </item>
       <item row="2" column="2">
        <widget class="QSpinBox" name="minAmpSpinBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimum">
          <number>-1000</number>
         </property>
@@ -72,6 +75,9 @@
       </item>
       <item row="2" column="4">
        <widget class="QSpinBox" name="maxAmpSpinBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimum">
          <number>-1000</number>
         </property>
@@ -85,6 +91,9 @@
       </item>
       <item row="2" column="1">
        <widget class="QCheckBox" name="negAmpCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Display Hits with Negative Amp</string>
         </property>
@@ -115,6 +124,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QCheckBox" name="tubesWithNoHitsCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Show Tubes with No Hits</string>
         </property>

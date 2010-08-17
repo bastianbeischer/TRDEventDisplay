@@ -26,6 +26,7 @@ Scene::Scene() :
   m_zoomRectangle(0)
 {
   QRectF rectangle(-m_width/2., -m_height/2., m_width, m_height);
+  setSceneRect(rectangle);
   m_boundingBox->setRect(rectangle);
   addItem(m_boundingBox);
 

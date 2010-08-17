@@ -1,9 +1,12 @@
 #include "MainWindow.hh"
 
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QResizeEvent>
 #include <QDebug>
+#include <QFileDialog>
+#include <QLinearGradient>
+#include <QMessageBox>
+#include <QPalette>
+#include <QProcess>
+#include <QResizeEvent>
 
 #include <TFile.h>
 #include <TTree.h>
@@ -11,12 +14,13 @@
 #include "GraphicsView.hh"
 #include "Scene.hh"
 #include "TrdRawRun.hh"
-#include <QLinearGradient>
-#include <QPalette>
 
 // constructor
 MainWindow::MainWindow(QMainWindow* parent) : 
   QMainWindow(parent),
+  m_view(0),
+  m_scene(0),
+  m_amsRootFileDir(""),
   m_file(0),
   m_tree(0),
   m_currentRun(0)
@@ -49,6 +53,17 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(maxAmpChanged(int)));
   connect(negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));
   connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(tubeWithNoHitsVisible(int)));
+
+  // setup AMS root file directory
+  QStringList envVariables = QProcess::systemEnvironment();
+  QStringList filteredVars = envVariables.filter(QRegExp("^AMS_ROOTFILES_DIR=*"));
+  if (filteredVars.size() == 0) {
+    qWarning("AMS_ROOTFILES_DIR environment variable is not set!");
+  }
+  else {
+    QString amsEntry = filteredVars.first();
+    m_amsRootFileDir = amsEntry.split("=").at(1);
+  }
 }
 
 // destructor
@@ -64,8 +79,11 @@ MainWindow::~MainWindow()
 void MainWindow::openFileDialog()
 {
   // read file name from a dialog
-  QString fileName = QFileDialog::getOpenFileName(this, tr("open file"),"", tr(""));  
-  openFile(fileName);
+  QString fileName = QFileDialog::getOpenFileName(this, tr("open file"), m_amsRootFileDir, tr(""));  
+
+  // file dialog returns emptry string for e.g. "cancel"
+  if (fileName != "")
+    openFile(fileName);
 }
 
 // open the file
@@ -84,6 +102,10 @@ void MainWindow::openFile(QString fileName)
     m_tree->SetBranchAddress("run", &m_currentRun);
     m_tree->GetEntry(0);
     if (m_currentRun) {
+      minAmpSpinBox->setEnabled(true);
+      maxAmpSpinBox->setEnabled(true);
+      negAmpCheckBox->setEnabled(true);
+      tubesWithNoHitsCheckBox->setEnabled(true);
       eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size()-1);
       eventNumberSpinBox->setEnabled(true);
       eventNumberSpinBox->setValue(0);

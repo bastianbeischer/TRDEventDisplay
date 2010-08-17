@@ -21,8 +21,11 @@ Q_OBJECT
 public:
   MainWindow(QMainWindow* parent = 0);
   ~MainWindow();
-  void openFile(QString fileName);
   
+public:
+  QString amsRootFileDir() const {return m_amsRootFileDir;}
+  void openFile(QString fileName);
+
 protected:
   void resizeEvent(QResizeEvent* event);
 
@@ -33,6 +36,8 @@ private slots:
 private:
   GraphicsView* m_view;
   Scene*        m_scene;
+
+  QString       m_amsRootFileDir;
 
   TFile*        m_file;
   TTree*        m_tree;

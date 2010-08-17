@@ -139,7 +139,7 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent)
     addItem(m_zoomRectangle);
   }
 
-  //  mouseEvent->setAccepted(true);
+  mouseEvent->setAccepted(true);
 }
 
 //! overloaded virtual function, telling the scene what to do with mouse click releases
@@ -153,7 +153,7 @@ void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent)
     if (m_mousePressedAt)  delete m_mousePressedAt;
   }  
 
-  //  mouseEvent->setAccepted(true);
+  mouseEvent->setAccepted(true);
 }
 
 //! overloaded virtual function, telling the scene what to do with mouse movements
@@ -166,6 +166,6 @@ void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent)
     m_zoomRectangle->setRect(QRectF(*m_mousePressedAt, point));
   }
 
-  //  mouseEvent->setAccepted(true);
+  mouseEvent->setAccepted(true);
 }
 

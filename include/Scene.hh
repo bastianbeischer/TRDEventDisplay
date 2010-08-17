@@ -4,8 +4,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
-#include <QVector>
+#include <QList>
 
+class StrawTube;
 class TrdRawEvent;
 
 class Scene :
@@ -30,16 +31,20 @@ public:
 private:
   double z_to_y(double z) {return -(z - m_z_offset);}
 
-  void setDefaultsForTubeRect(QGraphicsRectItem* item);
   void addTubesToScene();
   void redraw();
   void removePreviousSignals();
+
+protected:
+  void mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent);
+  void mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent);
 
 private:
   TrdRawEvent*                     m_currentEvent;
 
   QGraphicsRectItem*               m_boundingBox;
-  QList<QGraphicsRectItem*>        m_signalItems;
+  QList<StrawTube*>                m_signalItems;
 
   double                           m_width;
   double                           m_height;
@@ -50,9 +55,8 @@ private:
   bool                             m_displayHitsWithNegAmp;
   bool                             m_tubeWithNoHitsVisible;
 
-  double                           m_signalStretchFactorX;
-  double                           m_signalStretchFactorY;
-
+  QPointF*                         m_mousePressedAt;
+  QGraphicsRectItem*               m_zoomRectangle;
 };
 
 #endif /* Scene_hh */

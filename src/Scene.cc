@@ -7,9 +7,8 @@
 #include <TrdRawEvent.hh>
 #include <TrdHitRZD.hh>
 
-#include <cmath>
-
 #include "GraphicsView.hh"
+#include "StrawTube.hh"
 
 // constructor
 Scene::Scene() :
@@ -23,8 +22,8 @@ Scene::Scene() :
   m_ampMax(100.),
   m_displayHitsWithNegAmp(true),
   m_tubeWithNoHitsVisible(true),
-  m_signalStretchFactorX(1.),
-  m_signalStretchFactorY(1.5)
+  m_mousePressedAt(0),
+  m_zoomRectangle(0)
 {
   QRectF rectangle(-m_width/2., -m_height/2., m_width, m_height);
   setSceneRect(rectangle);
@@ -38,29 +37,7 @@ Scene::Scene() :
 // destructor
 Scene::~Scene()
 {
-}
-
-// set up the default values for each straw tube
-void Scene::setDefaultsForTubeRect(QGraphicsRectItem* item)
-{
-  double tubeWidth = 0.62;
-  double tubeHeight = 1.2;
-  item->setRect(-tubeWidth/2., -tubeHeight/2., tubeWidth, tubeHeight);
-
-  QPen pen(Qt::lightGray);
-  QBrush brush(Qt::lightGray);
-
-  if (m_tubeWithNoHitsVisible) {
-    pen.setStyle(Qt::SolidLine);
-    brush.setStyle(Qt::SolidPattern);
-  }
-  else {
-    pen.setStyle(Qt::NoPen);
-    brush.setStyle(Qt::NoBrush);
-  }
-
-  item->setPen(pen);
-  item->setBrush(brush);
+  delete m_mousePressedAt;
 }
 
 // add the rectangular representations of the tubes to the scene
@@ -82,10 +59,8 @@ void Scene::addTubesToScene()
         double x = rzd.r();
         double y = z_to_y(rzd.z());
         
-        QGraphicsRectItem* item = new QGraphicsRectItem();
-        setDefaultsForTubeRect(item);
-        item->setPos(x,y);
-        addItem(item);
+        StrawTube* tube = new StrawTube(x,y);
+        addItem(tube);
       }
     }
   }
@@ -94,29 +69,16 @@ void Scene::addTubesToScene()
 // redraw
 void Scene::redraw()
 {
-  for(int lay=0;lay!=20;lay++){
-    for(int lad=0;lad!=18;lad++){
-      for(int tub=0;tub!=16;tub++){
-        if(lay<4&&lad>13)continue;
-        else if(lay<12&&lad>15)continue;
-        else if(lay>19)continue;
-
-        TrdRawHitR hit;
-        hit.Layer = lay;
-        hit.Ladder = lad;
-        hit.Tube = tub;
-        TrdHitRZD rzd(&hit);
-        
-        double x = rzd.r();
-        double y = z_to_y(rzd.z());
-
-        QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(x,y);
-        setDefaultsForTubeRect(item);
-      }
+  foreach(QGraphicsItem* item, items()) {
+    StrawTube* tube = dynamic_cast<StrawTube*>(item);
+    if (tube) {
+      tube->reInit();
+      if (!m_tubeWithNoHitsVisible)
+        tube->makeInvisible();
     }
   }
 }
-
+ 
 // process an event and show it in the scene
 void Scene::processEvent(TrdRawEvent* event)
 {
@@ -137,45 +99,20 @@ void Scene::processEvent(TrdRawEvent* event)
     TrdHitRZD rzd(&hit);
     double x = rzd.r();
     double y = z_to_y(rzd.z());
-    QGraphicsRectItem* item = (QGraphicsRectItem*) itemAt(x,y);
+    StrawTube* tube = (StrawTube*) itemAt(x,y);
 
-    Q_ASSERT(item);
+    Q_ASSERT(tube);
 
-    // interpolate colors between blue and green for the signals between lower end and middle of axis and between green and red for middle to upper end
-    QColor signalColor;
     double amplitude = hit.Amp;
-
     // if amp is outside of the scale boundaries, fix it to the minimum or maximum
     if (amplitude < m_ampMin) amplitude = m_ampMin;
     if (amplitude > m_ampMax) amplitude = m_ampMax;
 
     // determine the color to use (r,g,b,alpha)
     double fraction = (amplitude - m_ampMin) / (m_ampMax - m_ampMin);
-    if (fraction < 0.5) {
-      fraction *= 2.0;
-      signalColor = QColor(0, floor(255*(fraction)), floor(255*(1.0-fraction)), 255);
-    }
-    else {
-      fraction -= 0.5;
-      fraction *= 2.0;
-      signalColor = QColor(floor(255*fraction), floor(255*(1.0-fraction)),0, 255);
-    }
-
-    // apply color and add the item to the scene
-    QBrush brush(signalColor);
-    item->setBrush(brush);
-
-    QRectF rect = item->rect();
-    double newLeft = m_signalStretchFactorX * rect.left();
-    double newWidth = qAbs(2. * newLeft);
-    double newTop = m_signalStretchFactorY * rect.top();
-    double newHeight = qAbs(2. * newTop);
-    item->setRect(QRectF(newLeft, newTop, newWidth, newHeight));
-
-    // QPen pen(Qt::black);
-    // item->setPen(pen);
-
-    m_signalItems.push_back(item);
+    tube->displayHit(fraction);
+    
+    m_signalItems.push_back(tube);
   }
 
   // notify the scene that it has been updated
@@ -185,7 +122,50 @@ void Scene::processEvent(TrdRawEvent* event)
 // remove the color from the last event again
 void Scene::removePreviousSignals()
 {
-  foreach(QGraphicsRectItem* item, m_signalItems)
-    setDefaultsForTubeRect(item);
+  foreach(StrawTube* tube, m_signalItems)
+    tube->reInit();
   m_signalItems.clear();
 }
+
+//! overloaded virtual function, telling the scene what to do with mouse clicks
+void Scene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent) 
+{
+  QGraphicsScene::mousePressEvent(mouseEvent);
+
+  if (mouseEvent->button() == Qt::RightButton) {
+    m_mousePressedAt = new QPointF(mouseEvent->scenePos());
+    m_zoomRectangle = new QGraphicsRectItem(m_mousePressedAt->x(), m_mousePressedAt->y(), 1, 1);
+    m_zoomRectangle->setPen(QPen(Qt::DashLine));
+    addItem(m_zoomRectangle);
+  }
+
+  //  mouseEvent->setAccepted(true);
+}
+
+//! overloaded virtual function, telling the scene what to do with mouse click releases
+void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent) 
+{
+  QGraphicsScene::mouseReleaseEvent(mouseEvent);
+
+  if (mouseEvent->button() == Qt::RightButton) {
+    views().front()->fitInView(m_zoomRectangle, Qt::KeepAspectRatioByExpanding);
+    if (items().contains(m_zoomRectangle)) removeItem(m_zoomRectangle);
+    if (m_mousePressedAt)  delete m_mousePressedAt;
+  }  
+
+  //  mouseEvent->setAccepted(true);
+}
+
+//! overloaded virtual function, telling the scene what to do with mouse movements
+void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) 
+{
+  QGraphicsScene::mouseMoveEvent(mouseEvent);
+
+  if (m_mousePressedAt){
+    QPointF point = mouseEvent->scenePos();
+    m_zoomRectangle->setRect(QRectF(*m_mousePressedAt, point));
+  }
+
+  //  mouseEvent->setAccepted(true);
+}
+

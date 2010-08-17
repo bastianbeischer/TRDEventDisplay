@@ -27,11 +27,14 @@ FORMS = ui/EventDisplayForm.ui
 SOURCES = main.cc \
           src/GraphicsView.cc \
           src/MainWindow.cc \
-          src/Scene.cc
+          src/Scene.cc \
+          src/StrawTube.cc
 
 HEADERS = include/MainWindow.hh \
           include/GraphicsView.hh \
-          include/Scene.hh
+          include/Scene.hh \
+          include/StrawTube.hh
+
 
 # Setup ROOT paths and compiler/linker flags
 include(ROOT.pri)

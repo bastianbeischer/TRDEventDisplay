@@ -16,24 +16,16 @@ public:
   ~GraphicsView();
   
 protected:
-  void mousePressEvent(QMouseEvent* mouseEvent);
-  void mouseReleaseEvent(QMouseEvent* mouseEvent);
-  void mouseMoveEvent(QMouseEvent* mouseEvent);
   void wheelEvent(QWheelEvent* event);
-
-signals:
-  void zoomLevelChanged(double);
 
 public slots:
   void changeZoomLevel(double newLevel);
-  void zoomIn();
-  void zoomOut();
+  void zoomIn() {changeZoomLevel(1.2*m_zoomLevel);}
+  void zoomOut() {changeZoomLevel(m_zoomLevel/1.2);}
+  void fitScene() {fitInView(sceneRect());}
 
 private:
   Scene* m_scene;
-
-  QPointF*                         m_mousePressedAt;
-  QGraphicsRectItem*               m_zoomRectangle;
 
   double m_zoomLevel;
   

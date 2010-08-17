@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QResizeEvent>
+#include <QDebug>
 
 #include <TFile.h>
 #include <TTree.h>
@@ -107,12 +108,12 @@ void MainWindow::showEvent(int eventNumber)
   }
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
   m_scene->processEvent(&events->at(eventNumber));
-  m_view->fitInView(m_scene->sceneRect());
+  m_view->fitScene();
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
   QMainWindow::resizeEvent(event);
-  m_view->fitInView(m_scene->sceneRect());
-  event->accept();
+  m_view->fitScene();
+  event->setAccepted(true);
 }

@@ -13,7 +13,7 @@ public:
   
   void reInit();
 
-  void displayHit(double fraction);
+  void colorize(double fraction);
   void makeInvisible();
 
 private:

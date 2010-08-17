@@ -9,9 +9,9 @@ int main(int argc, char** argv)
   window->show();
 
   // in case of command line arguments: open the respective files
+  QStringList args = app.arguments();
 
   // either directly...
-  QStringList args = app.arguments();
   if (args.size() == 2) {
     window->openFile(args.at(1));
   }

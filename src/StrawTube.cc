@@ -33,7 +33,7 @@ void StrawTube::reInit()
   setBrush(brush);
 }
 
-void StrawTube::displayHit(double fraction)
+void StrawTube::colorize(double fraction)
 {
   // interpolate colors between blue and green for the signals between lower end and middle of axis and between green and red for middle to upper end
   QColor signalColor;

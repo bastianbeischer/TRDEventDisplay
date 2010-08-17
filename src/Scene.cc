@@ -109,7 +109,7 @@ void Scene::processEvent(TrdRawEvent* event)
 
     // determine the color to use (r,g,b,alpha)
     double fraction = (amplitude - m_ampMin) / (m_ampMax - m_ampMin);
-    tube->displayHit(fraction);
+    tube->colorize(fraction);
     
     m_signalItems.push_back(tube);
   }

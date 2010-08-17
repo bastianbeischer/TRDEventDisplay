@@ -135,6 +135,7 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent)
     m_mousePressedAt = new QPointF(mouseEvent->scenePos());
     m_zoomRectangle = new QGraphicsRectItem(m_mousePressedAt->x(), m_mousePressedAt->y(), 1, 1);
     m_zoomRectangle->setPen(QPen(Qt::DashLine));
+    m_zoomRectangle->setBrush(QColor(0,0,255,50));
     addItem(m_zoomRectangle);
   }
 }

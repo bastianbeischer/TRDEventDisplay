@@ -15,8 +15,11 @@ public:
   GraphicsView(QWidget* parent = 0);
   ~GraphicsView();
   
-  double zoomLevel() {return m_zoomLevel;}
-  void setZoomLevel(double newZoomLevel) {m_zoomLevel = newZoomLevel;}
+protected:
+  void mousePressEvent(QMouseEvent* mouseEvent);
+  void mouseReleaseEvent(QMouseEvent* mouseEvent);
+  void mouseMoveEvent(QMouseEvent* mouseEvent);
+  void wheelEvent(QWheelEvent* event);
 
 signals:
   void zoomLevelChanged(double);
@@ -28,6 +31,9 @@ public slots:
 
 private:
   Scene* m_scene;
+
+  QPointF*                         m_mousePressedAt;
+  QGraphicsRectItem*               m_zoomRectangle;
 
   double m_zoomLevel;
   

@@ -2,6 +2,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QResizeEvent>
 
 #include <TFile.h>
 #include <TTree.h>
@@ -84,7 +85,7 @@ void MainWindow::openFile(QString fileName)
     if (m_currentRun) {
       eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size()-1);
       eventNumberSpinBox->setEnabled(true);
-      showEvent(0);
+      eventNumberSpinBox->setValue(0);
     }
     else {
       QMessageBox::information(this, "TRD Event Display", "Tree does not contain any runs!");
@@ -106,4 +107,12 @@ void MainWindow::showEvent(int eventNumber)
   }
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
   m_scene->processEvent(&events->at(eventNumber));
+  m_view->fitInView(m_scene->sceneRect());
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+  QMainWindow::resizeEvent(event);
+  m_view->fitInView(m_scene->sceneRect());
+  event->accept();
 }

@@ -9,6 +9,7 @@ class Scene;
 class TFile;
 class TTree;
 class TrdRawRun;
+class QResizeEvent;
 
 class MainWindow :
   public QMainWindow,
@@ -22,6 +23,9 @@ public:
   ~MainWindow();
   void openFile(QString fileName);
   
+protected:
+  void resizeEvent(QResizeEvent* event);
+
 private slots:
   void openFileDialog();
   void showEvent(int eventNumber);

@@ -35,18 +35,8 @@ private:
   void redraw();
   void removePreviousSignals();
 
-protected:
-  void mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent);
-  void mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent);
-  void mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent);
-  void wheelEvent(QGraphicsSceneWheelEvent* event);
-
 private:
   TrdRawEvent*                     m_currentEvent;
-
-  QPointF*                         m_mousePressedAt;
-  QPointF*                         m_mouseReleasedAt;
-  QGraphicsRectItem*               m_zoomRectangle;
 
   QGraphicsRectItem*               m_boundingBox;
   QList<QGraphicsRectItem*>        m_signalItems;

@@ -1,4 +1,4 @@
-a#include "GraphicsView.hh"
+#include "GraphicsView.hh"
 
 #include <QMouseEvent>
 #include <QWheelEvent>

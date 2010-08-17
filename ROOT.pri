@@ -1,12 +1,15 @@
 ROOT_INCLUDE_DIR = $$system(root-config --incdir)
+ROOT_LIB_DIR = $$system(root-config --libdir)
+
 
 # Check for ROOT
 !exists ($$ROOT_INCLUDE_DIR/TObject.h) {
     error("Could NOT find ROOT!")
 }
 
-LIBS += -L$(ROOTSYS)/lib -lCore -lTree
+LIBS += -L$(ROOT_LIB_DIR) -lCore -lTree
 INCLUDEPATH += $$ROOT_INCLUDE_DIR
+INCLUDEPATH -= /usr/include
 
 !isEmpty( CREATE_ROOT_DICT_FOR_CLASSES ) {
    DICTDEFINES += -DQT_VERSION=0x30000

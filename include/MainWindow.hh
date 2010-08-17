@@ -25,7 +25,6 @@ public:
 public:
   QString amsRootFileDir() const {return m_amsRootFileDir;}
   void openFile(QString fileName);
-  void show();
 
 signals:
   int eventNumberChanged(int newNumber);

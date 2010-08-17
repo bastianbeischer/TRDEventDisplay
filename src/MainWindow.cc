@@ -72,6 +72,10 @@ MainWindow::MainWindow(QMainWindow* parent) :
     QString amsEntry = filteredVars.first();
     m_amsRootFileDir = amsEntry.split("=").at(1);
   }
+  
+  // we can only fit the scene after the call to show
+  show();
+  m_view->fitScene();
 }
 
 // destructor
@@ -185,12 +189,5 @@ void MainWindow::updateScale()
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
   QMainWindow::resizeEvent(event);
-  m_view->fitScene();
-}
-
-// we can only fit the scene after the call to show
-void MainWindow::show()
-{
-  QMainWindow::show();
   m_view->fitScene();
 }

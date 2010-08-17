@@ -6,7 +6,6 @@ int main(int argc, char** argv)
 {
   QApplication app(argc, argv);
   MainWindow* window = new MainWindow;
-  window->show();
 
   // in case of command line arguments: open the respective files
   QStringList args = app.arguments();

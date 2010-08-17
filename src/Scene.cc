@@ -121,8 +121,12 @@ void Scene::processEvent(TrdRawEvent* event)
 // remove the color from the last event again
 void Scene::removePreviousSignals()
 {
-  foreach(StrawTube* tube, m_signalItems)
+  foreach(StrawTube* tube, m_signalItems) {
     tube->reInit();
+    if (!m_tubeWithNoHitsVisible)
+      tube->makeInvisible();
+  }
+
   m_signalItems.clear();
 }
 

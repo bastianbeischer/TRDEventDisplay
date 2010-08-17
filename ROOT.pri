@@ -1,7 +1,6 @@
 ROOT_INCLUDE_DIR = $$system(root-config --incdir)
 ROOT_LIB_DIR = $$system(root-config --libdir)
 
-
 # Check for ROOT
 !exists ($$ROOT_INCLUDE_DIR/TObject.h) {
     error("Could NOT find ROOT!")

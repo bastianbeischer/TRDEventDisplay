@@ -147,7 +147,7 @@ void Scene::processEvent(TrdRawEvent* event)
 
     Q_ASSERT(item);
 
-    // interpolate colors between blue and green for the signals between 0 and 10 pe and between green and red for 10 to 20 pe
+    // interpolate colors between blue and green for the signals between lower end and middle of axis and between green and red for middle to upper end
     QColor signalColor;
     double amplitude = hit.Amp;
 

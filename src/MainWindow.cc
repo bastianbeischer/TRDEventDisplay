@@ -31,7 +31,11 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // create graphics view and scene
   m_view = new GraphicsView(graphicsViewFrame);
   m_scene = (Scene*)m_view->scene();
-  centralLayout->addWidget(m_view, 4,0,1,1);
+  
+  int index = centralLayout->indexOf(graphicsViewFrame);
+  int row, col, hozSpan, vertSpan;
+  centralLayout->getItemPosition(index,&row,&col,&hozSpan,&vertSpan);
+  centralLayout->addWidget(m_view,row,col,hozSpan,vertSpan);
 
   // draw color legend
   QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));

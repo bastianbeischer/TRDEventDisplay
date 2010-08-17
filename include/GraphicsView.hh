@@ -16,9 +16,6 @@ public:
   GraphicsView(QWidget* parent = 0);
   ~GraphicsView();
   
-public:
-  void processEvent(TrdRawEvent* event);
-
 public slots:
   void changeZoomLevel(double newLevel);
   void zoomIn() {changeZoomLevel(1.2*m_zoomLevel);}

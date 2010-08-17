@@ -22,14 +22,6 @@ GraphicsView::~GraphicsView()
 {
 }
 
-// let the scene handle the event and update the view accordingly
-void GraphicsView::processEvent(TrdRawEvent* event)
-{
-  Scene* scenePtr = (Scene*) scene();
-  scenePtr->processEvent(event);
-  fitScene();
-}
-
 //! set new zoom level
 void GraphicsView::changeZoomLevel(double newZoomLevel) 
 {

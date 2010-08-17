@@ -206,7 +206,7 @@
          <enum>QAbstractSpinBox::UpDownArrows</enum>
         </property>
         <property name="minimum">
-         <number>-1000</number>
+         <number>1</number>
         </property>
         <property name="maximum">
          <number>2000</number>
@@ -274,7 +274,7 @@
          <number>-1000</number>
         </property>
         <property name="maximum">
-         <number>2000</number>
+         <number>99</number>
         </property>
         <property name="singleStep">
          <number>10</number>

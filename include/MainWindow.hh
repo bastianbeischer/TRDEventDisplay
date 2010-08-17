@@ -33,7 +33,7 @@ signals:
 private slots:
   void openFileDialog();
   void showEvent(int eventNumber);
-  void updateScaleLabels();
+  void updateScale();
 
 protected:
   void resizeEvent(QResizeEvent* event);

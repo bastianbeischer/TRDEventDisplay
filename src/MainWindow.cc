@@ -52,8 +52,8 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(this, SIGNAL(eventNumberChanged(int)), eventNumberSpinBox, SLOT(setValue(int)));
   connect(minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
   connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
-  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScaleLabels()));
-  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScaleLabels()));
+  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
+  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
   connect(negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));
   connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeTubeWithNoHitsVisible(int)));
 
@@ -140,10 +140,13 @@ void MainWindow::showEvent(int eventNumber)
 }
 
 // update labels under scale
-void MainWindow::updateScaleLabels()
+void MainWindow::updateScale()
 {
   double max = maxAmpSpinBox->value();
   double min = minAmpSpinBox->value();
+
+  maxAmpSpinBox->setMinimum(min+1);
+  minAmpSpinBox->setMaximum(max-1);
 
   double value;
   QString text;

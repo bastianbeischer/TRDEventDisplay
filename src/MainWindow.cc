@@ -113,7 +113,7 @@ void MainWindow::openFile(QString fileName)
       eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size()-1);
       eventNumberSpinBox->setEnabled(true);
       eventNumberSpinBox->setValue(0);
-      showEvent(0);
+      showEvent(24);
     }
     else {
       QMessageBox::information(this, "TRD Event Display", "Tree does not contain any runs!");
@@ -136,6 +136,7 @@ void MainWindow::showEvent(int eventNumber)
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
   m_scene->processEvent(&events->at(eventNumber));
   m_view->fitScene();
+  emit(eventNumberChanged(eventNumber));
 }
 
 // update labels under scale

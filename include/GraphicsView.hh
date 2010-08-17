@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 
+class TrdRawEvent;
 class Scene;
 
 class GraphicsView :
@@ -15,14 +16,17 @@ public:
   GraphicsView(QWidget* parent = 0);
   ~GraphicsView();
   
-protected:
-  void wheelEvent(QWheelEvent* event);
+public:
+  void processEvent(TrdRawEvent* event);
 
 public slots:
   void changeZoomLevel(double newLevel);
   void zoomIn() {changeZoomLevel(1.2*m_zoomLevel);}
   void zoomOut() {changeZoomLevel(m_zoomLevel/1.2);}
   void fitScene() {fitInView(sceneRect());}
+
+protected:
+  void wheelEvent(QWheelEvent* event);
 
 private:
   double m_zoomLevel;

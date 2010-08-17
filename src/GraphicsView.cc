@@ -22,6 +22,22 @@ GraphicsView::~GraphicsView()
 {
 }
 
+// let the scene handle the event and update the view accordingly
+void GraphicsView::processEvent(TrdRawEvent* event)
+{
+  Scene* scenePtr = (Scene*) scene();
+  scenePtr->processEvent(event);
+  fitScene();
+}
+
+//! set new zoom level
+void GraphicsView::changeZoomLevel(double newZoomLevel) 
+{
+  if (newZoomLevel != m_zoomLevel) {
+    scale(newZoomLevel/m_zoomLevel, newZoomLevel/m_zoomLevel);
+    m_zoomLevel = newZoomLevel;
+  }
+}
 
 //! overloaded virtual function, telling the scene what to do with mouse wheel events
 void GraphicsView::wheelEvent(QWheelEvent* event)
@@ -32,14 +48,5 @@ void GraphicsView::wheelEvent(QWheelEvent* event)
   if (event->delta() < 0) zoomOut();
 
   event->setAccepted(true);
-}
-
-//! set new zoom level
-void GraphicsView::changeZoomLevel(double newZoomLevel) 
-{
-  if (newZoomLevel != m_zoomLevel) {
-    scale(newZoomLevel/m_zoomLevel, newZoomLevel/m_zoomLevel);
-    m_zoomLevel = newZoomLevel;
-  }
 }
 

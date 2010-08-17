@@ -107,10 +107,10 @@ void MainWindow::showEvent(int eventNumber)
     return;
   }
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
-  m_scene->processEvent(&events->at(eventNumber));
-  m_view->fitScene();
+  m_view->processEvent(&events->at(eventNumber));
 }
 
+// resize the view when resizing the window
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
   QMainWindow::resizeEvent(event);

@@ -110,10 +110,10 @@ void MainWindow::openFile(QString fileName)
       maxAmpSpinBox->setEnabled(true);
       negAmpCheckBox->setEnabled(true);
       tubesWithNoHitsCheckBox->setEnabled(true);
-      eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size()-1);
+      eventNumberSpinBox->setMinimum(1);
+      eventNumberSpinBox->setMaximum(m_currentRun->GetEvents()->size());
       eventNumberSpinBox->setEnabled(true);
-      eventNumberSpinBox->setValue(0);
-      showEvent(24);
+      showEvent(1);
     }
     else {
       QMessageBox::information(this, "TRD Event Display", "Tree does not contain any runs!");
@@ -134,7 +134,7 @@ void MainWindow::showEvent(int eventNumber)
     return;
   }
   std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
-  m_scene->processEvent(&events->at(eventNumber));
+  m_scene->processEvent(&events->at(eventNumber-1));
   m_view->fitScene();
   emit(eventNumberChanged(eventNumber));
 }

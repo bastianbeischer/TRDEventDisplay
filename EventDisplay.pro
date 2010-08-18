@@ -1,3 +1,8 @@
+#################################################################
+## CVS Information
+## $Id: EventDisplay.pro,v 1.5 2010/08/18 18:22:00 beischer Exp $
+#################################################################
+
 # General information
 TEMPLATE    = app
 TARGET      = EventDisplay
@@ -26,17 +31,18 @@ LIBS += -L./TrdEvent -lTrdEvent
 FORMS = ui/EventDisplayForm.ui
 SOURCES = main.cc \
           src/DataManager.cc \
-          src/GraphicsView.cc \
+          src/EventDisplayScene.cc \
           src/MainWindow.cc \
           src/Scene.cc \
-          src/StrawTube.cc
+          src/StrawTube.cc \
+          src/View.cc
 
 HEADERS = include/DataManager.hh \
-          include/GraphicsView.hh \
+          include/EventDisplayScene.hh \
           include/MainWindow.hh \
           include/Scene.hh \
-          include/StrawTube.hh
-
+          include/StrawTube.hh \
+          include/View.hh
 
 # Setup ROOT paths and compiler/linker flags
 include(ROOT.pri)

@@ -1,13 +1,18 @@
+/////////////////////////////////////////////////////////////////
+// CVS Information
+// $Id: MainWindow.hh,v 1.9 2010/08/18 18:22:02 beischer Exp $
+/////////////////////////////////////////////////////////////////
+
 #ifndef MainWindow_hh
 #define MainWindow_hh
 
 #include <QMainWindow>
 #include <ui_EventDisplayForm.h>
 
+class View;
+class EventDisplayScene;
 class DataManager;
-class GraphicsView;
 class QResizeEvent;
-class Scene;
 
 class MainWindow :
   public QMainWindow,
@@ -38,9 +43,9 @@ protected:
   void resizeEvent(QResizeEvent* event);
 
 private:
-  GraphicsView* m_view;
-  Scene*        m_scene;
-  DataManager*  m_dataManager;
+  View*              m_view;
+  EventDisplayScene* m_scene;
+  DataManager*       m_dataManager;
 
 };
 

@@ -1,14 +1,15 @@
-#include "GraphicsView.hh"
+/////////////////////////////////////////////////////////////////
+// CVS Information
+// $Id: View.cc,v 1.1 2010/08/18 18:22:04 beischer Exp $
+/////////////////////////////////////////////////////////////////
+
+#include "View.hh"
 
 #include <QMouseEvent>
 #include <QWheelEvent>
 
-#include <cmath>
-
-#include "Scene.hh"
-
 // constructor
-GraphicsView::GraphicsView(QWidget* parent) :
+View::View(QWidget* parent) :
   QGraphicsView(parent),
   m_zoomFactor(1.2)
 {
@@ -17,12 +18,12 @@ GraphicsView::GraphicsView(QWidget* parent) :
 }
 
 // destructor
-GraphicsView::~GraphicsView()
+View::~View()
 {
 }
 
 //! overloaded mouse press event, refit the scene on mid mouse button press
-void GraphicsView::mousePressEvent(QMouseEvent* event)
+void View::mousePressEvent(QMouseEvent* event)
 {
   QGraphicsView::mousePressEvent(event);
   if (event->button() == Qt::MidButton)
@@ -30,7 +31,7 @@ void GraphicsView::mousePressEvent(QMouseEvent* event)
 }
 
 //! overloaded virtual function, telling the view to zoom on mouse wheel events
-void GraphicsView::wheelEvent(QWheelEvent* event)
+void View::wheelEvent(QWheelEvent* event)
 {
   centerOn(mapToScene(event->pos()));
   if (event->delta() > 0) zoomIn();

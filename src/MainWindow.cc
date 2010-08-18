@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////
+// CVS Information
+// $Id: MainWindow.cc,v 1.26 2010/08/18 18:22:03 beischer Exp $
+/////////////////////////////////////////////////////////////////
+
 #include "MainWindow.hh"
 
 #include <QLinearGradient>
@@ -5,8 +10,8 @@
 #include <QResizeEvent>
 
 #include "DataManager.hh"
-#include "GraphicsView.hh"
-#include "Scene.hh"
+#include "View.hh"
+#include "EventDisplayScene.hh"
 
 // constructor
 MainWindow::MainWindow(QMainWindow* parent) : 
@@ -19,8 +24,8 @@ MainWindow::MainWindow(QMainWindow* parent) :
   setupUi(this);
 
   // create graphics view and scene
-  m_scene = new Scene();
-  m_view = new GraphicsView(m_graphicsViewFrame);
+  m_scene = new EventDisplayScene();
+  m_view = new View(m_graphicsViewFrame);
   m_view->setScene(m_scene);
 
   int index = m_centralLayout->indexOf(m_graphicsViewFrame);

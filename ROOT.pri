@@ -1,3 +1,8 @@
+#################################################################
+## CVS Information
+## $Id: ROOT.pri,v 1.7 2010/08/18 18:22:01 beischer Exp $
+#################################################################
+
 ROOT_INCLUDE_DIR = $$system(root-config --incdir)
 ROOT_LIB_DIR = $$system(root-config --libdir)
 

@@ -1,20 +1,22 @@
-#ifndef GraphicsView_hh
-#define GraphicsView_hh
+/////////////////////////////////////////////////////////////////
+// CVS Information
+// $Id: View.hh,v 1.1 2010/08/18 18:22:03 beischer Exp $
+/////////////////////////////////////////////////////////////////
+
+#ifndef View_hh
+#define View_hh
 
 #include <QGraphicsView>
 
-class TrdRawEvent;
-class Scene;
-
-class GraphicsView :
+class View :
   public QGraphicsView
 {
   
 Q_OBJECT
 
 public:
-  GraphicsView(QWidget* parent = 0);
-  ~GraphicsView();
+  View(QWidget* parent = 0);
+  ~View();
   
 public slots:
   void zoomIn() {scale(m_zoomFactor, m_zoomFactor);}
@@ -30,4 +32,4 @@ private:
 
 };
 
-#endif /* GraphicsView_hh */
+#endif /* View_hh */

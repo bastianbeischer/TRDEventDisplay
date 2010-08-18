@@ -2,7 +2,6 @@
 
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
-#include <QDebug>
 
 #include <TrdRawEvent.hh>
 #include <TrdHitRZD.hh>

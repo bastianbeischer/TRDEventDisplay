@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Bastian Beischer</author>
  <class>EventDisplayForm</class>
  <widget class="QMainWindow" name="EventDisplayForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1066</width>
+    <width>1065</width>
     <height>664</height>
    </rect>
   </property>
@@ -342,6 +343,15 @@
   </widget>
   <widget class="QStatusBar" name="m_statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>m_openFileButton</tabstop>
+  <tabstop>m_quitButton</tabstop>
+  <tabstop>m_eventNumberSpinBox</tabstop>
+  <tabstop>m_tubesWithNoHitsCheckBox</tabstop>
+  <tabstop>m_negAmpCheckBox</tabstop>
+  <tabstop>m_minAmpSpinBox</tabstop>
+  <tabstop>m_maxAmpSpinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

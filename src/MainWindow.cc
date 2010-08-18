@@ -1,6 +1,5 @@
 #include "MainWindow.hh"
 
-#include <QDebug>
 #include <QLinearGradient>
 #include <QPalette>
 #include <QResizeEvent>
@@ -8,7 +7,6 @@
 #include "DataManager.hh"
 #include "GraphicsView.hh"
 #include "Scene.hh"
-#include "TrdRawRun.hh"
 
 // constructor
 MainWindow::MainWindow(QMainWindow* parent) : 

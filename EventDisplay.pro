@@ -7,7 +7,7 @@ QT          += gui
 CONFIG     += qt warn_on
 
 # Possibly enable a debug build
-CONFIG    += debug
+CONFIG     += debug
 
 # Seperate source & build dirs
 DESTDIR     = ./

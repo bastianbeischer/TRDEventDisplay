@@ -64,7 +64,7 @@ void Scene::addTubesToScene()
   }
 }
 
-// redraw
+// redraw all items (needed of visibility of non-hits changed)
 void Scene::redraw()
 {
   foreach(QGraphicsItem* item, items()) {

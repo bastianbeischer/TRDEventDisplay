@@ -49,6 +49,7 @@ void DataManager::openFileDialog()
     openFile(fileName);
 }
 
+// open the file given by "fileName"
 void DataManager::openFile(QString fileName)
 {
   // if there was another file opened close it

@@ -26,8 +26,6 @@ public slots:
   void openFileDialog();
 
 public:
-  QString amsRootFileDir() const {return m_amsRootFileDir;}
-
   void openFile(QString fileName);
   void openFileByScheme(int dir, int file);
   TrdRawEvent* getEvent(int eventNumber);

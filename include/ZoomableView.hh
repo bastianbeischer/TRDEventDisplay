@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ZoomableView.hh,v 1.1 2010/08/18 19:00:50 beischer Exp $
+// $Id: ZoomableView.hh,v 1.2 2010/08/18 19:36:43 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef ZoomableView_hh
@@ -19,8 +19,8 @@ public:
   ~ZoomableView();
   
 public slots:
-  void zoomIn() {scale(m_zoomFactor, m_zoomFactor);}
-  void zoomOut() {scale(1./m_zoomFactor, 1./m_zoomFactor);}
+  void zoomIn()   {scale(m_zoomFactor,    m_zoomFactor);}
+  void zoomOut()  {scale(1./m_zoomFactor, 1./m_zoomFactor);}
   void fitScene() {fitInView(sceneRect());}
 
 protected:
@@ -31,6 +31,7 @@ protected:
   
 private:
   double             m_zoomFactor;
+
   QPointF*           m_mousePressedAt;
   QGraphicsRectItem* m_zoomRectangle;
 

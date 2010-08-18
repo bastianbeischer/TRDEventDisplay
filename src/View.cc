@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: View.cc,v 1.2 2010/08/18 18:33:22 beischer Exp $
+// $Id: View.cc,v 1.3 2010/08/18 18:37:10 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "View.hh"
@@ -22,7 +22,7 @@ View::~View()
 {
 }
 
-//! overloaded mouse press event, refit the scene on mid mouse button press
+// overloaded mouse press event, refit the scene on mid mouse button press
 void View::mousePressEvent(QMouseEvent* event)
 {
   QGraphicsView::mousePressEvent(event);
@@ -30,7 +30,7 @@ void View::mousePressEvent(QMouseEvent* event)
     fitScene();
 }
 
-//! overloaded virtual function, telling the view to zoom on mouse wheel events
+// overloaded virtual function, telling the view to zoom on mouse wheel events
 void View::wheelEvent(QWheelEvent* event)
 {
   centerOn(mapToScene(event->pos()));

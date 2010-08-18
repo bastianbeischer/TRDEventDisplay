@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: Scene.cc,v 1.23 2010/08/18 18:33:23 beischer Exp $
+// $Id: Scene.cc,v 1.24 2010/08/18 18:37:11 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "Scene.hh"
@@ -23,7 +23,7 @@ Scene::~Scene()
   delete m_mousePressedAt;
 }
 
-//! overloaded virtual function, telling the scene what to do with mouse clicks
+// overloaded virtual function, telling the scene what to do with mouse clicks
 void Scene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent) 
 {
   QGraphicsScene::mousePressEvent(mouseEvent);
@@ -37,7 +37,7 @@ void Scene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent)
   }
 }
 
-//! overloaded virtual function, telling the scene what to do with mouse click releases
+// overloaded virtual function, telling the scene what to do with mouse click releases
 void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent) 
 {
   QGraphicsScene::mouseReleaseEvent(mouseEvent);
@@ -49,7 +49,7 @@ void Scene::mouseReleaseEvent(QGraphicsSceneMouseEvent* mouseEvent)
   }  
 }
 
-//! overloaded virtual function, telling the scene what to do with mouse movements
+// overloaded virtual function, telling the scene what to do with mouse movements
 void Scene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) 
 {
   QGraphicsScene::mouseMoveEvent(mouseEvent);

@@ -5,6 +5,7 @@
 
 #include <cmath>
 
+// constructor
 StrawTube::StrawTube(double x, double y) :
   m_width(0.62),
   m_height(1.2),
@@ -15,24 +16,26 @@ StrawTube::StrawTube(double x, double y) :
   setPos(x,y);
 }
 
+// destructor
 StrawTube::~StrawTube()
 {
 }
 
+// reset attributes
 void StrawTube::reInit()
 {
   setRect(-m_width/2., -m_height/2., m_width, m_height);
 
   QPen pen(Qt::lightGray);
-  QBrush brush(Qt::lightGray);
-
   pen.setStyle(Qt::SolidLine);
-  brush.setStyle(Qt::SolidPattern);
-
   setPen(pen);
+
+  QBrush brush(Qt::lightGray);
+  brush.setStyle(Qt::SolidPattern);
   setBrush(brush);
 }
 
+// apply color based on a linear interpolation between blue,green and red
 void StrawTube::colorize(double fraction)
 {
   // interpolate colors between blue and green for the signals between lower end and middle of axis and between green and red for middle to upper end
@@ -47,10 +50,11 @@ void StrawTube::colorize(double fraction)
     signalColor = QColor(floor(255*fraction), floor(255*(1.0-fraction)),0, 255);
   }
 
-  // apply color and add the tube to the scene
+  // apply color
   QBrush brush(signalColor);
   setBrush(brush);
 
+  // stretch the rectangle so that signals are easier to make see
   double newLeft = m_signalStretchFactorX * rect().left();
   double newWidth = qAbs(2. * newLeft);
   double newTop = m_signalStretchFactorY * rect().top();
@@ -61,6 +65,7 @@ void StrawTube::colorize(double fraction)
   // setPen(pen);
 }
 
+// hide the tube (setVisible(false) would also hide it from selection with itemAt(x,y) which is not what I want)
 void StrawTube::makeInvisible()
 {
   setPen(Qt::NoPen);

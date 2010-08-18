@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ZoomableView.cc,v 1.1 2010/08/18 19:00:50 beischer Exp $
+// $Id: ZoomableView.cc,v 1.2 2010/08/18 19:27:35 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "ZoomableView.hh"
@@ -26,7 +26,7 @@ ZoomableView::~ZoomableView()
   delete m_mousePressedAt;
 }
 
-// overloaded virtual function, telling the scene what to do with mouse clicks
+// overloaded virtual function, telling the view what to do with mouse clicks
 void ZoomableView::mousePressEvent(QMouseEvent* event) 
 {
   QGraphicsView::mousePressEvent(event);
@@ -42,7 +42,7 @@ void ZoomableView::mousePressEvent(QMouseEvent* event)
   }
 }
 
-// overloaded virtual function, telling the scene what to do with mouse click releases
+// overloaded virtual function, telling the view what to do with mouse click releases
 void ZoomableView::mouseReleaseEvent(QMouseEvent* event) 
 {
   QGraphicsView::mouseReleaseEvent(event);
@@ -54,7 +54,7 @@ void ZoomableView::mouseReleaseEvent(QMouseEvent* event)
   }  
 }
 
-// overloaded virtual function, telling the scene what to do with mouse movements
+// overloaded virtual function, telling the view what to do with mouse movements
 void ZoomableView::mouseMoveEvent(QMouseEvent* event) 
 {
   QGraphicsView::mouseMoveEvent(event);

@@ -8,7 +8,7 @@ class StrawTube :
 {
   
 public:
-  StrawTube(double x, double y);
+  StrawTube(double x = 0., double y = 0.);
   ~StrawTube();
   
   void reInit();

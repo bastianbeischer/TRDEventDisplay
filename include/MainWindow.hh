@@ -4,12 +4,10 @@
 #include <QMainWindow>
 #include <ui_EventDisplayForm.h>
 
+class DataManager;
 class GraphicsView;
-class Scene;
-class TFile;
-class TTree;
-class TrdRawRun;
 class QResizeEvent;
+class Scene;
 
 class MainWindow :
   public QMainWindow,
@@ -22,17 +20,19 @@ public:
   MainWindow(QMainWindow* parent = 0);
   ~MainWindow();
   
-public:
-  QString amsRootFileDir() const {return m_amsRootFileDir;}
-  void openFile(QString fileName);
-
 signals:
   int eventNumberChanged(int newNumber);
 
+public slots:
+  void fileOpened(int nEvents);
+  void fileClosed();
+
 private slots:
-  void openFileDialog();
   void showEvent(int eventNumber);
   void updateScale();
+
+public:
+  void processCmdLineArguments(QStringList args);
 
 protected:
   void resizeEvent(QResizeEvent* event);
@@ -40,12 +40,7 @@ protected:
 private:
   GraphicsView* m_view;
   Scene*        m_scene;
-
-  QString       m_amsRootFileDir;
-
-  TFile*        m_file;
-  TTree*        m_tree;
-  TrdRawRun*    m_currentRun;
+  DataManager*  m_dataManager;
 
 };
 

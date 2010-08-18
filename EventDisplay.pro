@@ -25,13 +25,15 @@ LIBS += -L./TrdEvent -lTrdEvent
 # Forms, sources and headers
 FORMS = ui/EventDisplayForm.ui
 SOURCES = main.cc \
+          src/DataManager.cc \
           src/GraphicsView.cc \
           src/MainWindow.cc \
           src/Scene.cc \
           src/StrawTube.cc
 
-HEADERS = include/MainWindow.hh \
+HEADERS = include/DataManager.hh \
           include/GraphicsView.hh \
+          include/MainWindow.hh \
           include/Scene.hh \
           include/StrawTube.hh
 

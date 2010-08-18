@@ -19,10 +19,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="centralLayout">
+  <widget class="QWidget" name="m_centralwidget">
+   <layout class="QGridLayout" name="m_centralLayout">
     <item row="1" column="0">
-     <widget class="QLabel" name="titleLabel">
+     <widget class="QLabel" name="m_titleLabel">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -47,9 +47,9 @@
      </widget>
     </item>
     <item row="3" column="0">
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="m_gridLayout">
       <item row="2" column="1">
-       <widget class="QSpinBox" name="eventNumberSpinBox">
+       <widget class="QSpinBox" name="m_eventNumberSpinBox">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -59,7 +59,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="eventLabel">
+       <widget class="QLabel" name="m_eventLabel">
         <property name="text">
          <string>Event</string>
         </property>
@@ -69,7 +69,7 @@
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QCheckBox" name="negAmpCheckBox">
+       <widget class="QCheckBox" name="m_negAmpCheckBox">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -82,7 +82,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QCheckBox" name="tubesWithNoHitsCheckBox">
+       <widget class="QCheckBox" name="m_tubesWithNoHitsCheckBox">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -95,7 +95,7 @@
        </widget>
       </item>
       <item row="0" column="5">
-       <widget class="QWidget" name="colorPaletteWidget" native="true">
+       <widget class="QWidget" name="m_colorPaletteWidget" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -105,9 +105,9 @@
        </widget>
       </item>
       <item row="2" column="5">
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="m_horizontalLayout">
         <item>
-         <widget class="QLabel" name="scaleLabelMin">
+         <widget class="QLabel" name="m_scaleLabelMin">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -120,7 +120,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="scaleLabel1">
+         <widget class="QLabel" name="m_scaleLabel1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -136,7 +136,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="scaleLabel2">
+         <widget class="QLabel" name="m_scaleLabel2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -155,7 +155,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="scaleLabel3">
+         <widget class="QLabel" name="m_scaleLabel3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -171,7 +171,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="scaleLabelMax">
+         <widget class="QLabel" name="m_scaleLabelMax">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -189,7 +189,7 @@
        </layout>
       </item>
       <item row="2" column="7">
-       <widget class="QSpinBox" name="maxAmpSpinBox">
+       <widget class="QSpinBox" name="m_maxAmpSpinBox">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -220,14 +220,14 @@
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QPushButton" name="openFileButton">
+       <widget class="QPushButton" name="m_openFileButton">
         <property name="text">
          <string>&amp;Open File</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="quitButton">
+       <widget class="QPushButton" name="m_quitButton">
         <property name="text">
          <string>&amp;Quit</string>
         </property>
@@ -237,7 +237,7 @@
        </widget>
       </item>
       <item row="0" column="7">
-       <widget class="QLabel" name="maxAmpLabel">
+       <widget class="QLabel" name="m_maxAmpLabel">
         <property name="text">
          <string>max</string>
         </property>
@@ -247,7 +247,7 @@
        </widget>
       </item>
       <item row="0" column="4">
-       <widget class="QLabel" name="minAmpLabel">
+       <widget class="QLabel" name="m_minAmpLabel">
         <property name="text">
          <string>min</string>
         </property>
@@ -257,7 +257,7 @@
        </widget>
       </item>
       <item row="2" column="4">
-       <widget class="QSpinBox" name="minAmpSpinBox">
+       <widget class="QSpinBox" name="m_minAmpSpinBox">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -282,7 +282,7 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="totalEventsLabel">
+       <widget class="QLabel" name="m_totalEventsLabel">
         <property name="text">
          <string/>
         </property>
@@ -291,7 +291,7 @@
      </layout>
     </item>
     <item row="4" column="0">
-     <widget class="QFrame" name="graphicsViewFrame">
+     <widget class="QFrame" name="m_graphicsViewFrame">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -307,7 +307,7 @@
      </widget>
     </item>
     <item row="2" column="0">
-     <spacer name="verticalSpacer">
+     <spacer name="m_verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -323,7 +323,7 @@
      </spacer>
     </item>
     <item row="0" column="0">
-     <spacer name="verticalSpacer_2">
+     <spacer name="m_verticalSpacer_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -340,7 +340,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="m_statusbar"/>
  </widget>
  <resources/>
  <connections/>

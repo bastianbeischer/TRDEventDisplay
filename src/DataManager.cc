@@ -10,6 +10,7 @@
 #include "TrdRawEvent.hh"
 #include "TrdRawRun.hh"
 
+// constructor
 DataManager::DataManager() :
   QObject(),
   m_amsRootFileDir(""),
@@ -29,6 +30,7 @@ DataManager::DataManager() :
   }
 }
 
+// destructor
 DataManager::~DataManager()
 {
   delete m_file;
@@ -76,7 +78,7 @@ void DataManager::openFile(QString fileName)
   }
 }
 
-// open file with XXXX/YYY.root scheme
+// open file with $AMS_ROOTFILES_DIR/XXXX/YYY.root scheme
 void DataManager::openFileByScheme(int dir, int file)
 {
   if (m_amsRootFileDir != "") {

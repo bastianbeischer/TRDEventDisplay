@@ -1,18 +1,12 @@
 /////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: Scene.hh,v 1.10 2010/08/18 18:22:02 beischer Exp $
+// $Id: Scene.hh,v 1.11 2010/08/18 18:27:14 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef Scene_hh
 #define Scene_hh
 
 #include <QGraphicsScene>
-
-#include <QList>
-
-class StrawTube;
-class TrdRawEvent;
-class QGraphicsRectItem;
 
 class Scene :
   public QGraphicsScene

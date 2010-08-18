@@ -2,9 +2,8 @@
 
 #include <QGraphicsRectItem>
 
-#include <TrdRawEvent.hh>
-#include <TrdHitRZD.hh>
-
+#include "TrdRawEvent.hh"
+#include "TrdHitRZD.hh"
 #include "StrawTube.hh"
 
 // constructor

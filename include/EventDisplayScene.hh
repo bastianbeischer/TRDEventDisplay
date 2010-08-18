@@ -1,12 +1,17 @@
 /////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.1 2010/08/18 18:22:02 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.2 2010/08/18 18:27:14 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
 #define EventDisplayScene_hh
 
 #include "Scene.hh"
+
+#include <QList>
+
+class StrawTube;
+class TrdRawEvent;
 
 class EventDisplayScene :
   public Scene

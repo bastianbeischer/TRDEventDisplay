@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ZoomableView.cc,v 1.2 2010/08/18 19:27:35 beischer Exp $
+// $Id: ZoomableView.cc,v 1.3 2010/08/18 22:21:57 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "ZoomableView.hh"
@@ -68,8 +68,8 @@ void ZoomableView::mouseMoveEvent(QMouseEvent* event)
 // overloaded virtual function, telling the view to zoom on mouse wheel events
 void ZoomableView::wheelEvent(QWheelEvent* event)
 {
-  centerOn(mapToScene(event->pos()));
   if (event->delta() > 0) zoomIn();
   if (event->delta() < 0) zoomOut();
+  centerOn(mapToScene(event->pos()));
 }
 

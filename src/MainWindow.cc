@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.28 2010/08/18 19:00:50 beischer Exp $
+// $Id: MainWindow.cc,v 1.29 2010/08/18 22:21:56 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -48,10 +48,10 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // connect signals and slots
   
   // general
-  connect(m_quitButton, SIGNAL(pressed()), this, SLOT(close()));  
+  connect(m_quitButton, SIGNAL(clicked()), this, SLOT(close()));  
 
   // IO
-  connect(m_openFileButton, SIGNAL(pressed()), m_dataManager, SLOT(openFileDialog()));
+  connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
   connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(fileOpened(int)));
   connect(m_dataManager, SIGNAL(fileClosed()), this, SLOT(fileClosed()));
 

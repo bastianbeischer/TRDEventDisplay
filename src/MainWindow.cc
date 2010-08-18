@@ -15,7 +15,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   QMainWindow(parent),
   m_view(0),
   m_scene(0),
-  m_dataManager(new DataManager())
+  m_dataManager(0)
 {
   // setup designer settings
   setupUi(this);
@@ -27,6 +27,9 @@ MainWindow::MainWindow(QMainWindow* parent) :
   int row, col, hozSpan, vertSpan;
   m_centralLayout->getItemPosition(index,&row,&col,&hozSpan,&vertSpan);
   m_centralLayout->addWidget(m_view,row,col,hozSpan,vertSpan);
+
+  // create data manager
+  m_dataManager = new DataManager();
 
   // draw color legend
   QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));
@@ -84,7 +87,7 @@ void MainWindow::processCmdLineArguments(QStringList args)
   if (args.size() == 2)
     m_dataManager->openFile(args.at(1));
 
-  // or by $AMS_ROOTFILES_DIR/XXXX/YYY.root format
+  // or by XXXX YYY format from AMS_ROOTFILE_DIR directory
   else if (args.size() == 3)
     m_dataManager->openFileByScheme(args.at(1).toInt(), args.at(2).toInt());
 }
@@ -107,7 +110,7 @@ void MainWindow::fileOpened(int nEvents)
   showEvent(1);
 }
 
-// the file has been opened
+// a new file has been opened
 void MainWindow::fileClosed()
 {
   m_minAmpSpinBox->setEnabled(false);

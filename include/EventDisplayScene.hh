@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.4 2010/08/18 19:00:49 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.5 2010/08/18 20:01:24 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
@@ -43,7 +43,8 @@ private:
   TrdRawEvent*                     m_currentEvent;
 
   QGraphicsRectItem*               m_boundingBox;
-  QList<StrawTube*>                m_signalItems;
+  QList<StrawTube*>                m_tubes;
+  QList<StrawTube*>                m_signalTubes;
 
   double                           m_width;
   double                           m_height;

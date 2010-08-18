@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.cc,v 1.4 2010/08/18 19:00:50 beischer Exp $
+// $Id: EventDisplayScene.cc,v 1.5 2010/08/18 20:01:24 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "EventDisplayScene.hh"
@@ -57,6 +57,7 @@ void EventDisplayScene::addTubesToScene()
         double y = z_to_y(rzd.z());
         
         StrawTube* tube = new StrawTube(x,y);
+        m_tubes.push_back(tube);
         addItem(tube);
       }
     }
@@ -66,13 +67,10 @@ void EventDisplayScene::addTubesToScene()
 // redraw all items (needed of visibility of non-hits changed)
 void EventDisplayScene::redraw()
 {
-  foreach(QGraphicsItem* item, items()) {
-    StrawTube* tube = dynamic_cast<StrawTube*>(item);
-    if (tube) {
-      tube->reInit();
-      if (!m_tubeWithNoHitsVisible)
-        tube->makeInvisible();
-    }
+  foreach(StrawTube* tube, m_tubes) {
+    tube->reInit();
+    if (!m_tubeWithNoHitsVisible)
+      tube->makeInvisible();
   }
 }
  
@@ -109,7 +107,7 @@ void EventDisplayScene::processEvent(TrdRawEvent* event)
     double fraction = (amplitude - m_ampMin) / (m_ampMax - m_ampMin);
     tube->colorize(fraction);
     
-    m_signalItems.push_back(tube);
+    m_signalTubes.push_back(tube);
   }
 
   // notify the scene that it has been updated
@@ -119,11 +117,11 @@ void EventDisplayScene::processEvent(TrdRawEvent* event)
 // remove the color from the last event again
 void EventDisplayScene::removePreviousSignals()
 {
-  foreach(StrawTube* tube, m_signalItems) {
+  foreach(StrawTube* tube, m_signalTubes) {
     tube->reInit();
     if (!m_tubeWithNoHitsVisible)
       tube->makeInvisible();
   }
 
-  m_signalItems.clear();
+  m_signalTubes.clear();
 }

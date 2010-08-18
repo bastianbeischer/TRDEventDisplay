@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.cc,v 1.3 2010/08/18 18:33:23 beischer Exp $
+// $Id: EventDisplayScene.cc,v 1.4 2010/08/18 19:00:50 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "EventDisplayScene.hh"
@@ -13,7 +13,7 @@
 
 // constructor
 EventDisplayScene::EventDisplayScene() :
-  Scene(),
+  QGraphicsScene(),
   m_currentEvent(0),
   m_boundingBox(new QGraphicsRectItem),
   m_width(200),

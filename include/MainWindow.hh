@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.hh,v 1.10 2010/08/18 18:33:23 beischer Exp $
+// $Id: MainWindow.hh,v 1.11 2010/08/18 19:00:49 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef MainWindow_hh
@@ -9,7 +9,7 @@
 #include <QMainWindow>
 #include <ui_EventDisplayForm.h>
 
-class View;
+class ZoomableView;
 class EventDisplayScene;
 class DataManager;
 class QResizeEvent;
@@ -43,7 +43,7 @@ protected:
   void resizeEvent(QResizeEvent* event);
 
 private:
-  View*              m_view;
+  ZoomableView*      m_view;
   EventDisplayScene* m_scene;
   DataManager*       m_dataManager;
 

@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: EventDisplay.pro,v 1.6 2010/08/18 18:35:17 beischer Exp $
+## $Id: EventDisplay.pro,v 1.7 2010/08/18 19:00:49 beischer Exp $
 #################################################################
 
 # General information
@@ -33,16 +33,14 @@ SOURCES = main.cc \
           src/DataManager.cc \
           src/EventDisplayScene.cc \
           src/MainWindow.cc \
-          src/Scene.cc \
           src/StrawTube.cc \
-          src/View.cc
+          src/ZoomableView.cc
 
 HEADERS = include/DataManager.hh \
           include/EventDisplayScene.hh \
           include/MainWindow.hh \
-          include/Scene.hh \
           include/StrawTube.hh \
-          include/View.hh
+          include/ZoomableView.hh
 
 # Setup ROOT paths and compiler/linker flags
 include(ROOT.pri)

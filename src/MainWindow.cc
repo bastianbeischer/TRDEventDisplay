@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.27 2010/08/18 18:33:23 beischer Exp $
+// $Id: MainWindow.cc,v 1.28 2010/08/18 19:00:50 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -10,7 +10,7 @@
 #include <QResizeEvent>
 
 #include "DataManager.hh"
-#include "View.hh"
+#include "ZoomableView.hh"
 #include "EventDisplayScene.hh"
 
 // constructor
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
 
   // create graphics view and scene
   m_scene = new EventDisplayScene();
-  m_view = new View(m_graphicsViewFrame);
+  m_view = new ZoomableView(m_graphicsViewFrame);
   m_view->setScene(m_scene);
 
   int index = m_centralLayout->indexOf(m_graphicsViewFrame);

@@ -1,12 +1,12 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.3 2010/08/18 18:33:23 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.4 2010/08/18 19:00:49 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
 #define EventDisplayScene_hh
 
-#include "Scene.hh"
+#include <QGraphicsScene>
 
 #include <QList>
 
@@ -14,7 +14,7 @@ class StrawTube;
 class TrdRawEvent;
 
 class EventDisplayScene :
-  public Scene
+  public QGraphicsScene
 {
 
 Q_OBJECT

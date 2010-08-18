@@ -59,7 +59,7 @@ void DataManager::openFile(QString fileName)
   }
 
   // setup the tree and run pointers
-  m_file = new TFile(qPrintable(fileName));
+  m_file = new TFile(qPrintable(fileName), "READ");
   m_tree = (TTree*) m_file->Get("TrdRawData");
   if (m_tree) {
     m_tree->SetBranchAddress("run", &m_currentRun);

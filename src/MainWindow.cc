@@ -54,7 +54,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
 
   // event number
   connect(m_eventNumberSpinBox, SIGNAL(valueChanged(int)), this, SLOT(showEvent(int)));
-  connect(this, SIGNAL(m_eventNumberChanged(int)), m_eventNumberSpinBox, SLOT(setValue(int)));
+  connect(this, SIGNAL(eventNumberChanged(int)), m_eventNumberSpinBox, SLOT(setValue(int)));
 
   // amplitude
   connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));

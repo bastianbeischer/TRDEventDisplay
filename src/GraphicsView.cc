@@ -13,7 +13,6 @@ GraphicsView::GraphicsView(QWidget* parent) :
   m_zoomFactor(1.2)
 {
   setDragMode(ScrollHandDrag);
-  setScene(new Scene());
   show();
 }
 

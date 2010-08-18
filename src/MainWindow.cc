@@ -109,7 +109,7 @@ void MainWindow::fileOpened(int nEvents)
   showEvent(1);
 }
 
-// the file has been opened
+// the file has been closed
 void MainWindow::fileClosed()
 {
   m_minAmpSpinBox->setEnabled(false);

@@ -1,16 +1,11 @@
 #include "MainWindow.hh"
 
 #include <QDebug>
-#include <QFileDialog>
 #include <QLinearGradient>
-#include <QMessageBox>
 #include <QPalette>
-#include <QProcess>
 #include <QResizeEvent>
 
-#include <TFile.h>
-#include <TTree.h>
-
+#include "DataManager.hh"
 #include "GraphicsView.hh"
 #include "Scene.hh"
 #include "TrdRawRun.hh"
@@ -20,22 +15,21 @@ MainWindow::MainWindow(QMainWindow* parent) :
   QMainWindow(parent),
   m_view(0),
   m_scene(0),
-  m_amsRootFileDir(""),
-  m_file(0),
-  m_tree(0),
-  m_currentRun(0)
+  m_dataManager(0)
 {
   // setup designer settings
   setupUi(this);
 
   // create graphics view and scene
-  m_view = new GraphicsView(graphicsViewFrame);
+  m_view = new GraphicsView(m_graphicsViewFrame);
   m_scene = (Scene*)m_view->scene();
-  
-  int index = centralLayout->indexOf(graphicsViewFrame);
+  int index = m_centralLayout->indexOf(m_graphicsViewFrame);
   int row, col, hozSpan, vertSpan;
-  centralLayout->getItemPosition(index,&row,&col,&hozSpan,&vertSpan);
-  centralLayout->addWidget(m_view,row,col,hozSpan,vertSpan);
+  m_centralLayout->getItemPosition(index,&row,&col,&hozSpan,&vertSpan);
+  m_centralLayout->addWidget(m_view,row,col,hozSpan,vertSpan);
+
+  // create data manager
+  m_dataManager = new DataManager();
 
   // draw color legend
   QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));
@@ -46,33 +40,33 @@ MainWindow::MainWindow(QMainWindow* parent) :
   QPalette palette;
   palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(linGrad));
   palette.setBrush(QPalette::Active, QPalette::Window, QBrush(linGrad));
-  colorPaletteWidget->setPalette(palette);
-  colorPaletteWidget->setAutoFillBackground(true);
+  m_colorPaletteWidget->setPalette(palette);
+  m_colorPaletteWidget->setAutoFillBackground(true);
 
   // connect signals and slots
-  connect(quitButton, SIGNAL(pressed()), this, SLOT(close()));  
-  connect(openFileButton, SIGNAL(pressed()), this, SLOT(openFileDialog()));
-  connect(eventNumberSpinBox, SIGNAL(valueChanged(int)), this, SLOT(showEvent(int)));
-  connect(this, SIGNAL(eventNumberChanged(int)), eventNumberSpinBox, SLOT(setValue(int)));
-  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
-  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
-  connect(minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
-  connect(maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
-  connect(negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));
-  connect(tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeTubeWithNoHitsVisible(int)));
-
-
-  // setup AMS root file directory
-  QStringList envVariables = QProcess::systemEnvironment();
-  QStringList filteredVars = envVariables.filter(QRegExp("^AMS_ROOTFILES_DIR=*"));
-  if (filteredVars.size() == 0) {
-    qWarning("AMS_ROOTFILES_DIR environment variable is not set!");
-  }
-  else {
-    QString amsEntry = filteredVars.first();
-    m_amsRootFileDir = amsEntry.split("=").at(1);
-  }
   
+  // general
+  connect(m_quitButton, SIGNAL(pressed()), this, SLOT(close()));  
+
+  // IO
+  connect(m_openFileButton, SIGNAL(pressed()), m_dataManager, SLOT(openFileDialog()));
+  connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(fileOpened(int)));
+  connect(m_dataManager, SIGNAL(fileClosed()), this, SLOT(fileClosed()));
+
+  // event number
+  connect(m_eventNumberSpinBox, SIGNAL(valueChanged(int)), this, SLOT(showEvent(int)));
+  connect(this, SIGNAL(m_eventNumberChanged(int)), m_eventNumberSpinBox, SLOT(setValue(int)));
+
+  // amplitude
+  connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
+  connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
+  connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
+  connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
+
+  // checkboxes for options
+  connect(m_negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));
+  connect(m_tubesWithNoHitsCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeTubeWithNoHitsVisible(int)));
+
   // we can only fit the scene after the call to show
   show();
   m_view->fitScene();
@@ -82,107 +76,92 @@ MainWindow::MainWindow(QMainWindow* parent) :
 MainWindow::~MainWindow()
 {
   delete m_view;
-  delete m_file;
-  delete m_tree;
-  delete m_currentRun;
+  delete m_scene;
+  delete m_dataManager;
 }
 
-// dialog for a new file query
-void MainWindow::openFileDialog()
+// command line arguments: open the respective files
+void MainWindow::processCmdLineArguments(QStringList args)
 {
-  // read file name from a dialog
-  QString fileName = QFileDialog::getOpenFileName(this, tr("open file"), m_amsRootFileDir, tr(""));  
+  // either directly...
+  if (args.size() == 2)
+    m_dataManager->openFile(args.at(1));
 
-  // file dialog returns emptry string for e.g. "cancel"
-  if (fileName != "")
-    openFile(fileName);
+  // or by $AMS_ROOTFILES_DIR/XXXX/YYY.root format
+  else if (args.size() == 3)
+    m_dataManager->openFileByScheme(args.at(1).toInt(), args.at(2).toInt());
 }
 
-// open the file
-void MainWindow::openFile(QString fileName)
+// a new file has been opened
+void MainWindow::fileOpened(int nEvents)
 {
-  // if there was another file opened close it
-  if (m_file) {
-    m_file->Close();
-    delete m_file;
-  }
+  m_minAmpSpinBox->setEnabled(true);
+  m_maxAmpSpinBox->setEnabled(true);
+  m_negAmpCheckBox->setEnabled(true);
+  m_tubesWithNoHitsCheckBox->setEnabled(true);
 
-  // setup the tree and run pointers
-  m_file = new TFile(qPrintable(fileName));
-  m_tree = (TTree*) m_file->Get("TrdRawData");
-  if (m_tree) {
-    m_tree->SetBranchAddress("run", &m_currentRun);
-    m_tree->GetEntry(0);
-    if (m_currentRun) {
-      minAmpSpinBox->setEnabled(true);
-      maxAmpSpinBox->setEnabled(true);
-      negAmpCheckBox->setEnabled(true);
-      tubesWithNoHitsCheckBox->setEnabled(true);
+  m_eventNumberSpinBox->setMinimum(1);
+  m_eventNumberSpinBox->setMaximum(nEvents);
+  m_eventNumberSpinBox->setEnabled(true);
 
-      unsigned int nEvents = m_currentRun->GetEvents()->size();
-      eventNumberSpinBox->setMinimum(1);
-      eventNumberSpinBox->setMaximum(nEvents);
-      eventNumberSpinBox->setEnabled(true);
-      QString text;
-      text.sprintf("/ %d", nEvents);
-      totalEventsLabel->setText(text);
-      showEvent(1);
-    }
-    else {
-      QMessageBox::information(this, "TRD Event Display", "Tree does not contain any runs!");
-      eventNumberSpinBox->setEnabled(false);
-    }
-  }
-  else {
-    QMessageBox::information(this, "TRD Event Display", "File does not contain a valid ROOT tree!");
-    return;
-  }
+  QString text;
+  text.sprintf("/ %d", nEvents);
+  m_totalEventsLabel->setText(text);
+  showEvent(1);
+}
+
+// a new file has been opened
+void MainWindow::fileClosed()
+{
+  m_minAmpSpinBox->setEnabled(false);
+  m_maxAmpSpinBox->setEnabled(false);
+  m_negAmpCheckBox->setEnabled(false);
+  m_eventNumberSpinBox->setEnabled(false);  
+  m_totalEventsLabel->setText("");
 }
 
 // show event
 void MainWindow::showEvent(int eventNumber)
 {
-  if (!m_tree || !m_currentRun) {
-    QMessageBox::information(this, "TRD Event Display", "Please open a valid file first!");
-    return;
+  TrdRawEvent* event = m_dataManager->getEvent(eventNumber);
+  if (event) {
+    m_scene->processEvent(event);
+    m_view->fitScene();
+    emit(eventNumberChanged(eventNumber));
   }
-  std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
-  m_scene->processEvent(&events->at(eventNumber-1));
-  m_view->fitScene();
-  emit(eventNumberChanged(eventNumber));
 }
 
 // update labels under scale
 void MainWindow::updateScale()
 {
-  double max = maxAmpSpinBox->value();
-  double min = minAmpSpinBox->value();
+  double max = m_maxAmpSpinBox->value();
+  double min = m_minAmpSpinBox->value();
 
-  maxAmpSpinBox->setMinimum(min+1);
-  minAmpSpinBox->setMaximum(max-1);
+  m_maxAmpSpinBox->setMinimum(min+1);
+  m_minAmpSpinBox->setMaximum(max-1);
 
   double value;
   QString text;
 
   value = min;
   text.sprintf("%.0f", value);
-  scaleLabelMin->setText(text);
+  m_scaleLabelMin->setText(text);
 
   value = min + 0.25*(max-min);
   text.sprintf("%.0f", value);
-  scaleLabel1->setText(text);
+  m_scaleLabel1->setText(text);
 
   value = min + 0.5*(max-min);
   text.sprintf("%.0f", value);
-  scaleLabel2->setText(text);
+  m_scaleLabel2->setText(text);
 
   value = min + 0.75*(max-min);
   text.sprintf("%.0f", value);
-  scaleLabel3->setText(text);
+  m_scaleLabel3->setText(text);
 
   value = max;
   text.sprintf("%.0f", value);
-  scaleLabelMax->setText(text);
+  m_scaleLabelMax->setText(text);
 }
 
 // resize the view when resizing the window

@@ -1,13 +1,12 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayWidget.hh,v 1.1 2010/08/19 17:50:59 beischer Exp $
+// $Id: EventDisplayWidget.hh,v 1.2 2010/08/19 18:10:58 beischer Exp $
 /////////////////////////////////////////////////////////////////
-
 
 #ifndef EventDisplayWidget_hh
 #define EventDisplayWidget_hh
 
-#include <QWidget>
+#include "DataWidget.hh"
 #include <ui_EventDisplayForm.h>
 
 class DataManager;
@@ -16,14 +15,14 @@ class QResizeEvent;
 class ZoomableView;
 
 class EventDisplayWidget :
-  public QWidget,
+  public DataWidget,
   private Ui::EventDisplayForm
 {
   
 Q_OBJECT
 
 public:
-  EventDisplayWidget(DataManager* dataManager, QWidget* parent = 0);
+  EventDisplayWidget(const DataManager* dataManager, QWidget* parent = 0);
   ~EventDisplayWidget();
   
 signals:
@@ -41,8 +40,6 @@ protected:
   void resizeEvent(QResizeEvent* event);
 
 private:
-  const DataManager*  m_dataManager;
-
   ZoomableView*       m_view;
   EventDisplayScene*  m_scene;
   

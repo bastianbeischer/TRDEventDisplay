@@ -7,9 +7,8 @@
 #include "EventDisplayScene.hh"
 #include "ZoomableView.hh"
 
-EventDisplayWidget::EventDisplayWidget(DataManager* dataManager, QWidget* parent) :
-  QWidget(parent),
-  m_dataManager(dataManager),
+EventDisplayWidget::EventDisplayWidget(const DataManager* dataManager, QWidget* parent) :
+  DataWidget(dataManager, parent),
   m_view(0),
   m_scene(new EventDisplayScene())
 {

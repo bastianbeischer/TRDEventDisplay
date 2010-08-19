@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.31 2010/08/19 17:51:00 beischer Exp $
+// $Id: MainWindow.cc,v 1.32 2010/08/19 18:10:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -13,25 +13,26 @@
 // constructor
 MainWindow::MainWindow(QMainWindow* parent) : 
   QMainWindow(parent),
-  m_dataManager(new DataManager()),
-  m_eventDisplayWidget(0)
+  m_dataManager(new DataManager())
 {
   // setup designer settings
   setupUi(this);
 
-  m_eventDisplayWidget = new EventDisplayWidget(m_dataManager);
-  m_tabWidget->clear();
-  m_tabWidget->addTab(m_eventDisplayWidget, "Event Display");
+  // construct a new event display widget
+  EventDisplayWidget* eventDisplayWidget = new EventDisplayWidget(m_dataManager);
+  m_dataWidgets.push_back(eventDisplayWidget);
 
-  // connect signals and slots
-  
-  // general
+  // connect general signals and slots
   connect(m_quitButton, SIGNAL(clicked()), this, SLOT(close()));  
-
-  // IO
   connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
-  connect(m_dataManager, SIGNAL(fileOpened(int)), m_eventDisplayWidget, SLOT(fileOpened(int)));
-  connect(m_dataManager, SIGNAL(fileClosed()), m_eventDisplayWidget, SLOT(fileClosed()));
+
+  // add data widgets to the tabs and connect the signals and slots
+  m_tabWidget->clear();
+  foreach(DataWidget* widget, m_dataWidgets) {
+    m_tabWidget->addTab(widget, widget->windowTitle());
+    connect(m_dataManager, SIGNAL(fileOpened(int)), widget, SLOT(fileOpened(int)));
+    connect(m_dataManager, SIGNAL(fileClosed()), widget, SLOT(fileClosed()));
+  }
 
   // show myself
   show();

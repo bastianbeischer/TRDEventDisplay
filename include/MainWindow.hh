@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.hh,v 1.12 2010/08/19 17:50:59 beischer Exp $
+// $Id: MainWindow.hh,v 1.13 2010/08/19 18:10:58 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef MainWindow_hh
@@ -9,8 +9,10 @@
 #include <QMainWindow>
 #include <ui_MainForm.h>
 
+#include <QList>
+
 class DataManager;
-class EventDisplayWidget;
+class DataWidget;
 
 class MainWindow :
   public QMainWindow,
@@ -29,7 +31,7 @@ public:
 private:
   DataManager*        m_dataManager;
 
-  EventDisplayWidget* m_eventDisplayWidget;
+  QList<DataWidget*>  m_dataWidgets;
 
 };
 

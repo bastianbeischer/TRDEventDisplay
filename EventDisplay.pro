@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: EventDisplay.pro,v 1.10 2010/08/19 17:50:59 beischer Exp $
+## $Id: EventDisplay.pro,v 1.11 2010/08/19 18:10:58 beischer Exp $
 #################################################################
 
 # General information
@@ -34,6 +34,7 @@ FORMS = ui/EventDisplayForm.ui \
 SOURCES = main.cc \
           src/ColorScale.cc \
           src/DataManager.cc \
+          src/DataWidget.cc \
           src/EventDisplayScene.cc \
           src/EventDisplayWidget.cc \
           src/MainWindow.cc \
@@ -42,6 +43,7 @@ SOURCES = main.cc \
           src/ZoomableView.cc
 
 HEADERS = include/DataManager.hh \
+          include/DataWidget.hh \
           include/ColorScale.hh \
           include/EventDisplayScene.hh \
           include/EventDisplayWidget.hh \

@@ -1,13 +1,13 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.hh,v 1.13 2010/08/19 18:10:58 beischer Exp $
+// $Id: MainWindow.hh,v 1.14 2010/08/19 20:55:54 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef MainWindow_hh
 #define MainWindow_hh
 
 #include <QMainWindow>
-#include <ui_MainForm.h>
+#include "ui_MainForm.h"
 
 #include <QList>
 

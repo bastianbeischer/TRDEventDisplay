@@ -1,13 +1,13 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayWidget.hh,v 1.2 2010/08/19 18:10:58 beischer Exp $
+// $Id: EventDisplayWidget.hh,v 1.3 2010/08/19 20:55:54 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayWidget_hh
 #define EventDisplayWidget_hh
 
 #include "DataWidget.hh"
-#include <ui_EventDisplayForm.h>
+#include "ui_EventDisplayForm.h"
 
 class DataManager;
 class EventDisplayScene;

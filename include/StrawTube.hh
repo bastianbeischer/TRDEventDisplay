@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: StrawTube.hh,v 1.7 2010/08/19 15:54:09 beischer Exp $
+// $Id: StrawTube.hh,v 1.8 2010/08/19 20:56:12 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef StrawTube_hh
@@ -25,9 +25,6 @@ public:
 private:
   double m_width;
   double m_height;
-
-  double m_signalStretchFactorX;
-  double m_signalStretchFactorY;
 
 };
 

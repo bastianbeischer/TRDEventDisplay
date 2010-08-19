@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: TrdEvent.pro,v 1.3 2010/08/18 18:35:17 beischer Exp $
+## $Id: TrdEvent.pro,v 1.4 2010/08/19 20:55:33 beischer Exp $
 #################################################################
 
 TEMPLATE = lib
@@ -10,11 +10,11 @@ QT -= gui
 CONFIG += debug
 
 # Seperate source & build dirs
-DESTDIR     = .#
-OBJECTS_DIR = .#.tmp
-MOC_DIR     = .#.tmp
-UI_DIR      = .#.tmp
-RCC_DIR     = .#.tmp
+DESTDIR     = ./
+OBJECTS_DIR = ./.tmp
+MOC_DIR     = ./.tmp
+UI_DIR      = ./.tmp
+RCC_DIR     = ./.tmp
 
 CREATE_ROOT_DICT_FOR_CLASSES = TrdRawHitR.hh \
                                AccRawHitR.hh \

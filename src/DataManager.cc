@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.7 2010/08/19 17:50:59 beischer Exp $
+// $Id: DataManager.cc,v 1.8 2010/08/19 20:57:28 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -104,6 +104,6 @@ const TrdRawEvent* DataManager::getEvent(int eventNumber) const
     QMessageBox::information(0, "TRD Event Display", "Please open a valid file first!");
     return 0;
   }
-  std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
+  const std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
   return &events->at(eventNumber-1);
 }

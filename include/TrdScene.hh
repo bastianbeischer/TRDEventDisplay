@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: TrdScene.hh,v 1.2 2010/08/19 17:50:59 beischer Exp $
+// $Id: TrdScene.hh,v 1.3 2010/08/19 18:17:42 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef TrdScene_hh
@@ -24,12 +24,12 @@ public:
   ~TrdScene();
 
 signals:
-  int minChanged(int min);
-  int maxChanged(int max);
+  int scaleMinChanged(int min);
+  int scaleMaxChanged(int max);
 
 public slots:
-  virtual void changeMinAmp(int min) {emit(minChanged(min));}
-  virtual void changeMaxAmp(int max) {emit(maxChanged(max));}
+  virtual void changeScaleMin(int min) {emit(scaleMinChanged(min));}
+  virtual void changeScaleMax(int max) {emit(scaleMaxChanged(max));}
 
 public:
   const ColorScale* scale() const {return m_scale;}

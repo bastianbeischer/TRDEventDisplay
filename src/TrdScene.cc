@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: TrdScene.cc,v 1.1 2010/08/19 17:05:08 beischer Exp $
+// $Id: TrdScene.cc,v 1.2 2010/08/19 18:17:42 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "TrdScene.hh"
@@ -28,8 +28,8 @@ TrdScene::TrdScene() :
 
   addTubesToScene();
 
-  connect(this, SIGNAL(minChanged(int)), m_scale, SLOT(changeMin(int)));
-  connect(this, SIGNAL(maxChanged(int)), m_scale, SLOT(changeMax(int)));
+  connect(this, SIGNAL(scaleMinChanged(int)), m_scale, SLOT(changeMin(int)));
+  connect(this, SIGNAL(scaleMaxChanged(int)), m_scale, SLOT(changeMax(int)));
 }
 
 // destructor

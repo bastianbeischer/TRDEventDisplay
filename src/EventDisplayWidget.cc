@@ -39,8 +39,8 @@ EventDisplayWidget::EventDisplayWidget(const DataManager* dataManager, QWidget* 
   // amplitude
   connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
   connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
-  connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
-  connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
+  connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeScaleMin(int)));
+  connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeScaleMax(int)));
 
   // checkboxes for options
   connect(m_negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));

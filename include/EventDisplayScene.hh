@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.9 2010/08/19 17:50:59 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.10 2010/08/19 18:17:42 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
@@ -21,8 +21,8 @@ public:
   ~EventDisplayScene();
   
 public slots:
-  void changeMinAmp(int min) {TrdScene::changeMinAmp(min); processEvent(m_currentEvent);}
-  void changeMaxAmp(int max) {TrdScene::changeMaxAmp(max); processEvent(m_currentEvent);}
+  void changeScaleMin(int min) {TrdScene::changeScaleMin(min); processEvent(m_currentEvent);}
+  void changeScaleMax(int max) {TrdScene::changeScaleMax(max); processEvent(m_currentEvent);}
   void changeDisplayNegAmps(int value) {m_displayHitsWithNegAmp = value; processEvent(m_currentEvent);}
   void changeTubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw(); processEvent(m_currentEvent);}
 
@@ -34,7 +34,7 @@ private:
   void removePreviousSignals();
 
 private:
-  const TrdRawEvent*                     m_currentEvent;
+  const TrdRawEvent*               m_currentEvent;
 
   QList<StrawTube*>                m_signalTubes;
 

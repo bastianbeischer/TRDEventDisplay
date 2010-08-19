@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: StrawTube.cc,v 1.6 2010/08/19 15:40:51 beischer Exp $
+// $Id: StrawTube.cc,v 1.7 2010/08/19 15:54:09 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "StrawTube.hh"
@@ -13,9 +13,7 @@
 // constructor
 StrawTube::StrawTube(double x, double y) :
   m_width(0.62),
-  m_height(1.2),
-  m_signalStretchFactorX(1.),
-  m_signalStretchFactorY(1.5)
+  m_height(1.2)
 {
   reInit();
   setPos(x,y);
@@ -40,21 +38,20 @@ void StrawTube::reInit()
   setBrush(brush);
 }
 
-// apply color based on a linear interpolation between blue,green and red
+// apply signal color
 void StrawTube::colorize(QColor color)
 {
-  QBrush brush(color);
-  setBrush(brush);
+  setBrush(color);
+}
 
-  // stretch the rectangle so that signals are easier to make see
-  double newLeft = m_signalStretchFactorX * rect().left();
+// stretch rectangle to represent signals
+void StrawTube::stretch(double factorX, double factorY)
+{
+  double newLeft = factorX * rect().left();
   double newWidth = qAbs(2. * newLeft);
-  double newTop = m_signalStretchFactorY * rect().top();
+  double newTop = factorY * rect().top();
   double newHeight = qAbs(2. * newTop);
   setRect(QRectF(newLeft, newTop, newWidth, newHeight));
-
-  // QPen pen(Qt::black);
-  // setPen(pen);
 }
 
 // hide the tube (setVisible(false) would also hide it from selection with itemAt(x,y) which is not what I want)

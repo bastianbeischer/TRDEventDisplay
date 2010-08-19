@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.6 2010/08/19 15:40:50 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.7 2010/08/19 15:54:09 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
@@ -58,6 +58,9 @@ private:
   double                           m_width;
   double                           m_height;
   double                           m_z_offset;
+
+  double                           m_signalStretchFactorX;
+  double                           m_signalStretchFactorY;
 
   bool                             m_displayHitsWithNegAmp;
   bool                             m_tubeWithNoHitsVisible;

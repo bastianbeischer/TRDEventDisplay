@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.cc,v 1.6 2010/08/19 15:40:51 beischer Exp $
+// $Id: EventDisplayScene.cc,v 1.7 2010/08/19 15:54:09 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "EventDisplayScene.hh"
@@ -21,6 +21,8 @@ EventDisplayScene::EventDisplayScene() :
   m_width(200),
   m_height(70),
   m_z_offset(115.0),
+  m_signalStretchFactorX(1.),
+  m_signalStretchFactorY(1.5),
   m_displayHitsWithNegAmp(true),
   m_tubeWithNoHitsVisible(true)
 {
@@ -100,11 +102,14 @@ void EventDisplayScene::processEvent(TrdRawEvent* event)
     double y = z_to_y(rzd.z());
     StrawTube* tube = (StrawTube*) itemAt(x,y);
 
+    // there should be a tube at x,y
     Q_ASSERT(tube);
-
+    
+    // calculate the color and apply it
     double amplitude = hit.Amp;
     QColor color = m_scale->color(amplitude);
     tube->colorize(color);
+    tube->stretch(m_signalStretchFactorX, m_signalStretchFactorY);
     
     m_signalTubes.push_back(tube);
   }

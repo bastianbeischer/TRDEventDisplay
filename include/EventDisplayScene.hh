@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.8 2010/08/19 17:05:08 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.9 2010/08/19 17:50:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
@@ -27,14 +27,14 @@ public slots:
   void changeTubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw(); processEvent(m_currentEvent);}
 
 public:
-  void processEvent(TrdRawEvent* event);
+  void processEvent(const TrdRawEvent* event);
 
 private:
   void redraw();
   void removePreviousSignals();
 
 private:
-  TrdRawEvent*                     m_currentEvent;
+  const TrdRawEvent*                     m_currentEvent;
 
   QList<StrawTube*>                m_signalTubes;
 

@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: EventDisplay.pro,v 1.9 2010/08/19 17:05:08 beischer Exp $
+## $Id: EventDisplay.pro,v 1.10 2010/08/19 17:50:59 beischer Exp $
 #################################################################
 
 # General information
@@ -28,11 +28,14 @@ LIBS += -L./TrdEvent -lTrdEvent
 
 
 # Forms, sources and headers
-FORMS = ui/EventDisplayForm.ui
+FORMS = ui/EventDisplayForm.ui \
+        ui/MainForm.ui
+
 SOURCES = main.cc \
           src/ColorScale.cc \
           src/DataManager.cc \
           src/EventDisplayScene.cc \
+          src/EventDisplayWidget.cc \
           src/MainWindow.cc \
           src/StrawTube.cc \
           src/TrdScene.cc \
@@ -41,6 +44,7 @@ SOURCES = main.cc \
 HEADERS = include/DataManager.hh \
           include/ColorScale.hh \
           include/EventDisplayScene.hh \
+          include/EventDisplayWidget.hh \
           include/MainWindow.hh \
           include/StrawTube.hh \
           include/TrdScene.hh \

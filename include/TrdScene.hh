@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: TrdScene.hh,v 1.1 2010/08/19 17:05:08 beischer Exp $
+// $Id: TrdScene.hh,v 1.2 2010/08/19 17:50:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef TrdScene_hh
@@ -43,9 +43,11 @@ protected:
 protected:
   ColorScale*                      m_scale;
 
-  QGraphicsRectItem*               m_boundingBox;
   QList<StrawTube*>                m_tubes;
   
+private:
+  QGraphicsRectItem*               m_boundingBox;
+
   double                           m_width;
   double                           m_height;
   double                           m_z_offset;

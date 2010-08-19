@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.6 2010/08/18 18:33:23 beischer Exp $
+// $Id: DataManager.cc,v 1.7 2010/08/19 17:50:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -98,7 +98,7 @@ void DataManager::openFileByScheme(int dir, int file)
 }
   
 // return the event with number eventNumber
-TrdRawEvent* DataManager::getEvent(int eventNumber)
+const TrdRawEvent* DataManager::getEvent(int eventNumber) const
 {
   if (!m_tree || !m_currentRun) {
     QMessageBox::information(0, "TRD Event Display", "Please open a valid file first!");

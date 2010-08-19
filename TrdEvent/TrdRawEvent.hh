@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: TrdRawEvent.hh,v 1.3 2010/08/18 18:34:19 beischer Exp $
+// $Id: TrdRawEvent.hh,v 1.4 2010/08/19 17:50:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef TrdRawEvent_hh
@@ -17,8 +17,8 @@ public:
   TrdRawEvent();
   virtual ~TrdRawEvent();
 
-  std::vector<TrdRawHitR> *GetHits(){return &hits;}
-  std::vector<AccRawHitR> *GetAccHits(){return &acchits;}
+  const std::vector<TrdRawHitR> *GetHits() const {return &hits;}
+  const std::vector<AccRawHitR> *GetAccHits() const {return &acchits;}
 
   void Reset();
 

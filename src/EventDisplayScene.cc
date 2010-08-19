@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.cc,v 1.8 2010/08/19 17:05:08 beischer Exp $
+// $Id: EventDisplayScene.cc,v 1.9 2010/08/19 17:50:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "EventDisplayScene.hh"
@@ -40,14 +40,14 @@ void EventDisplayScene::redraw()
 }
  
 // process an event and show it in the scene
-void EventDisplayScene::processEvent(TrdRawEvent* event)
+void EventDisplayScene::processEvent(const TrdRawEvent* event)
 {
   m_currentEvent = event;
 
   // remove signal items from previous events
   removePreviousSignals();
 
-  std::vector<TrdRawHitR>* hits = event->GetHits();
+  const std::vector<TrdRawHitR>* hits = event->GetHits();
   for (unsigned int i = 0; i < hits->size(); i++) {
     TrdRawHitR hit = hits->at(i);
 

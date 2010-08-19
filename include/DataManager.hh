@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.hh,v 1.4 2010/08/18 18:33:23 beischer Exp $
+// $Id: DataManager.hh,v 1.5 2010/08/19 17:50:59 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataManager_hh
@@ -33,7 +33,7 @@ public slots:
 public:
   void openFile(QString fileName);
   void openFileByScheme(int dir, int file);
-  TrdRawEvent* getEvent(int eventNumber);
+  const TrdRawEvent* getEvent(int eventNumber) const;
 
 private:
   QString       m_amsRootFileDir;

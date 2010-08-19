@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: EventDisplay.pro,v 1.7 2010/08/18 19:00:49 beischer Exp $
+## $Id: EventDisplay.pro,v 1.8 2010/08/19 15:40:50 beischer Exp $
 #################################################################
 
 # General information
@@ -30,6 +30,7 @@ LIBS += -L./TrdEvent -lTrdEvent
 # Forms, sources and headers
 FORMS = ui/EventDisplayForm.ui
 SOURCES = main.cc \
+          src/ColorScale.cc \
           src/DataManager.cc \
           src/EventDisplayScene.cc \
           src/MainWindow.cc \
@@ -37,6 +38,7 @@ SOURCES = main.cc \
           src/ZoomableView.cc
 
 HEADERS = include/DataManager.hh \
+          include/ColorScale.hh \
           include/EventDisplayScene.hh \
           include/MainWindow.hh \
           include/StrawTube.hh \

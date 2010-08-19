@@ -1,26 +1,26 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.cc,v 1.5 2010/08/18 20:01:24 beischer Exp $
+// $Id: EventDisplayScene.cc,v 1.6 2010/08/19 15:40:51 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "EventDisplayScene.hh"
 
 #include <QGraphicsRectItem>
 
-#include "TrdRawEvent.hh"
-#include "TrdHitRZD.hh"
+#include "ColorScale.hh"
 #include "StrawTube.hh"
+#include "TrdHitRZD.hh"
+#include "TrdRawEvent.hh"
 
 // constructor
 EventDisplayScene::EventDisplayScene() :
   QGraphicsScene(),
   m_currentEvent(0),
-  m_boundingBox(new QGraphicsRectItem),
+  m_scale(new ColorScale(0., 100.)),
+  m_boundingBox(new QGraphicsRectItem()),
   m_width(200),
   m_height(70),
   m_z_offset(115.0),
-  m_ampMin(0.),
-  m_ampMax(100.),
   m_displayHitsWithNegAmp(true),
   m_tubeWithNoHitsVisible(true)
 {
@@ -30,11 +30,15 @@ EventDisplayScene::EventDisplayScene() :
   addItem(m_boundingBox);
 
   addTubesToScene();
+
+  connect(this, SIGNAL(minChanged(int)), m_scale, SLOT(changeMin(int)));
+  connect(this, SIGNAL(maxChanged(int)), m_scale, SLOT(changeMax(int)));
 }
 
 // destructor
 EventDisplayScene::~EventDisplayScene()
 {
+  delete m_scale;
 }
 
 // add the rectangular representations of the tubes to the scene
@@ -99,13 +103,8 @@ void EventDisplayScene::processEvent(TrdRawEvent* event)
     Q_ASSERT(tube);
 
     double amplitude = hit.Amp;
-    // if amp is outside of the scale boundaries, fix it to the minimum or maximum
-    if (amplitude < m_ampMin) amplitude = m_ampMin;
-    if (amplitude > m_ampMax) amplitude = m_ampMax;
-
-    // determine the color to use (r,g,b,alpha)
-    double fraction = (amplitude - m_ampMin) / (m_ampMax - m_ampMin);
-    tube->colorize(fraction);
+    QColor color = m_scale->color(amplitude);
+    tube->colorize(color);
     
     m_signalTubes.push_back(tube);
   }

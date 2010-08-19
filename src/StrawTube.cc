@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: StrawTube.cc,v 1.5 2010/08/18 18:33:23 beischer Exp $
+// $Id: StrawTube.cc,v 1.6 2010/08/19 15:40:51 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "StrawTube.hh"
@@ -41,22 +41,9 @@ void StrawTube::reInit()
 }
 
 // apply color based on a linear interpolation between blue,green and red
-void StrawTube::colorize(double fraction)
+void StrawTube::colorize(QColor color)
 {
-  // interpolate colors between blue and green for the signals between lower end and middle of axis and between green and red for middle to upper end
-  QColor signalColor;
-  if (fraction < 0.5) {
-    fraction *= 2.0;
-    signalColor = QColor(0, floor(255*(fraction)), floor(255*(1.0-fraction)), 255);
-  }
-  else {
-    fraction -= 0.5;
-    fraction *= 2.0;
-    signalColor = QColor(floor(255*fraction), floor(255*(1.0-fraction)),0, 255);
-  }
-
-  // apply color
-  QBrush brush(signalColor);
+  QBrush brush(color);
   setBrush(brush);
 
   // stretch the rectangle so that signals are easier to make see

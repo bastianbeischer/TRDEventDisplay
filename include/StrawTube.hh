@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: StrawTube.hh,v 1.5 2010/08/18 18:33:23 beischer Exp $
+// $Id: StrawTube.hh,v 1.6 2010/08/19 15:40:50 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef StrawTube_hh
@@ -18,7 +18,7 @@ public:
   
   void reInit();
 
-  void colorize(double fraction);
+  void colorize(QColor color);
   void makeInvisible();
 
 private:

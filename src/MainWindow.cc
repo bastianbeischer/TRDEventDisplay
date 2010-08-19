@@ -1,17 +1,19 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.29 2010/08/18 22:21:56 beischer Exp $
+// $Id: MainWindow.cc,v 1.30 2010/08/19 15:40:51 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
 
-#include <QLinearGradient>
+#include <QDebug>
+
 #include <QPalette>
 #include <QResizeEvent>
 
+#include "ColorScale.hh"
 #include "DataManager.hh"
-#include "ZoomableView.hh"
 #include "EventDisplayScene.hh"
+#include "ZoomableView.hh"
 
 // constructor
 MainWindow::MainWindow(QMainWindow* parent) : 
@@ -33,15 +35,10 @@ MainWindow::MainWindow(QMainWindow* parent) :
   m_centralLayout->getItemPosition(index,&row,&col,&hozSpan,&vertSpan);
   m_centralLayout->addWidget(m_view,row,col,hozSpan,vertSpan);
 
-  // draw color legend
-  QLinearGradient linGrad(QPointF(0.0, 1.0), QPointF(1.0, 1.0));
-  linGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
-  linGrad.setColorAt(0.0, Qt::blue);
-  linGrad.setColorAt(0.5, Qt::green);
-  linGrad.setColorAt(1.0, Qt::red);
+  // add color palette
   QPalette palette;
-  palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(linGrad));
-  palette.setBrush(QPalette::Active, QPalette::Window, QBrush(linGrad));
+  palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(*m_scene->scale()));
+  palette.setBrush(QPalette::Active, QPalette::Window, QBrush(*m_scene->scale()));
   m_colorPaletteWidget->setPalette(palette);
   m_colorPaletteWidget->setAutoFillBackground(true);
 
@@ -60,10 +57,10 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(this, SIGNAL(eventNumberChanged(int)), m_eventNumberSpinBox, SLOT(setValue(int)));
 
   // amplitude
-  connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
-  connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
   connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
   connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
+  connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMinAmp(int)));
+  connect(m_maxAmpSpinBox, SIGNAL(valueChanged(int)), m_scene, SLOT(changeMaxAmp(int)));
 
   // checkboxes for options
   connect(m_negAmpCheckBox, SIGNAL(stateChanged(int)), m_scene, SLOT(changeDisplayNegAmps(int)));

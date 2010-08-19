@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.cc,v 1.7 2010/08/19 15:54:09 beischer Exp $
+// $Id: EventDisplayScene.cc,v 1.8 2010/08/19 17:05:08 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "EventDisplayScene.hh"
@@ -11,63 +11,22 @@
 #include "StrawTube.hh"
 #include "TrdHitRZD.hh"
 #include "TrdRawEvent.hh"
+#include "TrdRawHitR.hh"
 
 // constructor
 EventDisplayScene::EventDisplayScene() :
-  QGraphicsScene(),
+  TrdScene(),
   m_currentEvent(0),
-  m_scale(new ColorScale(0., 100.)),
-  m_boundingBox(new QGraphicsRectItem()),
-  m_width(200),
-  m_height(70),
-  m_z_offset(115.0),
   m_signalStretchFactorX(1.),
   m_signalStretchFactorY(1.5),
   m_displayHitsWithNegAmp(true),
   m_tubeWithNoHitsVisible(true)
 {
-  QRectF rectangle(-m_width/2., -m_height/2., m_width, m_height);
-  setSceneRect(rectangle);
-  m_boundingBox->setRect(rectangle);
-  addItem(m_boundingBox);
-
-  addTubesToScene();
-
-  connect(this, SIGNAL(minChanged(int)), m_scale, SLOT(changeMin(int)));
-  connect(this, SIGNAL(maxChanged(int)), m_scale, SLOT(changeMax(int)));
 }
 
 // destructor
 EventDisplayScene::~EventDisplayScene()
 {
-  delete m_scale;
-}
-
-// add the rectangular representations of the tubes to the scene
-void EventDisplayScene::addTubesToScene()
-{
-  for(int lay=0;lay!=20;lay++){
-    for(int lad=0;lad!=18;lad++){
-      for(int tub=0;tub!=16;tub++){
-        if(lay<4&&lad>13)continue;
-        else if(lay<12&&lad>15)continue;
-        else if(lay>19)continue;
-
-        TrdRawHitR hit;
-        hit.Layer = lay;
-        hit.Ladder = lad;
-        hit.Tube = tub;
-        TrdHitRZD rzd(&hit);
-        
-        double x = rzd.r();
-        double y = z_to_y(rzd.z());
-        
-        StrawTube* tube = new StrawTube(x,y);
-        m_tubes.push_back(tube);
-        addItem(tube);
-      }
-    }
-  }
 }
 
 // redraw all items (needed of visibility of non-hits changed)

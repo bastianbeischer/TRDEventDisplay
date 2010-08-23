@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ColorScale.hh,v 1.3 2010/08/23 13:57:49 beischer Exp $
+// $Id: ColorScale.hh,v 1.4 2010/08/23 14:55:17 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef ColorScale_hh
@@ -9,8 +9,6 @@
 #include <QLinearGradient>
 
 /** 
- * @class ColorScale
- * 
  * @brief Class which implements the scale according to which hits will be colorized.
  *
  * This class inherits QLinearGradient and uses the colours specified in the constructor to construct a linear scale.

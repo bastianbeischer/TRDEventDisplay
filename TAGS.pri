@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: TAGS.pri,v 1.1 2010/08/23 13:31:05 beischer Exp $
+## $Id: TAGS.pri,v 1.2 2010/08/23 14:55:16 beischer Exp $
 #################################################################
 
 # TAGS file generation for emacs tags
@@ -13,5 +13,6 @@ exists($$system(which etags)) {
   
   QMAKE_EXTRA_TARGETS += $$TAGS.target
   QMAKE_CLEAN += $$TAGS.target
+  QMAKE_DISTCLEAN += $$TAGS.target
   PRE_TARGETDEPS += $$TAGS.target
 }

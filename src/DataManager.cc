@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.9 2010/08/23 13:31:06 beischer Exp $
+// $Id: DataManager.cc,v 1.10 2010/08/23 13:57:49 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -61,6 +61,8 @@ void DataManager::closeFile()
     m_file->Close();
     delete m_file;
     m_file = 0;
+    m_tree = 0;
+    m_currentRun = 0;
     emit(fileClosed());
   }
   else {

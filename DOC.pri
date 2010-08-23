@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: DOC.pri,v 1.1 2010/08/23 13:31:04 beischer Exp $
+## $Id: DOC.pri,v 1.2 2010/08/23 13:57:49 beischer Exp $
 #################################################################
 
 # Generation of documentation
@@ -9,7 +9,7 @@ exists($$system(which doxygen)) {
 
   doc.target = doc
   doc.commands = doxygen EventDisplay.doxy  
-  doc.depends = EventDisplay.doxy $$FILES
+  doc.depends = $$FILES
 
   QMAKE_EXTRA_TARGETS += $$doc.target
   QMAKE_CLEAN += -r $$doc.target

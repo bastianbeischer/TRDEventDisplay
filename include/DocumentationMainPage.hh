@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DocumentationMainPage.hh,v 1.1 2010/08/23 13:31:06 beischer Exp $
+// $Id: DocumentationMainPage.hh,v 1.2 2010/08/23 13:57:49 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DOCUMENATIONMAINPAGE_HH
@@ -40,7 +40,7 @@
  * In order to build the program, issue the following commands from the main project directory:
  * \verbatim qmake; make\endverbatim
  * 
- * This builds the main executable "./EventDisplay", thre prerequisite library libTrdEvent, as well as the emacs TAGS file if "etags" is available.
+ * This builds the main executable "./EventDisplay", the prerequisite library libTrdEvent and the emacs TAGS file if "etags" is available.
  *
  * This documentation can be built with:
  * \verbatim make doc\endverbatim

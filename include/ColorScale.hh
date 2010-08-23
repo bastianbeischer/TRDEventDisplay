@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ColorScale.hh,v 1.2 2010/08/23 13:31:06 beischer Exp $
+// $Id: ColorScale.hh,v 1.3 2010/08/23 13:57:49 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef ColorScale_hh
@@ -24,6 +24,7 @@ class ColorScale :
 Q_OBJECT
   
 public:
+
   /**
    * @brief Constructor with default values for the scale minimum and maxmium of 0. and 1. Constructs the colour transitions of the scale.
    *
@@ -39,23 +40,29 @@ public:
   ~ColorScale();
   
 public slots:
+
   /** 
    * @brief Change the minimum of the scale 
+   * @param newValue the new value for the minimum
    */  
   void changeMin(int newValue) {m_min = newValue;}
 
   /**
    * @brief Change the maximum of the scale 
+   * @param newValue the new value for the maximum
    */  
   void changeMax(int newValue) {m_max = newValue;}
 
 public:
+
   /** 
    * @brief Assign a color to the value "value". If value is not in the range of m_min .. m_max, it will be set to these limiting values for the calculation of the color! 
+   * @param value the value for which the color should be computed.
    */  
   QColor color(double value);
 
 private:
+
   double m_min; /**< minimum of the scale */
   double m_max; /**< maximum of the scale */
 

@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: main.pro,v 1.1 2010/08/23 13:31:05 beischer Exp $
+## $Id: main.pro,v 1.2 2010/08/23 19:38:34 beischer Exp $
 #################################################################
 
 # General information
@@ -55,6 +55,12 @@ HEADERS = include/DataManager.hh \
 
 # Setup ROOT paths and compiler/linker flags
 include(ROOT.pri)
+
+# Docmentation
+include(DOC.pri)
+
+# Generate emacs tags
+include(TAGS.pri)
 
 # Hack needed for my arch linux because of its Qt installation
 QMAKE_LFLAGS -= -Wl,--as-needed

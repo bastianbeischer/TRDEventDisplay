@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.hh,v 1.7 2010/08/23 13:57:49 beischer Exp $
+// $Id: DataManager.hh,v 1.8 2010/08/23 19:38:34 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataManager_hh
@@ -57,7 +57,7 @@ signals:
 public slots:
 
   /**
-   * @brief Open a new file dialog, so that the user can choose a file top open.
+   * @brief Open a new file dialog, so that the user can choose a file to open.
    */
   void openFileDialog();
 

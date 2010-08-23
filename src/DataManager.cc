@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.10 2010/08/23 13:57:49 beischer Exp $
+// $Id: DataManager.cc,v 1.11 2010/08/23 19:38:34 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -69,6 +69,7 @@ void DataManager::closeFile()
     QMessageBox::information(0, "TRD Event Display", "No file is currently open!");
   }
 }
+
 // open the file given by "fileName"
 void DataManager::openFile(QString fileName)
 {

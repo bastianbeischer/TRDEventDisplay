@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DocumentationMainPage.hh,v 1.3 2010/08/23 14:07:58 beischer Exp $
+// $Id: DocumentationMainPage.hh,v 1.4 2010/08/23 14:11:22 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DOCUMENATIONMAINPAGE_HH
@@ -37,10 +37,10 @@
  * - (optional) doxygen: For generation of the documentation (version confirmed to work: doxygen 1.7.1)
  * - (optional) etags: for emacs TAGS generation (version confirmed to work: etags from emacs 23.2)
  *
- * In order to build the program, issue the following commands from the main project directory:
+ * In order to build the program issue the following commands from the main project directory:
  * \verbatim qmake; make\endverbatim
  * 
- * This builds the main executable "./EventDisplay", the prerequisite library libTrdEvent and the emacs TAGS file if "etags" is available.
+ * This builds the main executable "./EventDisplay", the prerequisite library libTrdEvent.so and the emacs TAGS file if "etags" is available.
  *
  * This documentation can be built with:
  * \verbatim make doc\endverbatim

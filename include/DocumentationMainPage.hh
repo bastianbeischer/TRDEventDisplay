@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DocumentationMainPage.hh,v 1.2 2010/08/23 13:57:49 beischer Exp $
+// $Id: DocumentationMainPage.hh,v 1.3 2010/08/23 14:07:58 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DOCUMENATIONMAINPAGE_HH
@@ -55,7 +55,7 @@
  * Open a ROOT file directly with:
  * \verbatim ./EventDisplay path/to/file.root\endverbatim
  *
- * If you have the AMS_ROOTFILES_DIR variable set you can also you the following scheme:
+ * If you have the AMS_ROOTFILES_DIR variable set you can also use the following scheme:
  * \verbatim ./EventDisplay XXXX YYY\endverbatim
  * where XXXX is the directory in which the file resides and YYY is its three-digit filename.
  * Example: 0001 001 could correspond to /tmp/rootrawdata/HRDL-B/0001/001.root with AMS_ROOTFILES_DIR=/tmp/rootrawdata/HRDL-B

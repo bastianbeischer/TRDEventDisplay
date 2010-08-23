@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.hh,v 1.5 2010/08/19 17:50:59 beischer Exp $
+// $Id: DataManager.hh,v 1.6 2010/08/23 13:31:06 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataManager_hh
@@ -29,6 +29,7 @@ signals:
 
 public slots:
   void openFileDialog();
+  void closeFile();
 
 public:
   void openFile(QString fileName);

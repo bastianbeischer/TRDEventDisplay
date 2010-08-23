@@ -83,6 +83,9 @@ void EventDisplayWidget::fileClosed()
   m_negAmpCheckBox->setEnabled(false);
   m_eventNumberSpinBox->setEnabled(false);  
   m_totalEventsLabel->setText("");
+
+  m_scene->removePreviousSignals();
+  m_view->fitScene();
 }
 
 // show event

@@ -25,6 +25,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="m_closeFileButton">
+        <property name="text">
+         <string>&amp;Close File</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="m_quitButton">
         <property name="text">
          <string>&amp;Quit</string>

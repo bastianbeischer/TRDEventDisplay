@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.8 2010/08/19 20:57:28 beischer Exp $
+// $Id: DataManager.cc,v 1.9 2010/08/23 13:31:06 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -54,15 +54,25 @@ void DataManager::openFileDialog()
     openFile(fileName);
 }
 
+// close the currently open file
+void DataManager::closeFile()
+{
+  if (m_file) {
+    m_file->Close();
+    delete m_file;
+    m_file = 0;
+    emit(fileClosed());
+  }
+  else {
+    QMessageBox::information(0, "TRD Event Display", "No file is currently open!");
+  }
+}
 // open the file given by "fileName"
 void DataManager::openFile(QString fileName)
 {
   // if there was another file opened close it
-  if (m_file) {
-    m_file->Close();
-    delete m_file;
-    emit(fileClosed());
-  }
+  if (m_file)
+    closeFile();
 
   // setup the tree and run pointers
   m_file = new TFile(qPrintable(fileName), "READ");

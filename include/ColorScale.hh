@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ColorScale.hh,v 1.1 2010/08/19 15:40:50 beischer Exp $
+// $Id: ColorScale.hh,v 1.2 2010/08/23 13:31:06 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef ColorScale_hh
@@ -8,6 +8,14 @@
 
 #include <QLinearGradient>
 
+/** 
+ * @class ColorScale
+ * 
+ * @brief Class which implements the scale according to which hits will be colorized.
+ *
+ * This class inherits QLinearGradient and uses the colours specified in the constructor to construct a linear scale.
+ * A color can be attributed to values between m_min and m_max according to this linear scale.
+ */
 class ColorScale :
   public QObject,
   public QLinearGradient
@@ -16,20 +24,41 @@ class ColorScale :
 Q_OBJECT
   
 public:
+  /**
+   * @brief Constructor with default values for the scale minimum and maxmium of 0. and 1. Constructs the colour transitions of the scale.
+   *
+   * By default a transition from blue to green to yellow to red. If you want to change the colours or the transition points, edit the code.
+   * See the documentation of QLinearGradient and its stop points for more information. 
+   * @see QLinearGradient
+   */
   ColorScale(double min = 0., double max = 1.);
+
+  /** 
+   * @brief Destructor (doing nothing) 
+   */
   ~ColorScale();
   
 public slots:
+  /** 
+   * @brief Change the minimum of the scale 
+   */  
   void changeMin(int newValue) {m_min = newValue;}
+
+  /**
+   * @brief Change the maximum of the scale 
+   */  
   void changeMax(int newValue) {m_max = newValue;}
 
 public:
+  /** 
+   * @brief Assign a color to the value "value". If value is not in the range of m_min .. m_max, it will be set to these limiting values for the calculation of the color! 
+   */  
   QColor color(double value);
 
 private:
-  double m_min;
-  double m_max;
-  
+  double m_min; /**< minimum of the scale */
+  double m_max; /**< maximum of the scale */
+
 };
 
 #endif /* ColorScale_hh */

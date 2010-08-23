@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.10 2010/08/19 18:17:42 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.11 2010/08/23 13:31:06 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
@@ -28,10 +28,10 @@ public slots:
 
 public:
   void processEvent(const TrdRawEvent* event);
+  void removePreviousSignals();
 
 private:
   void redraw();
-  void removePreviousSignals();
 
 private:
   const TrdRawEvent*               m_currentEvent;

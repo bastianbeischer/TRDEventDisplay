@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: TrdEvent.pro,v 1.4 2010/08/19 20:55:33 beischer Exp $
+## $Id: TrdEvent.pro,v 1.5 2010/08/23 13:31:06 beischer Exp $
 #################################################################
 
 TEMPLATE = lib
@@ -15,6 +15,8 @@ OBJECTS_DIR = ./.tmp
 MOC_DIR     = ./.tmp
 UI_DIR      = ./.tmp
 RCC_DIR     = ./.tmp
+
+QMAKE_DISTCLEAN += -r $$OBJECTS_DIR
 
 CREATE_ROOT_DICT_FOR_CLASSES = TrdRawHitR.hh \
                                AccRawHitR.hh \

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.32 2010/08/19 18:10:59 beischer Exp $
+// $Id: MainWindow.cc,v 1.33 2010/08/23 13:31:07 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -25,6 +25,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // connect general signals and slots
   connect(m_quitButton, SIGNAL(clicked()), this, SLOT(close()));  
   connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
+  connect(m_closeFileButton, SIGNAL(clicked()), m_dataManager, SLOT(closeFile()));
 
   // add data widgets to the tabs and connect the signals and slots
   m_tabWidget->clear();

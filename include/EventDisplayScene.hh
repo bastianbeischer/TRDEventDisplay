@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: EventDisplayScene.hh,v 1.12 2010/08/24 12:10:46 beischer Exp $
+// $Id: EventDisplayScene.hh,v 1.13 2010/08/24 14:43:10 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef EventDisplayScene_hh
@@ -13,7 +13,11 @@ class TrdRawEvent;
 /**
  * @class EventDisplayScene
  * 
- * @brief The scene containg all the event display objects. This class implements what should be done with the events and how they should be displayed in the scene.
+ * @brief The scene containg all the event display objects.
+ *
+ * This class implements what should be done with the events and how they should be displayed in the scene. It is a TrdScene and is hence able to
+ * display straw tubes as little rectangles. The amplitude of each straw tube with signal is displayed in color. The color is determined from the
+ * ColorScale attributed to this scene (via the TrdScene base class). Additionally signal tubes can be enlarged by two stretching factors.
  */
 class EventDisplayScene :
   public TrdScene
@@ -80,6 +84,7 @@ private:
   void redraw();
 
 private:
+
   const TrdRawEvent*               m_currentEvent;           /**< Pointer to the current event (only availabe after processEvent has been called once)*/
 
   QList<StrawTube*>                m_signalTubes;            /**< List of tubes with signal (for more efficient removal of signals) */

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataWidget.hh,v 1.2 2010/08/23 14:07:58 beischer Exp $
+// $Id: DataWidget.hh,v 1.3 2010/08/24 14:43:10 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataWidget_hh
@@ -25,19 +25,19 @@ class DataWidget :
 public:
 
   /**
-   * @brief Constructor, sets up the m_dataManager pointer
+   * @brief Constructor, sets up the m_dataManager pointer.
    */
   DataWidget(const DataManager* dataManager, QWidget* parent = 0);
 
   /**
-   * @brief Destructor (does nothing)
+   * @brief Destructor (does nothing).
    */
   ~DataWidget();
   
 public slots:
 
   /**
-   * @brief Purely virtual slot. Derived classes should implement something to do when a new file is available
+   * @brief Purely virtual slot. Derived classes should implement something to do when a new file is available.
    */
   virtual void fileOpened(int nEvents) = 0;
 

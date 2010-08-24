@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: ColorScale.hh,v 1.4 2010/08/23 14:55:17 beischer Exp $
+// $Id: ColorScale.hh,v 1.5 2010/08/24 14:43:10 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef ColorScale_hh
@@ -26,9 +26,12 @@ public:
   /**
    * @brief Constructor with default values for the scale minimum and maxmium of 0. and 1. Constructs the colour transitions of the scale.
    *
+   * @param min Minimum of the scale
+   * @param max Maximum of the scale
+   *
    * By default a transition from blue to green to yellow to red. If you want to change the colours or the transition points, edit the code.
    * See the documentation of QLinearGradient and its stop points for more information. 
-   * @see QLinearGradient
+   * @see QLinearGradient, QGradient
    */
   ColorScale(double min = 0., double max = 1.);
 

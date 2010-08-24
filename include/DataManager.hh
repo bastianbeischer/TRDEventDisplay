@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.hh,v 1.8 2010/08/23 19:38:34 beischer Exp $
+// $Id: DataManager.hh,v 1.9 2010/08/24 14:43:10 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataManager_hh
@@ -57,7 +57,7 @@ signals:
 public slots:
 
   /**
-   * @brief Open a new file dialog, so that the user can choose a file to open.
+   * @brief Open a new Qt file dialog, so that the user can choose a file to open.
    */
   void openFileDialog();
 
@@ -89,7 +89,7 @@ public:
 
 private:
 
-  QString       m_amsRootFileDir; /**< QString which stores the content of $AMS_ROOTFILES_DIR, if set */
+  QString       m_amsRootFileDir; /**< QString which stores the content of the $AMS_ROOTFILES_DIR environment variable, if it is set. */
 
   TFile*        m_file;           /**< Pointer to the current file if available, otherwise = 0*/
   TTree*        m_tree;           /**< Pointer to the current tree if available, otherwise = 0. */

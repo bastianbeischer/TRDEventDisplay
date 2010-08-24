@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.33 2010/08/23 13:31:07 beischer Exp $
+// $Id: MainWindow.cc,v 1.34 2010/08/24 15:21:01 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -43,6 +43,8 @@ MainWindow::MainWindow(QMainWindow* parent) :
 MainWindow::~MainWindow()
 {
   delete m_dataManager;
+  foreach(DataWidget* widget, m_dataWidgets)
+    delete widget;
 }
 
 // command line arguments: open the respective files

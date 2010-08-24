@@ -1,8 +1,11 @@
 #####################################################################
 ## CVS Information
-## $Id: EventDisplay.pro,v 1.13 2010/08/23 19:38:34 beischer Exp $
+## $Id: EventDisplay.pro,v 1.14 2010/08/24 12:10:46 beischer Exp $
 #################################################################
 
 TEMPLATE = subdirs
 SUBDIRS += TrdEvent main.pro
 CONFIG += ordered
+
+# Docmentation
+include(DOC.pri)

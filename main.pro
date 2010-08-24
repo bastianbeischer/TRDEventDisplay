@@ -1,6 +1,6 @@
 #####################################################################
 ## CVS Information
-## $Id: main.pro,v 1.2 2010/08/23 19:38:34 beischer Exp $
+## $Id: main.pro,v 1.3 2010/08/24 12:10:46 beischer Exp $
 #################################################################
 
 # General information
@@ -55,9 +55,6 @@ HEADERS = include/DataManager.hh \
 
 # Setup ROOT paths and compiler/linker flags
 include(ROOT.pri)
-
-# Docmentation
-include(DOC.pri)
 
 # Generate emacs tags
 include(TAGS.pri)

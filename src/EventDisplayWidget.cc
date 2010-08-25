@@ -7,6 +7,7 @@
 #include "EventDisplayScene.hh"
 #include "ZoomableView.hh"
 
+// constructor
 EventDisplayWidget::EventDisplayWidget(const DataManager* dataManager, QWidget* parent) :
   DataWidget(dataManager, parent),
   m_view(0),
@@ -51,6 +52,7 @@ EventDisplayWidget::EventDisplayWidget(const DataManager* dataManager, QWidget* 
   m_view->fitScene();
 }
 
+// destructor
 EventDisplayWidget::~EventDisplayWidget()
 {
   delete m_view;

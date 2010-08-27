@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.hh,v 1.9 2010/08/24 14:43:10 beischer Exp $
+// $Id: DataManager.hh,v 1.10 2010/08/27 14:42:33 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataManager_hh
@@ -8,6 +8,8 @@
 
 #include <QObject>
 
+class QDir;
+class QTimer;
 class TFile;
 class TTree;
 class TrdRawEvent;
@@ -54,12 +56,43 @@ signals:
    */
   void fileClosed();
 
+  /**
+   * @brief Signal emitted when the directory part of the path has changed
+   */
+  void dirNumberChanged(int dir);
+
+  /**
+   * @brief Signal emitted when the filename part of the path has changed
+   */
+  void fileNumberChanged(int file);
+
+  /**
+   * @brief Signal emitted when follow mode is started
+   */
+  void startedFollowing(bool really = true);
+                         
+  /**
+   * @brief Signal emitted when follow mode is stopped
+   */
+  void stoppedFollowing(bool really = true);
+
 public slots:
 
   /**
    * @brief Open a new Qt file dialog, so that the user can choose a file to open.
    */
   void openFileDialog();
+
+  /**
+   * @brief Starts or stops following the latest ROOT files as they come.
+   * @param start Whether to start or stop following.
+   */
+  void followFiles(bool start);
+
+  /**
+   * @brief Read the latest file
+   */
+  void readLatestFile();
 
   /**
    * @brief Close the current file.
@@ -72,7 +105,7 @@ public:
    * @brief Open file by fileName
    * @param fileName the path of the file to be opened
    */
-  void openFile(QString fileName);
+  int openFile(QString fileName);
 
   /**
    * @brief Open file by naming scheme $AMS_ROOTFILES_DIR/XXXX/YYY.root. Requires $AMS_ROOTFILES_DIR to be set.
@@ -89,7 +122,9 @@ public:
 
 private:
 
-  QString       m_amsRootFileDir; /**< QString which stores the content of the $AMS_ROOTFILES_DIR environment variable, if it is set. */
+  QDir*         m_dir;            /**< Directory with path $AMS_ROOTFILES_DIR, if this environment variable is set. */
+
+  QTimer*       m_timer;          /**< Timer which triggers an attempt to read a new root file */
 
   TFile*        m_file;           /**< Pointer to the current file if available, otherwise = 0*/
   TTree*        m_tree;           /**< Pointer to the current tree if available, otherwise = 0. */

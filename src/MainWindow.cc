@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.35 2010/08/27 14:42:32 beischer Exp $
+// $Id: MainWindow.cc,v 1.36 2010/08/27 14:44:32 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(m_dataManager, SIGNAL(stoppedFollowing(bool)), m_syncButton, SLOT(setEnabled(bool)));
 
   connect(m_followFilesButton, SIGNAL(toggled(bool)), m_dataManager, SLOT(followFiles(bool)));
-  connect(m_syncButton, SIGNAL(toggled(bool)), this, SLOT(openFileDirectly(bool)));
+  connect(m_syncButton, SIGNAL(toggled(bool)), this, SLOT(openFileDirectly()));
   connect(m_dirSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
   connect(m_fileSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
 
@@ -79,9 +79,9 @@ void MainWindow::processCmdLineArguments(QStringList args)
 }
 
 // open a file according to spin box values
-void MainWindow::openFileDirectly(bool toggleState)
+void MainWindow::openFileDirectly()
 {
-  if(toggleState && m_syncButton->isChecked()) {
+  if(m_syncButton->isChecked()) {
     int dir = m_dirSpinBox->value();
     int file = m_fileSpinBox->value();
     m_dataManager->openFileByScheme(dir, file);

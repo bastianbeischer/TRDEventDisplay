@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.hh,v 1.17 2010/08/27 14:44:28 beischer Exp $
+// $Id: MainWindow.hh,v 1.18 2010/08/27 19:02:28 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef MainWindow_hh
@@ -51,6 +51,11 @@ private slots:
    * @brief Open file according to spin box values
    */
   void openFileDirectly();
+
+  /**
+   * @brief Print the run number in the status bar
+   */
+  void adjustStatusMessage();
 
 public:
 

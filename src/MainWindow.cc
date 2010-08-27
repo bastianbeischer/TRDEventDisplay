@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.36 2010/08/27 14:44:32 beischer Exp $
+// $Id: MainWindow.cc,v 1.37 2010/08/27 19:02:27 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -46,6 +46,8 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(m_dirSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
   connect(m_fileSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
 
+  connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(adjustStatusMessage()));
+
   // add data widgets to the tabs and connect the signals and slots
   m_tabWidget->clear();
   foreach(DataWidget* widget, m_dataWidgets) {
@@ -86,4 +88,10 @@ void MainWindow::openFileDirectly()
     int file = m_fileSpinBox->value();
     m_dataManager->openFileByScheme(dir, file);
   }
+}
+
+void MainWindow::adjustStatusMessage()
+{
+  QString runId = m_dataManager->getRunId();
+  m_statusBar->showMessage(QString("Run ID: %1").arg(runId));
 }

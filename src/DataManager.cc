@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.12 2010/08/27 14:42:33 beischer Exp $
+// $Id: DataManager.cc,v 1.13 2010/08/27 19:02:27 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -177,4 +177,10 @@ const TrdRawEvent* DataManager::getEvent(int eventNumber) const
   }
   const std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
   return &events->at(eventNumber-1);
+}
+
+// the run number
+const QString DataManager::getRunId() const
+{
+  return QString("%1").arg(m_currentRun->runid);
 }

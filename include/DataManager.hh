@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.hh,v 1.10 2010/08/27 14:42:33 beischer Exp $
+// $Id: DataManager.hh,v 1.11 2010/08/27 19:02:28 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DataManager_hh
@@ -119,6 +119,12 @@ public:
    * @param eventNumber the number of the event to be returned
    */
   const TrdRawEvent* getEvent(int eventNumber) const;
+
+  /**
+   * @brief The number of the current run
+   * @return number of the current run as a string
+   */
+  const QString getRunId() const;
 
 private:
 

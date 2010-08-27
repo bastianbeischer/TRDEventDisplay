@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.34 2010/08/24 15:21:01 beischer Exp $
+// $Id: MainWindow.cc,v 1.35 2010/08/27 14:42:32 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -26,6 +26,25 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(m_quitButton, SIGNAL(clicked()), this, SLOT(close()));  
   connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
   connect(m_closeFileButton, SIGNAL(clicked()), m_dataManager, SLOT(closeFile()));
+  connect(m_dataManager, SIGNAL(dirNumberChanged(int)), m_dirSpinBox, SLOT(setValue(int)));
+  connect(m_dataManager, SIGNAL(fileNumberChanged(int)), m_fileSpinBox, SLOT(setValue(int)));
+
+  connect(m_dataManager, SIGNAL(startedFollowing(bool)), m_openFileButton, SLOT(setDisabled(bool)));
+  connect(m_dataManager, SIGNAL(startedFollowing(bool)), m_closeFileButton, SLOT(setDisabled(bool)));
+  connect(m_dataManager, SIGNAL(startedFollowing(bool)), m_dirSpinBox, SLOT(setDisabled(bool)));
+  connect(m_dataManager, SIGNAL(startedFollowing(bool)), m_fileSpinBox, SLOT(setDisabled(bool)));
+  connect(m_dataManager, SIGNAL(startedFollowing(bool)), m_syncButton, SLOT(setDisabled(bool)));
+
+  connect(m_dataManager, SIGNAL(stoppedFollowing(bool)), m_openFileButton, SLOT(setEnabled(bool)));
+  connect(m_dataManager, SIGNAL(stoppedFollowing(bool)), m_closeFileButton, SLOT(setEnabled(bool)));
+  connect(m_dataManager, SIGNAL(stoppedFollowing(bool)), m_dirSpinBox, SLOT(setEnabled(bool)));
+  connect(m_dataManager, SIGNAL(stoppedFollowing(bool)), m_fileSpinBox, SLOT(setEnabled(bool)));
+  connect(m_dataManager, SIGNAL(stoppedFollowing(bool)), m_syncButton, SLOT(setEnabled(bool)));
+
+  connect(m_followFilesButton, SIGNAL(toggled(bool)), m_dataManager, SLOT(followFiles(bool)));
+  connect(m_syncButton, SIGNAL(toggled(bool)), this, SLOT(openFileDirectly(bool)));
+  connect(m_dirSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
+  connect(m_fileSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
 
   // add data widgets to the tabs and connect the signals and slots
   m_tabWidget->clear();
@@ -57,4 +76,14 @@ void MainWindow::processCmdLineArguments(QStringList args)
   // or by $AMS_ROOTFILES_DIR/XXXX/YYY.root format
   else if (args.size() == 3)
     m_dataManager->openFileByScheme(args.at(1).toInt(), args.at(2).toInt());
+}
+
+// open a file according to spin box values
+void MainWindow::openFileDirectly(bool toggleState)
+{
+  if(toggleState && m_syncButton->isChecked()) {
+    int dir = m_dirSpinBox->value();
+    int file = m_fileSpinBox->value();
+    m_dataManager->openFileByScheme(dir, file);
+  }
 }

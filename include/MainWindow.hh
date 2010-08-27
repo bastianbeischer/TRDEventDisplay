@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.hh,v 1.15 2010/08/24 15:21:01 beischer Exp $
+// $Id: MainWindow.hh,v 1.16 2010/08/27 14:42:33 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef MainWindow_hh
@@ -45,6 +45,13 @@ public:
    */
   ~MainWindow();
   
+private slots:
+
+  /**
+   * @brief Open file according to spin box values
+   */
+  void openFileDirectly(bool toggleState = true);
+
 public:
 
   /**

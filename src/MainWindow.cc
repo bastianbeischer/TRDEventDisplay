@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.37 2010/08/27 19:02:27 beischer Exp $
+// $Id: MainWindow.cc,v 1.38 2010/08/29 22:10:42 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -90,6 +90,7 @@ void MainWindow::openFileDirectly()
   }
 }
 
+// print some information in the status bar
 void MainWindow::adjustStatusMessage()
 {
   QString runId = m_dataManager->getRunId();

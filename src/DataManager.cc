@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.13 2010/08/27 19:02:27 beischer Exp $
+// $Id: DataManager.cc,v 1.14 2010/08/29 23:00:30 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -62,7 +62,7 @@ DataManager::~DataManager()
 void DataManager::openFileDialog()
 {
   // read file name from a dialog
-  QString fileName = QFileDialog::getOpenFileName(0, tr("open file"), m_dir->path(), tr(""));  
+  QString fileName = QFileDialog::getOpenFileName(0, tr("Open ROOT File"), m_dir->path(), tr(""));  
 
   // file dialog returns emptry string for e.g. "cancel"
   if (fileName != "")

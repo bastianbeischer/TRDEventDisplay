@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: MainWindow.cc,v 1.38 2010/08/29 22:10:42 beischer Exp $
+// $Id: MainWindow.cc,v 1.39 2010/08/30 11:10:03 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "MainWindow.hh"
@@ -26,6 +26,8 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(m_quitButton, SIGNAL(clicked()), this, SLOT(close()));  
   connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
   connect(m_closeFileButton, SIGNAL(clicked()), m_dataManager, SLOT(closeFile()));
+
+  connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(adjustStatusMessage()));
   connect(m_dataManager, SIGNAL(dirNumberChanged(int)), m_dirSpinBox, SLOT(setValue(int)));
   connect(m_dataManager, SIGNAL(fileNumberChanged(int)), m_fileSpinBox, SLOT(setValue(int)));
 
@@ -46,7 +48,6 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(m_dirSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
   connect(m_fileSpinBox, SIGNAL(valueChanged(int)), this, SLOT(openFileDirectly()));
 
-  connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(adjustStatusMessage()));
 
   // add data widgets to the tabs and connect the signals and slots
   m_tabWidget->clear();

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DocumentationMainPage.hh,v 1.4 2010/08/23 14:11:22 beischer Exp $
+// $Id: DocumentationMainPage.hh,v 1.5 2010/08/30 15:17:47 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #ifndef DOCUMENATIONMAINPAGE_HH
@@ -62,7 +62,18 @@
  *
  * \section use Using the program
  *
- * - Open a valid root file 
+ * First, open a valid ROOT file 
+ *   There are various alternative methods:
+
+ *   - Use the start parameters above to open a file when starting the program
+ *   - Click the "Open File" button (or press Alt+o)
+ *   - Click the "Follow Latest Files" button (or press Alt+f) to enter "follow" mode. In this mode, the program will constantly scan for new files
+ *     every 60 seconds and open the latest one available in the AMS_ROOTFILES_DIR directory. The variable has to be set for this to work.
+ *   - Use the provided spin boxes to navigate to a file. Press the "Synchronized" button to read the values from the spin boxes. In "synchronized"
+ *     mode every change to the spin box values will be applied directly.
+ *
+ * You can then proceed in the following way:
+ *
  * - Use the event number spin box to scroll through the available events.
  * - You can zoom in a specific region of interest with the mouse wheel or by drawing a rectangle with the right mouse button pressed. Un-zoom by
  *   clicking the middle mouse button.

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // CVS Information
-// $Id: DataManager.cc,v 1.14 2010/08/29 23:00:30 beischer Exp $
+// $Id: DataManager.cc,v 1.15 2010/08/30 16:36:14 beischer Exp $
 /////////////////////////////////////////////////////////////////
 
 #include "DataManager.hh"
@@ -141,12 +141,14 @@ int DataManager::openFile(QString fileName)
       return 1;
     }
     else {
-      QMessageBox::information(0, "TRD Event Display", "Tree does not contain any runs!");
+      //QMessageBox::information(0, "TRD Event Display", "Tree does not contain any runs!");
+      qWarning() << "DataManager::openFile() <> Tree does not contain any runs!";
       return 0;
     }
   }
   else {
-    QMessageBox::information(0, "TRD Event Display", "File does not contain a valid ROOT tree!");
+    //QMessageBox::information(0, "TRD Event Display", "File does not contain a valid ROOT tree!");
+      qWarning() << "DataManager::openFile() <> File does not contain a valid ROOT tree!";
     return 0;
   }
 }

@@ -1,0 +1,9 @@
+.tmp
+EventDisplay
+doc
+*.o
+Makefile*
+TAGS
+lib*so*
+*Dict.cxx
+*Dict.h

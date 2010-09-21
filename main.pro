@@ -1,8 +1,3 @@
-#####################################################################
-## CVS Information
-## $Id: main.pro,v 1.3 2010/08/24 12:10:46 beischer Exp $
-#################################################################
-
 # General information
 TEMPLATE    = app
 TARGET      = EventDisplay

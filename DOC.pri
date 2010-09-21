@@ -1,8 +1,3 @@
-#####################################################################
-## CVS Information
-## $Id: DOC.pri,v 1.4 2010/08/30 16:36:14 beischer Exp $
-#################################################################
-
 # Generation of documentation
 exists($$system(which doxygen)) {
   FILES = EventDisplay.doxy include/*.hh TrdEvent/*.hh *.cc src/*.cc TrdEvent/*.cc

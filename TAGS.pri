@@ -1,8 +1,3 @@
-#####################################################################
-## CVS Information
-## $Id: TAGS.pri,v 1.2 2010/08/23 14:55:16 beischer Exp $
-#################################################################
-
 # TAGS file generation for emacs tags
 exists($$system(which etags)) {
   FILES = include/*.hh TrdEvent/*.hh *.cc src/*.cc TrdEvent/*.cc

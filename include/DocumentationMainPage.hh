@@ -22,8 +22,8 @@
  * The program is mainted with git and has a public github repository. In order to pull the latest changes just execute:
  * \verbatim git pull \endverbatim
  *
- * If you want to commit changes you need to get yourself a github.com account and contact me (beischer@physik.rwth-aachen.de) so that I can add you
- * as a collaborator on github.
+ * You can commit your changes to the local repository, but if you want to push changes to the github repo you will need to get yourself a github.com
+ * account and contact me (beischer@physik.rwth-aachen.de) so that I can add you as a collaborator for the project.
  *
  * A successful build of the program requires the following prerequisites:
  * - Qt >= 4.5 (version confirmed to work: 4.6.3)

@@ -24,11 +24,11 @@
  * but the build files shipped with this project (.pro and .pri files) probably will not allow a successful build there, yet. Feel free to modify
  * them and commit your changes if you plan to run this program in MS Windows.
  *
- * The program is mainted from CVS. In order to checkout/update or commit changes you need an account at the RWTH physics cluster.
- *  - Repository: USER@portal.physik.rwth-aachen.de:/home/home4/institut_1b/beischer/.cvs
+ * The program is mainted with git and has a public github repository. In order to pull the latest changes just execute:
+ * \verbatim git pull \endverbatim
  *
- * For example, to update the program use:
- * \verbatim cvs -d USER@portal.physik.rwth-aachen.de:/home/home4/institut_1b/beischer/.cvs up \endverbatim
+ * If you want to commit changes you need to get yourself a github.com account and contact me (beischer@physik.rwth-aachen.de) so that I can add you
+ * as a collaborator on github.
  *
  * A successful build of the program requires the following prerequisites:
  * - Qt >= 4.5 (version confirmed to work: 4.6.3)

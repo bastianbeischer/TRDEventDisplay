@@ -2,6 +2,7 @@
 
 #include <QPalette>
 
+#include "TrdRawEvent.hh"
 #include "ColorScale.hh"
 #include "DataManager.hh"
 #include "EventDisplayScene.hh"
@@ -95,7 +96,7 @@ void EventDisplayWidget::showEvent(int eventNumber)
 {
   const TrdRawEvent* event = m_dataManager->getEvent(eventNumber);
   if (event) {
-    m_scene->processEvent(event);
+    m_scene->processHits(*(event->GetHits()));
     m_view->fitScene();
     emit(eventNumberChanged(eventNumber));
   }

@@ -11,7 +11,7 @@
 // constructor
 EventDisplayScene::EventDisplayScene() :
   TrdScene(),
-  m_currentEvent(0),
+  m_hits(),
   m_signalStretchFactorX(1.),
   m_signalStretchFactorY(1.5),
   m_displayHitsWithNegAmp(true),
@@ -35,16 +35,15 @@ void EventDisplayScene::redraw()
 }
  
 // process an event and show it in the scene
-void EventDisplayScene::processEvent(const TrdRawEvent* event)
+void EventDisplayScene::processHits(const std::vector<TrdRawHitR>& hits)
 {
-  m_currentEvent = event;
+  m_hits = hits;
 
   // remove signal items from previous events
   removePreviousSignals();
 
-  const std::vector<TrdRawHitR>* hits = event->GetHits();
-  for (unsigned int i = 0; i < hits->size(); i++) {
-    TrdRawHitR hit = hits->at(i);
+  for (unsigned int i = 0; i < m_hits.size(); i++) {
+    TrdRawHitR hit = m_hits.at(i);
 
     // don't display negative amplitudes if desired
     if(!m_displayHitsWithNegAmp && hit.Amp < 0)

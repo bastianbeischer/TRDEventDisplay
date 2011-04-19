@@ -3,7 +3,7 @@
 
 #include "TrdScene.hh"
 
-class TrdRawEvent;
+class TrdRawHitR;
 
 /**
  * @class EventDisplayScene
@@ -38,33 +38,33 @@ public slots:
    * @brief What should be done when the scale changes: propagate the scale change to TrdScene and reprocess the current event.
    * @param min The new minimum of the scale
    */
-  void changeScaleMin(int min) {TrdScene::changeScaleMin(min); processEvent(m_currentEvent);}
+  void changeScaleMin(int min) {TrdScene::changeScaleMin(min); processHits(m_hits);}
   
   /**
    * @brief What should be done when the scale changes: propagate the scale change to TrdScene and reprocess the current event.
    * @param max The new maximum of the scale
    */
-  void changeScaleMax(int max) {TrdScene::changeScaleMax(max); processEvent(m_currentEvent);}
+  void changeScaleMax(int max) {TrdScene::changeScaleMax(max); processHits(m_hits);}
 
   /**
    * @brief Set boolean value of display hits with negative amplitudes and reprocess the current event.
    * @param value New value as an integer - will be used as a bool in the routine.
    */
-  void changeDisplayNegAmps(int value) {m_displayHitsWithNegAmp = value; processEvent(m_currentEvent);}
+  void changeDisplayNegAmps(int value) {m_displayHitsWithNegAmp = value; processHits(m_hits);}
 
   /**
    * @brief Set visiblity of empty tubes, redraw all tubes according to this change and reprocess the current event.
    * @param value New value as an integer - will be used as a bool in the routine.
    */
-  void changeTubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw(); processEvent(m_currentEvent);}
+  void changeTubeWithNoHitsVisible(int value) {m_tubeWithNoHitsVisible = value; redraw(); processHits(m_hits);}
 
 public:
 
   /**
    * @brief Implements what should be done with events.
-   * @param event A pointer to the event to process
+   * @param hits A vector of TrdRawHitR to display
    */
-  void processEvent(const TrdRawEvent* event);
+  void processHits(const std::vector<TrdRawHitR>& hits);
 
   /**
    * @brief Removes all signals from the scene.
@@ -80,7 +80,7 @@ private:
 
 private:
 
-  const TrdRawEvent*               m_currentEvent;           /**< Pointer to the current event (only availabe after processEvent has been called once)*/
+  std::vector<TrdRawHitR>          m_hits;                   /**< Vector with the hits of the current event (only availabe after processHits has been called once)*/
 
   QList<StrawTube*>                m_signalTubes;            /**< List of tubes with signal (for more efficient removal of signals) */
 

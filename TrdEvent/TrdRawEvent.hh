@@ -1,7 +1,7 @@
 #ifndef TrdRawEvent_hh
 #define TrdRawEvent_hh
 
-#include "TrdRawHitR.hh"
+#include "TrdRawHit.h"
 #include "AccRawHitR.hh"
 #include "TObject.h"
 #include <vector>

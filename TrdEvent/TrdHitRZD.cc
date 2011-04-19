@@ -1,6 +1,6 @@
 #include "TrdHitRZD.hh"
 
-#include "TrdRawHitR.hh"
+#include "TrdRawHit.h"
 
 TrdHitRZD::TrdHitRZD(TrdRawHitR* hit)
 {

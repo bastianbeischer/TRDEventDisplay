@@ -2,6 +2,8 @@
 #define DataManager_hh
 
 #include <QObject>
+#include <vector>
+#include "TrdRawHit.h"
 
 class QDir;
 class QTimer;
@@ -9,6 +11,7 @@ class TFile;
 class TTree;
 class TrdRawEvent;
 class TrdRawRun;
+class AMSChain;
 
 /**
  * @class DataManager
@@ -79,6 +82,11 @@ public slots:
   void openFileDialog();
 
   /**
+   * @brief Open a new Qt file dialog, so that the user can choose an ams root file to open.
+   */
+  void openAmsRootFileDialog();
+
+  /**
    * @brief Starts or stops following the latest ROOT files as they come.
    * @param start Whether to start or stop following.
    */
@@ -103,6 +111,12 @@ public:
   int openFile(QString fileName);
 
   /**
+   * @brief Open an AMS ROOT file by fileName
+   * @param fileName the path of the file to be opened
+   */
+  int openAmsRootFile(QString fileName);
+
+  /**
    * @brief Open file by naming scheme $AMS_ROOTFILES_DIR/XXXX/YYY.root. Requires $AMS_ROOTFILES_DIR to be set.
    * @param dir the directory part of the path (in the example above: XXXX)
    * @param file the filename part of the path (in the example above: YYY)
@@ -113,7 +127,7 @@ public:
    * @brief Return the event with number eventNumber
    * @param eventNumber the number of the event to be returned
    */
-  const TrdRawEvent* getEvent(int eventNumber) const;
+  const std::vector<TrdRawHitR>* getTrdHits(int eventNumber) const;
 
   /**
    * @brief The number of the current run
@@ -130,6 +144,8 @@ private:
   TFile*        m_file;           /**< Pointer to the current file if available, otherwise = 0*/
   TTree*        m_tree;           /**< Pointer to the current tree if available, otherwise = 0. */
   TrdRawRun*    m_currentRun;     /**< Pointer to the current run if available, otherwise = 0. */
+
+  AMSChain*     m_amsChain;       /**< Pointer to the ams chain */
 
 };
 

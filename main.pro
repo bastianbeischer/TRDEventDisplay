@@ -23,6 +23,10 @@ DEPENDPATH += . include src ui TrdEvent
 INCLUDEPATH += . include TrdEvent
 LIBS += -L./TrdEvent -lTrdEvent
 
+AMSWD = $(AMSWD)
+INCLUDEPATH += $${AMSWD}/include
+LIBS += $${AMSWD}/lib/linuxx8664icc/ntuple_slc4_PG.so
+
 # Forms, sources and headers
 FORMS = ui/EventDisplayForm.ui \
         ui/MainForm.ui

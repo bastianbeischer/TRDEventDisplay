@@ -5,7 +5,7 @@
 #include "ColorScale.hh"
 #include "StrawTube.hh"
 #include "TrdHitRZD.hh"
-#include "TrdRawHitR.hh"
+#include "TrdRawHit.h"
 
 // constructor
 TrdScene::TrdScene() :

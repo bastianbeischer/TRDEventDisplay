@@ -6,7 +6,7 @@
 #include "StrawTube.hh"
 #include "TrdHitRZD.hh"
 #include "TrdRawEvent.hh"
-#include "TrdRawHitR.hh"
+#include "TrdRawHit.h"
 
 // constructor
 EventDisplayScene::EventDisplayScene() :

@@ -7,11 +7,16 @@
 #include <QProcess>
 #include <QTimer>
 
+#include <cassert>
+
 #include <TFile.h>
 #include <TTree.h>
 
 #include "TrdRawEvent.hh"
 #include "TrdRawRun.hh"
+
+#include <root.h>
+#include <amschain.h>
 
 // constructor
 DataManager::DataManager() :
@@ -20,7 +25,8 @@ DataManager::DataManager() :
   m_timer(new QTimer()),
   m_file(0),
   m_tree(0),
-  m_currentRun(0)
+  m_currentRun(0),
+  m_amsChain(new AMSChain)
 {
   // setup AMS root file directory
   QStringList envVariables = QProcess::systemEnvironment();
@@ -51,6 +57,7 @@ DataManager::~DataManager()
   delete m_file;
   delete m_tree;
   delete m_currentRun;
+  delete m_amsChain;
 }
 
 // dialog for a new file query
@@ -62,6 +69,17 @@ void DataManager::openFileDialog()
   // file dialog returns emptry string for e.g. "cancel"
   if (fileName != "")
     openFile(fileName);
+}
+
+// dialog for a new file query
+void DataManager::openAmsRootFileDialog()
+{
+  // read file name from a dialog
+  QString fileName = QFileDialog::getOpenFileName(0, tr("Open ROOT File"), m_dir->path(), tr(""));  
+
+  // file dialog returns emptry string for e.g. "cancel"
+  if (fileName != "")
+    openAmsRootFile(fileName);
 }
 
 // follow files mode
@@ -112,6 +130,10 @@ void DataManager::closeFile()
     m_currentRun = 0;
     emit(fileClosed());
   }
+  else if (m_amsChain->GetNtrees() == 1) {
+    m_amsChain->Reset();
+    emit(fileClosed());
+  }
   else {
     QMessageBox::information(0, "TRD Event Display", "No file is currently open!");
   }
@@ -121,9 +143,9 @@ void DataManager::closeFile()
 int DataManager::openFile(QString fileName)
 {
   // if there was another file opened close it
-  if (m_file)
+  if (m_file || m_amsChain->GetNtrees() == 1)
     closeFile();
-
+    
   // setup the tree and run pointers
   m_file = new TFile(qPrintable(fileName), "READ");
   m_tree = (TTree*) m_file->Get("TrdRawData");
@@ -148,6 +170,19 @@ int DataManager::openFile(QString fileName)
   }
 }
 
+int DataManager::openAmsRootFile(QString fileName)
+{
+  if (m_file || m_amsChain->GetNtrees() == 1)
+    closeFile();
+
+  int success = m_amsChain->Add(qPrintable(fileName));
+  if (success) {
+    m_amsChain->GetEvent(0);
+    emit(fileOpened(m_amsChain->GetEntries()));
+  }
+  return success;
+}
+
 // open file with $AMS_ROOTFILES_DIR/XXXX/YYY.root scheme
 void DataManager::openFileByScheme(int dir, int file)
 {
@@ -166,18 +201,27 @@ void DataManager::openFileByScheme(int dir, int file)
 }
   
 // return the event with number eventNumber
-const TrdRawEvent* DataManager::getEvent(int eventNumber) const
+const std::vector<TrdRawHitR>* DataManager::getTrdHits(int eventNumber) const
 {
-  if (!m_tree || !m_currentRun) {
-    QMessageBox::information(0, "TRD Event Display", "Please open a valid file first!");
-    return 0;
+  if (m_tree && m_currentRun) {
+    const std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
+    return events->at(eventNumber-1).GetHits();
   }
-  const std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
-  return &events->at(eventNumber-1);
+  else if (m_amsChain->GetNtrees() == 1) {
+    AMSEventR* event = m_amsChain->GetEvent(eventNumber-1);
+    return &(event->TrdRawHit());
+  }
+  QMessageBox::information(0, "TRD Event Display", "Please open a valid file first!");
+  return 0;
 }
 
 // the run number
 const QString DataManager::getRunId() const
 {
-  return QString("%1").arg(m_currentRun->runid);
+  if (m_currentRun)
+    return QString("%1").arg(m_currentRun->runid);
+  else if (m_amsChain->GetNtrees() == 1)
+    return QString("%1").arg(m_amsChain->get_run());
+  assert(false);
+  return 0;
 }

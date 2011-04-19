@@ -94,9 +94,9 @@ void EventDisplayWidget::fileClosed()
 // show event
 void EventDisplayWidget::showEvent(int eventNumber)
 {
-  const TrdRawEvent* event = m_dataManager->getEvent(eventNumber);
-  if (event) {
-    m_scene->processHits(*(event->GetHits()));
+  const std::vector<TrdRawHitR>* hits = m_dataManager->getTrdHits(eventNumber);
+  if (hits) {
+    m_scene->processHits(*hits);
     m_view->fitScene();
     emit(eventNumberChanged(eventNumber));
   }

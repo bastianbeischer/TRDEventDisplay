@@ -20,7 +20,6 @@ MainWindow::MainWindow(QMainWindow* parent) :
   // connect general signals and slots
   connect(m_quitButton, SIGNAL(clicked()), this, SLOT(close()));  
   connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
-  connect(m_openAmsRootFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openAmsRootFileDialog()));
   connect(m_closeFileButton, SIGNAL(clicked()), m_dataManager, SLOT(closeFile()));
 
   connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(adjustStatusMessage()));

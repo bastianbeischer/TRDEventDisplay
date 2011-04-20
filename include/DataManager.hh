@@ -82,11 +82,6 @@ public slots:
   void openFileDialog();
 
   /**
-   * @brief Open a new Qt file dialog, so that the user can choose an ams root file to open.
-   */
-  void openAmsRootFileDialog();
-
-  /**
    * @brief Starts or stops following the latest ROOT files as they come.
    * @param start Whether to start or stop following.
    */
@@ -109,12 +104,6 @@ public:
    * @param fileName the path of the file to be opened
    */
   int openFile(QString fileName);
-
-  /**
-   * @brief Open an AMS ROOT file by fileName
-   * @param fileName the path of the file to be opened
-   */
-  int openAmsRootFile(QString fileName);
 
   /**
    * @brief Open file by naming scheme $AMS_ROOTFILES_DIR/XXXX/YYY.root. Requires $AMS_ROOTFILES_DIR to be set.

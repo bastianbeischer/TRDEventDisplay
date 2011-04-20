@@ -71,17 +71,6 @@ void DataManager::openFileDialog()
     openFile(fileName);
 }
 
-// dialog for a new file query
-void DataManager::openAmsRootFileDialog()
-{
-  // read file name from a dialog
-  QString fileName = QFileDialog::getOpenFileName(0, tr("Open ROOT File"), m_dir->path(), tr(""));  
-
-  // file dialog returns emptry string for e.g. "cancel"
-  if (fileName != "")
-    openAmsRootFile(fileName);
-}
-
 // follow files mode
 void DataManager::followFiles(bool start)
 {
@@ -143,12 +132,13 @@ void DataManager::closeFile()
 int DataManager::openFile(QString fileName)
 {
   // if there was another file opened close it
-  if (m_file || m_amsChain->GetNtrees() == 1)
+  if (m_file)
     closeFile();
     
   // setup the tree and run pointers
   m_file = new TFile(qPrintable(fileName), "READ");
   m_tree = (TTree*) m_file->Get("TrdRawData");
+  TTree* amsRootTree = (TTree*) m_file->Get("AMSRoot");
   if (m_tree) {
     m_tree->SetBranchAddress("run", &m_currentRun);
     m_tree->GetEntry(0);
@@ -157,30 +147,24 @@ int DataManager::openFile(QString fileName)
       emit(fileOpened(nEvents));
       return 1;
     }
-    else {
-      //QMessageBox::information(0, "TRD Event Display", "Tree does not contain any runs!");
-      qWarning() << "DataManager::openFile() <> Tree does not contain any runs!";
-      return 0;
+    //QMessageBox::information(0, "TRD Event Display", "Tree does not contain any runs!");
+    qWarning() << "DataManager::openFile() <> Tree does not contain any runs!";
+    return 0;
+  }
+  else if (amsRootTree) {
+    int success = m_amsChain->Add(qPrintable(fileName));
+    if (success) {
+      m_amsChain->GetEvent(0);
+      emit(fileOpened(m_amsChain->GetEntries()));
     }
+    qWarning() << "DataManager::openFile() <> Not able to add the file to the AMS chain!";
+    return success;
   }
   else {
     //QMessageBox::information(0, "TRD Event Display", "File does not contain a valid ROOT tree!");
-      qWarning() << "DataManager::openFile() <> File does not contain a valid ROOT tree!";
+    qWarning() << "DataManager::openFile() <> File does not contain a valid ROOT tree!";
     return 0;
   }
-}
-
-int DataManager::openAmsRootFile(QString fileName)
-{
-  if (m_file || m_amsChain->GetNtrees() == 1)
-    closeFile();
-
-  int success = m_amsChain->Add(qPrintable(fileName));
-  if (success) {
-    m_amsChain->GetEvent(0);
-    emit(fileOpened(m_amsChain->GetEntries()));
-  }
-  return success;
 }
 
 // open file with $AMS_ROOTFILES_DIR/XXXX/YYY.root scheme

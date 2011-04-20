@@ -23,10 +23,6 @@ DEPENDPATH += . include src ui TrdEvent
 INCLUDEPATH += . include TrdEvent
 LIBS += -L./TrdEvent -lTrdEvent
 
-AMSWD = $(AMSWD)
-INCLUDEPATH += $${AMSWD}/include
-LIBS += $${AMSWD}/lib/linuxx8664icc/ntuple_slc4_PG.so
-
 # Forms, sources and headers
 FORMS = ui/EventDisplayForm.ui \
         ui/MainForm.ui
@@ -52,11 +48,11 @@ HEADERS = include/DataManager.hh \
           include/TrdScene.hh \
           include/ZoomableView.hh
 
+# Setup AMS software specific paths
+include(AMS.pri)
+
 # Setup ROOT paths and compiler/linker flags
 include(ROOT.pri)
-
-# Generate emacs tags
-include(TAGS.pri)
 
 # Hack needed for my arch linux because of its Qt installation
 QMAKE_LFLAGS -= -Wl,--as-needed

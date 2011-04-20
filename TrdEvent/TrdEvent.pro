@@ -28,4 +28,6 @@ SOURCES = AccRawHitR.cc \
 HEADERS += $$CREATE_ROOT_DICT_FOR_CLASSES \
            TrdHitRZD.hh
    
+include(../AMS.pri)
+
 include(../ROOT.pri)

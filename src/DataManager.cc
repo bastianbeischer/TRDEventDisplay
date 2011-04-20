@@ -26,7 +26,7 @@ DataManager::DataManager() :
   m_file(0),
   m_tree(0),
   m_currentRun(0),
-  m_amsChain(new AMSChain)
+  m_amsChain(0)
 {
   // setup AMS root file directory
   QStringList envVariables = QProcess::systemEnvironment();
@@ -119,8 +119,9 @@ void DataManager::closeFile()
     m_currentRun = 0;
     emit(fileClosed());
   }
-  else if (m_amsChain->GetNtrees() == 1) {
-    m_amsChain->Reset();
+  else if (m_amsChain) {
+    delete m_amsChain;
+    m_amsChain = 0;
     emit(fileClosed());
   }
   else {
@@ -132,14 +133,16 @@ void DataManager::closeFile()
 int DataManager::openFile(QString fileName)
 {
   // if there was another file opened close it
-  if (m_file)
+  if (m_file || m_amsChain)
     closeFile();
     
   // setup the tree and run pointers
-  m_file = new TFile(qPrintable(fileName), "READ");
-  m_tree = (TTree*) m_file->Get("TrdRawData");
-  TTree* amsRootTree = (TTree*) m_file->Get("AMSRoot");
-  if (m_tree) {
+  TFile* file = new TFile(qPrintable(fileName), "READ");
+  TTree* trdTree = (TTree*) file->Get("TrdRawData");
+  TTree* amsRootTree = (TTree*) file->Get("AMSRoot");
+  if (trdTree) {
+    m_file = file;
+    m_tree = trdTree;
     m_tree->SetBranchAddress("run", &m_currentRun);
     m_tree->GetEntry(0);
     if (m_currentRun) {
@@ -152,12 +155,17 @@ int DataManager::openFile(QString fileName)
     return 0;
   }
   else if (amsRootTree) {
+    file->Close();
+    delete file;
+    m_amsChain = new AMSChain;
     int success = m_amsChain->Add(qPrintable(fileName));
     if (success) {
       m_amsChain->GetEvent(0);
       emit(fileOpened(m_amsChain->GetEntries()));
     }
-    qWarning() << "DataManager::openFile() <> Not able to add the file to the AMS chain!";
+    else {
+      qWarning() << "DataManager::openFile() <> Not able to add the file to the AMS chain!";
+    }
     return success;
   }
   else {
@@ -191,7 +199,7 @@ const std::vector<TrdRawHitR>* DataManager::getTrdHits(int eventNumber) const
     const std::vector<TrdRawEvent>* events = m_currentRun->GetEvents();
     return events->at(eventNumber-1).GetHits();
   }
-  else if (m_amsChain->GetNtrees() == 1) {
+  else if (m_amsChain) {
     AMSEventR* event = m_amsChain->GetEvent(eventNumber-1);
     return &(event->TrdRawHit());
   }
@@ -204,7 +212,7 @@ const QString DataManager::getRunId() const
 {
   if (m_currentRun)
     return QString("%1").arg(m_currentRun->runid);
-  else if (m_amsChain->GetNtrees() == 1)
+  else if (m_amsChain)
     return QString("%1").arg(m_amsChain->get_run());
   assert(false);
   return 0;

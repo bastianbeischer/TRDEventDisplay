@@ -66,6 +66,11 @@ public slots:
    */
   void fileClosed();
 
+  /**
+   * @brief Print information in the status labels
+   */
+  void adjustStatusLabels();
+
 private slots:
 
   /**

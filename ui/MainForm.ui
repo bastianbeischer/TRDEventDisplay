@@ -155,7 +155,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="m_statusBar"/>
  </widget>
  <tabstops>
   <tabstop>m_openFileButton</tabstop>

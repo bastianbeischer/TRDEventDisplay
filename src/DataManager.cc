@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QTimer>
+#include <QDateTime>
 
 #include <cassert>
 
@@ -214,6 +215,37 @@ const QString DataManager::getRunId() const
     return QString("%1").arg(m_currentRun->runid);
   else if (m_amsChain)
     return QString("%1").arg(m_amsChain->get_run());
+  assert(false);
+  return 0;
+}
+
+// the event number
+const QString DataManager::getEventId() const
+{
+  if (m_currentRun) {
+    // currently not implemented!
+    return QString("");
+  }
+  else if (m_amsChain) {
+    AMSEventR* event = m_amsChain->pEvent();
+    return QString("%1").arg(event->Event());
+  }
+  assert(false);
+  return 0;
+}
+
+// the time
+const QString DataManager::getTime() const
+{
+  if (m_currentRun) {
+    // currently not implemented!
+    return QString("");
+  }
+  else if (m_amsChain) {
+    AMSEventR* event = m_amsChain->pEvent();
+    QDateTime dt = QDateTime::fromTime_t(event->UTime());
+    return dt.toString();
+  }
   assert(false);
   return 0;
 }

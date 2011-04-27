@@ -47,11 +47,6 @@ private slots:
    */
   void openFileDirectly();
 
-  /**
-   * @brief Print the run number in the status bar
-   */
-  void adjustStatusMessage();
-
 public:
 
   /**

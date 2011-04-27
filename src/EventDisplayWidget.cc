@@ -37,6 +37,7 @@ EventDisplayWidget::EventDisplayWidget(const DataManager* dataManager, QWidget* 
   // event number
   connect(m_eventNumberSpinBox, SIGNAL(valueChanged(int)), this, SLOT(showEvent(int)));
   connect(this, SIGNAL(eventNumberChanged(int)), m_eventNumberSpinBox, SLOT(setValue(int)));
+  connect(this, SIGNAL(eventNumberChanged(int)), this, SLOT(adjustStatusLabels()));
 
   // amplitude
   connect(m_minAmpSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateScale()));
@@ -87,6 +88,10 @@ void EventDisplayWidget::fileClosed()
   m_eventNumberSpinBox->setEnabled(false);  
   m_totalEventsLabel->setText("");
 
+  m_runIdLabel->setText("");
+  m_eventIdLabel->setText("");
+  m_timeLabel->setText("");
+
   m_scene->removePreviousSignals();
   m_view->fitScene();
 }
@@ -105,8 +110,8 @@ void EventDisplayWidget::showEvent(int eventNumber)
 // update labels under scale
 void EventDisplayWidget::updateScale()
 {
-  double max = m_maxAmpSpinBox->value();
-  double min = m_minAmpSpinBox->value();
+  int max = m_maxAmpSpinBox->value();
+  int min = m_minAmpSpinBox->value();
 
   m_maxAmpSpinBox->setMinimum(min+1);
   m_minAmpSpinBox->setMaximum(max-1);
@@ -140,4 +145,26 @@ void EventDisplayWidget::resizeEvent(QResizeEvent* event)
 {
   QWidget::resizeEvent(event);
   m_view->fitScene();
+}
+
+// print some information in the status bar
+void EventDisplayWidget::adjustStatusLabels()
+{
+  QString runId = m_dataManager->getRunId();
+  if (runId != "")
+    runId = QString("Run ID: %1").arg(runId);
+
+  QString eventId = m_dataManager->getEventId();
+  if (eventId != "") {
+    eventId = QString("Event ID: %1").arg(eventId);
+  }
+
+  QString time = m_dataManager->getTime();
+  if (time != "") {
+    time = QString("Time: %1").arg(time);
+  }
+
+  m_runIdLabel->setText(runId);
+  m_eventIdLabel->setText(eventId);
+  m_timeLabel->setText(time);
 }

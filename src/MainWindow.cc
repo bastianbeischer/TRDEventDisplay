@@ -22,7 +22,6 @@ MainWindow::MainWindow(QMainWindow* parent) :
   connect(m_openFileButton, SIGNAL(clicked()), m_dataManager, SLOT(openFileDialog()));
   connect(m_closeFileButton, SIGNAL(clicked()), m_dataManager, SLOT(closeFile()));
 
-  connect(m_dataManager, SIGNAL(fileOpened(int)), this, SLOT(adjustStatusMessage()));
   connect(m_dataManager, SIGNAL(dirNumberChanged(int)), m_dirSpinBox, SLOT(setValue(int)));
   connect(m_dataManager, SIGNAL(fileNumberChanged(int)), m_fileSpinBox, SLOT(setValue(int)));
 
@@ -84,11 +83,4 @@ void MainWindow::openFileDirectly()
     int file = m_fileSpinBox->value();
     m_dataManager->openFileByScheme(dir, file);
   }
-}
-
-// print some information in the status bar
-void MainWindow::adjustStatusMessage()
-{
-  QString runId = m_dataManager->getRunId();
-  m_statusBar->showMessage(QString("Run ID: %1").arg(runId));
 }

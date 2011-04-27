@@ -119,10 +119,22 @@ public:
   const std::vector<TrdRawHitR>* getTrdHits(int eventNumber) const;
 
   /**
-   * @brief The number of the current run
-   * @return number of the current run as a string
+   * @brief The ID of the current run
+   * @return ID of the current run as a string
    */
   const QString getRunId() const;
+
+  /**
+   * @brief The ID of the current event
+   * @return ID of the current run as a string
+   */
+  const QString getEventId() const;
+
+  /**
+   * @brief The time of the current event
+   * @return Time of the current event as a string
+   */
+  const QString getTime() const;
 
 private:
 

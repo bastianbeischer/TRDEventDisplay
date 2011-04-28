@@ -126,7 +126,7 @@ public:
 
   /**
    * @brief The ID of the current event
-   * @return ID of the current run as a string
+   * @return ID of the current event as a string
    */
   const QString getEventId() const;
 

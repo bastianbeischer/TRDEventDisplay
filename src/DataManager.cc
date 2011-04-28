@@ -39,6 +39,7 @@ DataManager::DataManager() :
   }
   else {
     qWarning("AMS_ROOTFILES_DIR environment variable is not set!");
+    m_dir = new QDir();
   }
   
   // setup timer
@@ -76,12 +77,7 @@ void DataManager::openFileDialog()
 void DataManager::followFiles(bool start)
 {
   if (m_dir) {
-    if (start) {
-      emit(startedFollowing());
-    }
-    else {
-      emit(stoppedFollowing());
-    }
+    start ? emit(startedFollowing()) : emit(stoppedFollowing());
   }
   else {
     QMessageBox::information(0, "TRD Event Display", "Can't follow: AMS_ROOTFILES_DIR environment variable is not set!");

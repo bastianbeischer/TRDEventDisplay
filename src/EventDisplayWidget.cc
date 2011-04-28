@@ -155,14 +155,12 @@ void EventDisplayWidget::adjustStatusLabels()
     runId = QString("Run ID: %1").arg(runId);
 
   QString eventId = m_dataManager->getEventId();
-  if (eventId != "") {
+  if (eventId != "")
     eventId = QString("Event ID: %1").arg(eventId);
-  }
 
   QString time = m_dataManager->getTime();
-  if (time != "") {
+  if (time != "")
     time = QString("Time: %1").arg(time);
-  }
 
   m_runIdLabel->setText(runId);
   m_eventIdLabel->setText(eventId);

@@ -134,7 +134,7 @@ int DataManager::openFile(QString fileName)
     closeFile();
     
   // setup the tree and run pointers
-  TFile* file = new TFile(qPrintable(fileName), "READ");
+  TFile* file = TFile::Open(qPrintable(fileName), "READ");
   TTree* trdTree = (TTree*) file->Get("TrdRawData");
   TTree* amsRootTree = (TTree*) file->Get("AMSRoot");
   if (trdTree) {

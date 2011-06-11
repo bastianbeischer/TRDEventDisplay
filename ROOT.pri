@@ -6,7 +6,8 @@ ROOT_LIB_DIR = $$system(root-config --libdir)
     error("Could NOT find ROOT!")
 }
 
-LIBS += -L$$ROOT_LIB_DIR -lCore -lTree -lRIO -lThread -lCint -lNet -lMathCore -lRFIO
+LIBS += $$system(root-config --libs)
+LIBS += -lRFIO
 INCLUDEPATH += $$ROOT_INCLUDE_DIR
 INCLUDEPATH -= /usr/include
 

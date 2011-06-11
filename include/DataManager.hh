@@ -146,7 +146,7 @@ private:
   TTree*        m_tree;           /**< Pointer to the current tree if available, otherwise = 0. */
   TrdRawRun*    m_currentRun;     /**< Pointer to the current run if available, otherwise = 0. */
 
-  AMSChain*     m_amsChain;       /**< Pointer to the ams chain */
+  AMSChain*     m_amsChain;       /**< Pointer to the current ams chain if open, otherwise = 0 */
 
 };
 

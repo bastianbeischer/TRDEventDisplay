@@ -135,6 +135,10 @@ int DataManager::openFile(QString fileName)
     
   // setup the tree and run pointers
   TFile* file = TFile::Open(qPrintable(fileName), "READ");
+  if (!file || file->IsZombie()) {
+    qWarning() << "DataManager::openFile() <> Could not open file (or file is a zombie)!";
+    return 0;
+  }
   TTree* trdTree = (TTree*) file->Get("TrdRawData");
   TTree* amsRootTree = (TTree*) file->Get("AMSRoot");
   if (trdTree) {

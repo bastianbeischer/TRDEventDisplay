@@ -27,26 +27,22 @@ LIBS += -L./TrdEvent -lTrdEvent
 FORMS = ui/EventDisplayForm.ui \
         ui/MainForm.ui
 
-SOURCES = main.cc \
-          src/ColorScale.cc \
-          src/DataManager.cc \
-          src/DataWidget.cc \
-          src/EventDisplayScene.cc \
-          src/EventDisplayWidget.cc \
-          src/MainWindow.cc \
-          src/StrawTube.cc \
-          src/TrdScene.cc \
-          src/ZoomableView.cc
+SOURCES = main.cc
 
-HEADERS = include/DataManager.hh \
-          include/DataWidget.hh \
-          include/ColorScale.hh \
-          include/EventDisplayScene.hh \
-          include/EventDisplayWidget.hh \
-          include/MainWindow.hh \
-          include/StrawTube.hh \
-          include/TrdScene.hh \
-          include/ZoomableView.hh
+CLASSES = ColorScale \
+          DataManager \
+          DataWidget \
+          EventDisplayScene \
+          EventDisplayWidget \
+          MainWindow \
+          StrawTube \
+          TrdScene \
+          ZoomableView
+
+for(class, CLASSES) {
+  HEADERS += include/$${class}.hh
+  SOURCES += src/$${class}.cc
+}
 
 # Setup AMS software specific paths
 include(AMS.pri)

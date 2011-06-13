@@ -202,7 +202,8 @@ const std::vector<TrdRawHitR>* DataManager::getTrdHits(int eventNumber) const
   }
   else if (m_amsChain) {
     AMSEventR* event = m_amsChain->GetEvent(eventNumber-1);
-    return &(event->TrdRawHit());
+    if (event)
+      return &(event->TrdRawHit());
   }
   QMessageBox::information(0, "TRD Event Display", "Please open a valid file first!");
   return 0;

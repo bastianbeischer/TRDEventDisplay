@@ -57,7 +57,6 @@ DataManager::~DataManager()
   delete m_dir;
   delete m_timer;
   delete m_file;
-  delete m_tree;
   delete m_currentRun;
   delete m_amsChain;
 }

@@ -135,6 +135,13 @@ void EventDisplayWidget::updateScale()
   m_scaleLabelMax->setText(text);
 }
 
+// resize the view when resizing the widget
+void EventDisplayWidget::resizeEvent(QResizeEvent* event)
+{
+  QWidget::resizeEvent(event);
+  m_view->fitScene();
+}
+
 // print some information in the status bar
 void EventDisplayWidget::adjustStatusLabels()
 {

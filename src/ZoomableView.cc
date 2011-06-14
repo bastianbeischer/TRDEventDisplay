@@ -69,9 +69,3 @@ void ZoomableView::wheelEvent(QWheelEvent* event)
   centerOn(mapToScene(event->pos()));
 }
 
-// resize the view when resizing the widget
-void ZoomableView::resizeEvent(QResizeEvent* event)
-{
-  QGraphicsView::resizeEvent(event);
-  fitScene();
-}

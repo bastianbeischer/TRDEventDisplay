@@ -61,7 +61,7 @@ public slots:
 public:
 
   /**
-   * @brief Implements what should be done with events.
+   * @brief Implements what should be done with hits.
    * @param hits A vector of TrdRawHitR to display
    */
   void processHits(const std::vector<TrdRawHitR>& hits);

@@ -113,8 +113,8 @@ public:
   void openFileByScheme(int dir, int file);
 
   /**
-   * @brief Return the event with number eventNumber
-   * @param eventNumber the number of the event to be returned
+   * @brief Return the trd hits in event with number eventNumber
+   * @param eventNumber the number of the event for which the hits should be returned
    */
   const std::vector<TrdRawHitR>* getTrdHits(int eventNumber) const;
 

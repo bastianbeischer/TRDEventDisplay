@@ -93,8 +93,8 @@ protected:
 
 private:
 
-  ZoomableView*       m_view;  /**< Zoomable view which handles the display of the scene */
   EventDisplayScene*  m_scene; /**< The event display scene in which all the graphical elements sit */
+  ZoomableView*       m_view;  /**< Zoomable view which handles the display of the scene */
   
 };
 

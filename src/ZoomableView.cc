@@ -5,12 +5,13 @@
 #include <QWheelEvent>
 
 // constructor
-ZoomableView::ZoomableView(QWidget* parent) :
+ZoomableView::ZoomableView(QGraphicsScene* scene, QWidget* parent) :
   QGraphicsView(parent),
   m_zoomFactor(1.2),
   m_mousePressedAt(0),
   m_zoomRectangle(0)
 {
+  setScene(scene);
   setDragMode(ScrollHandDrag);
   show();
 }

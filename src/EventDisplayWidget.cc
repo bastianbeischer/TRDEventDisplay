@@ -11,19 +11,14 @@
 // constructor
 EventDisplayWidget::EventDisplayWidget(const DataManager* dataManager, QWidget* parent) :
   DataWidget(dataManager, parent),
-  m_view(0),
-  m_scene(new EventDisplayScene())
+  m_scene(new EventDisplayScene),
+  m_view(new ZoomableView(m_scene))
 {
   // setup designer settings
   setupUi(this);
 
   // create graphics view and scene
-  m_view = new ZoomableView(m_graphicsViewFrame);
-  m_view->setScene(m_scene);
-  int index = m_centralLayout->indexOf(m_graphicsViewFrame);
-  int row, col, hozSpan, vertSpan;
-  m_centralLayout->getItemPosition(index,&row,&col,&hozSpan,&vertSpan);
-  m_centralLayout->addWidget(m_view,row,col,hozSpan,vertSpan);
+  m_graphicsViewFrame->layout()->addWidget(m_view);
 
   // add color palette
   QPalette palette;

@@ -20,9 +20,10 @@ public:
   
   /**
    * @brief Constructor, sets the members to default values. The left-click-and-drag behavior is set to "scroll" the associated scene.
+   * @param scene The scene to display (can be omitted)
    * @param parent Parent widget (if any)
    */
-  ZoomableView(QWidget* parent = 0);
+  ZoomableView(QGraphicsScene* scene = 0, QWidget* parent = 0);
 
   /**
    * @brief Destructor, deletes the zoom point and rectangle if they still exist

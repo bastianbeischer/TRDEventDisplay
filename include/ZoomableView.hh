@@ -69,6 +69,11 @@ protected:
    */
   void wheelEvent(QWheelEvent* event);
   
+  /**
+   * @brief What to do if the window size changed: Readjust the view to display the scene properly according to the new size.
+   */
+  void resizeEvent(QResizeEvent* event);
+
 private:
 
   double             m_zoomFactor;      /**< Factor by which the scene should be zoomed when using the mouse wheel. */

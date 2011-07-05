@@ -7,7 +7,6 @@ ROOT_LIB_DIR = $$system(root-config --libdir)
 }
 
 LIBS += $$system(root-config --libs)
-LIBS += -lRFIO
 INCLUDEPATH += $$ROOT_INCLUDE_DIR
 INCLUDEPATH -= /usr/include
 
